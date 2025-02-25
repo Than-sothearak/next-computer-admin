@@ -2,7 +2,7 @@
 import { MdChat, MdNotifications } from "react-icons/md";
 import { FaEarthAmericas } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
-import SearchCompoenent from "@/components/SearchComponet";
+import SearchCompoenent from "@/components/SearchComponent";
 export const Navbar = () => {
   const pathName = usePathname()
   return (
