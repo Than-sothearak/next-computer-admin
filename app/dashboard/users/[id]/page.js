@@ -1,10 +1,13 @@
+'use client'
+import * as React from 'react'
+
 import UserForm from "@/components/UserForm";
 
-export default async function SingleUserPage({ params }) {
- const userId = await params.id
+export default function SingleUserPage({ params }) {
+   const { id } = React.use(params)
   return (
     <>
-    <UserForm userId={userId}/>
+    <UserForm userId={id}/>
     </>
   );
 }
