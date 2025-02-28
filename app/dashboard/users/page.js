@@ -1,3 +1,4 @@
+import ButtonViewAndDelete from '@/components/ButtonViewAndDelete'
 import SearchCompoenent from '@/components/SearchComponent'
 import Link from 'next/link'
 import React from 'react'
@@ -30,12 +31,9 @@ const UserPage = () => {
                 <td><p className='overflow-x-hidden'>user@gmailuser@gmailuser@gmailuser@gmail</p></td>
                 <td>13.1.2025</td>
                 <td>admin</td>
-                <td className="table-cell">
-            
-                <Link href={"/dashboard/users/testuser"} className="bg-teal-600 px-2 py-1 mr-2 rounded-md hover:bg-teal-900 text-sm">View</Link>
-                <button className="bg-red-400 px-2 py-1 rounded-md hover:bg-red-900 text-sm">Delete</button>
-               
-                </td>
+                <td className="relative">
+           <ButtonViewAndDelete link={'/dashboard/users/AdminUser'}/>
+            </td>
               </tr>
             </tbody>
           </table>

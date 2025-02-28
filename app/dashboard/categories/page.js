@@ -1,3 +1,4 @@
+import ButtonViewAndDelete from "@/components/ButtonViewAndDelete";
 import SearchCompoenent from "@/components/SearchComponent";
 import Link from "next/link";
 
@@ -22,10 +23,9 @@ export default function CategoryPage () {
         <tr className="">
           <td>Desktop</td>
           <td><p className="overflow-clip">this is desc</p></td>
-          <td className="flex gap-2 justify-items-center items-center">
-          <Link href={'/dashboard/categories/product-id-1'} className="bg-teal-600 px-2 py-1 rounded-md hover:bg-teal-900 text-sm">View</Link>
-          <button className="bg-red-400 px-2 py-1 rounded-md hover:bg-red-900 text-sm">Delete</button>
-          </td>
+          <td className="relative">
+           <ButtonViewAndDelete link={'/dashboard/categories/computer'}/>
+            </td>
         </tr>
       </tbody>
     </table>
