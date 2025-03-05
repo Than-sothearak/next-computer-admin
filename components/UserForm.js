@@ -1,124 +1,184 @@
 "use client";
 import ChooseSingleImageFile from "@/components/ChooseSingleImage";
-import { useState } from "react";
+import { addUsers, updateUser } from "@/actions/users"; // Import update function
+import { useActionState, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function UserForm({ userId }) {
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  const [userData, setUserData] = useState({
-    name: "",
-    email: "",
-    phone: "",
+export default function UserForm({ userId, userData }) {
+  const [formData, setFormData] = useState({
+    name: userData?.username || "",
+    email: userData?.email || "",
+    phone: userData?.phone || "",
+    address: userData?.address || "",
     password: "",
-    role: "",
-    Description: "",
-    profilePicture: null,
+    role: userData?.isAdmin ? "admin" : "user",
   });
+  const editUserWithId = updateUser.bind(null, userData?._id);
 
-  const handleRoleChange = (e) => {
-    setIsAdmin(e.target.value === "true"); // Convert string to boolean
-  };
+  const [state, action, isPending] = useActionState(
+    userId ? editUserWithId : addUsers, // Use update action if editing
+    undefined,
+    userId
+  );
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserData((prevData) => ({ ...prevData, [name]: value }));
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state?.success) {
+      setTimeout(() => {
+        router.push("/dashboard/users");
+      }, 1000);
+    }
+  }, [state, router]);
+
+  // Handle input change
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
-    <div className="p-4 bg-slate-800 mt-4 rounded-lg">
-      <div>
-        <div className="flex w-full gap-6 mb-6 max-md:flex-wrap justify-center">
-          <div className="">
-            <ChooseSingleImageFile />
+    <form
+      action={action}
+      className="w-[978px] max-2xl:w-full mx-auto p-4 bg-slate-800 mt-4 rounded-lg"
+    >
+      <div className="flex w-full gap-6 mb-6 max-md:flex-wrap justify-center">
+        <div>
+          <ChooseSingleImageFile />
+          <h2 className="text-sm font-bold mt-4 text-center">
+            {formData.role === "admin" ? "Admin" : "User"}
+          </h2>
+        </div>
 
-            <h2 className="text-sm font-bold mt-4 text-center"> {userId}</h2>
-            <p className="text-sm text-center">Admin</p>
-          </div>
-          <form className="h-full grid grid-cols-2 w-full max-md:grid-cols-1 text-sm gap-4">
+        <div className="h-full w-full max-md:grid-cols-1 text-sm">
+          <div className="grid gap-4 max-md:grid-cols-1 text-sm">
             <div>
               <label className="block font-medium">Name</label>
               <input
-                type="text"
                 name="name"
-                value={userData.name}
-                onChange={handleInputChange}
-                className="w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
-                required
+                id="name"
+                type="text"
+                defaultValue={formData?.name}
+                onChange={handleChange}
+                className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
               />
+              {state?.errors?.name && (
+                <p className="text-red-500 mt-2">{state.errors.name}</p>
+              )}
+
+{state?.error && state.error.field === "name" && <p>{state.error.error}</p>}
             </div>
 
-            {/* Email */}
             <div>
               <label className="block font-medium">Email</label>
               <input
                 type="email"
                 name="email"
-                value={userData.email}
-                onChange={handleInputChange}
-                className="w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
-                required
+                id="email"
+                defaultValue={formData?.email}
+                onChange={handleChange}
+                className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
               />
+              {state?.errors?.email && (
+                <p className="text-red-500 mt-2">{state.errors.email}</p>
+              )}
+
+              {state?.error && (
+                <p className="text-red-500 mt-2">{state.error}</p>
+              )}
             </div>
+
             <div>
               <label className="block font-medium">Phone</label>
               <input
-                type="phone"
+                type="text"
                 name="phone"
-                value={userData.phone}
-                onChange={handleInputChange}
-                className="w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
-                required
+                id="phone"
+                defaultValue={formData?.phone}
+                onChange={handleChange}
+                className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
               />
+              {state?.errors?.phone && (
+                <p className="text-red-500 mt-2">{state.errors.phone}</p>
+              )}
             </div>
 
-            {/* Password */}
-            <div>
-              <label className="block font-medium">Password</label>
-              <input
-                type="password"
-                name="password"
-                value={userData.password}
-                onChange={handleInputChange}
-                className="w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
-                required
-              />
-            </div>
             <div>
               <label className="block font-medium">Address</label>
               <input
                 type="text"
                 name="address"
-                value={userData.password}
-                onChange={handleInputChange}
-                className="w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
-                required
+                id="address"
+                defaultValue={formData.address}
+                onChange={handleChange}
+                className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
               />
+              {state?.errors?.address && (
+                <p className="text-red-500 mt-2">{state.errors.address}</p>
+              )}
             </div>
-            {/* Role */}
+
+            {/* Password: Only allow changes if entered */}
             <div>
-              <label className="block text-sm font-medium text-gray-600">
-                Select Role
-              </label>
+              <label className="block font-medium">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                defaultValue={formData?.password}
+                onChange={handleChange}
+                placeholder="Leave empty to keep current password"
+                className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+              />
+              {state?.errors?.password && (
+                <p className="text-red-500 mt-2">{state.errors.password}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block font-medium">Role</label>
               <select
-                value={isAdmin.toString()} // Convert boolean to string for select input
-                onChange={handleRoleChange}
-                className="w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                name="role"
+                id="role"
+                defaultValue={formData?.role}
+                onChange={handleChange}
+                className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
               >
-                <option value="false">User</option>
-                <option value="true">Admin</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
               </select>
             </div>
-          </form>
-        </div>
+          </div>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded"
-        >
-          Update
-        </button>
+          <button
+            type="submit"
+            disabled={isPending}
+            className={`p-2 bg-blue-600 w-full mt-6 rounded-md ${
+              isPending ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+          >
+            {isPending
+              ? userId
+                ? "Updating..."
+                : "Adding..."
+              : userId
+              ? "Update"
+              : "Add"}
+          </button>
+
+          {state?.success && (
+            <p className="text-green-400 text-sm mt-4 text-center">
+              User {userId ? "updated" : "added"} successfully!
+            </p>
+          )}
+          {state?.errors && (
+            <p className="text-red-400 text-sm mt-4 text-center">
+            </p>
+          )}
+        </div>
       </div>
-    </div>
+    </form>
   );
 }

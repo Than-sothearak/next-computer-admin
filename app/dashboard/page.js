@@ -2,6 +2,7 @@ import LastTransactionComponent from "@/components/LastTransactionsComponent";
 import LineChartComponent from "@/components/LineChartComponent";
 import { FaEarthAfrica } from "react-icons/fa6";
 const DashboardPage = () => {
+
   return (
     <>
       <div className="mt-4 rounded-lg flex max-sm:flex-wrap gap-4">
