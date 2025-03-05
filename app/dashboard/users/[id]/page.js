@@ -3,7 +3,8 @@ import { mongoDb } from "@/utils/connectDB";
 import { User } from "@/models/User";
 import mongoose from "mongoose";
 
-export default async function SingleUserPage({ params }) {
+export default async function SingleUserPage(props) {
+  const params = await props.params;
   const id = await params.id;
   await mongoDb();
 
@@ -13,7 +14,7 @@ export default async function SingleUserPage({ params }) {
 
   // Use `.lean()` to convert the Mongoose document to a plain object
   const user = await User.findOne({_id: id}).lean();
-  
+
 
   if (!user) {
     return <p className="text-red-500">User not found!</p>;
