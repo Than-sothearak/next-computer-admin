@@ -6,15 +6,14 @@ import mongoose from "mongoose";
 export default async function SingleUserPage(props) {
   const params = await props.params;
   const id = await params.id;
+
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   await mongoDb();
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return <p className="text-red-500">Invalid User ID!</p>;
   }
-
-  // Use `.lean()` to convert the Mongoose document to a plain object
   const user = await User.findOne({_id: id}).lean();
-
 
   if (!user) {
     return <p className="text-red-500">User not found!</p>;

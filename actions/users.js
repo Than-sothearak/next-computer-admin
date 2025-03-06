@@ -3,11 +3,28 @@
 import { User } from "@/models/User";
 import { mongoDb } from "@/utils/connectDB";
 import { revalidatePath } from "next/cache";
-import { NextResponse } from "next/server";
+
+export async function getUsers(query) {
+  await mongoDb();
+
+  try {
+    if (query) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      return await User.find({
+        $or: [{ username: { $regex: query, $options: "i" } }],
+      });
+    }
+
+    return await User.find().sort({ createdAt: -1 });
+  } catch (err) {
+    console.error(err);
+    throw new Error("Failed to fetch users!");
+  }
+}
 
 export async function addUsers(prevState, formData) {
   await mongoDb();
-
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   if (!formData || typeof formData.get !== "function") {
     console.error("Invalid or missing formData:", formData);
     return { error: "No valid form data received" };
@@ -21,7 +38,6 @@ export async function addUsers(prevState, formData) {
   const role = formData.get("role");
   let errors = {};
   if (!name || !email || !phone || !password || !address || !role) {
-   
     if (!name) errors.name = "Name is required";
     if (!email) errors.email = "Email is required";
     if (!phone) errors.phone = "Phone is required";
@@ -38,15 +54,14 @@ export async function addUsers(prevState, formData) {
   try {
     const existingUserByName = await User.findOne({ username: name });
     if (existingUserByName) {
-   
-   errors.name = "This username is already registered";
-    return { errors };
+      errors.name = "This username is already registered";
+      return { errors };
     }
 
     const existingUserByEmail = await User.findOne({ email });
     if (existingUserByEmail) {
       errors.email = "This email is already registered";
-    return { errors };
+      return { errors };
     }
 
     await User.create(userData);
@@ -57,12 +72,10 @@ export async function addUsers(prevState, formData) {
   }
 }
 
-
-export async function updateUser(userId, prevState, formData, ) {
+export async function updateUser(userId, prevState, formData) {
   await mongoDb();
-  
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   try {
-
     const user = await User.findById(userId);
     if (!user) {
       return { error: "User not found" };
@@ -96,7 +109,6 @@ export async function updateUser(userId, prevState, formData, ) {
     await User.updateOne({ _id: userId }, userData);
 
     return { success: "User updated successfully", data: userData };
-
   } catch (err) {
     console.error("Error updating user:", err);
     return { error: "Failed to update user due to a server error" };

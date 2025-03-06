@@ -155,7 +155,7 @@ export default function UserForm({ userId, userData }) {
           <button
             type="submit"
             disabled={isPending}
-            className={`p-2 bg-blue-600 w-full mt-6 rounded-md ${
+            className={`p-2 bg-blue-600 w-full mt-6 hover:bg-blue-500 hover:text-slate-200 rounded-md ${
               isPending ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >
