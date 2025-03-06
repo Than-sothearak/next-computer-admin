@@ -1,5 +1,5 @@
 "use client";
-import { deleteById } from "@/actions/deleteFromDb";
+import { deleteFromDb } from "@/actions/deleteFromDb";
 import Link from "next/link";
 import React, { useState, useOptimistic, } from "react";
 import { useFormStatus } from "react-dom";
@@ -19,11 +19,11 @@ const ButtonViewAndDelete = ({ link, id, data }) => {
     return currentData.filter((data) => data._id !== id)
   })
   
-  const deleteUserById = async (id) => {
+  const deleteDataById = async (id) => {
     setOptimisticData(id)
     setIsClicked(true);
     setShowConfirmation(false);
-    await deleteById(id)
+    await deleteFromDb()
   }
 
 
@@ -60,7 +60,7 @@ const ButtonViewAndDelete = ({ link, id, data }) => {
         <div className="fixed inset-0 bg-gray-500 bg-opacity-80 flex justify-center items-center z-50">
           <div className="bg-slate-900 p-6 rounded-md shadow-lg">
             <p className="text-center text-sm mb-4">
-              Are you sure you want to delete this item?
+              Are you sure you want to delete this user?
             </p>
             <div className="flex justify-between gap-4">
               <button
@@ -70,7 +70,7 @@ const ButtonViewAndDelete = ({ link, id, data }) => {
                 No
               </button>
               <form
-                action={deleteUserById.bind(null, id)}
+                action={deleteDataById.bind(null, id)}
                 className="bg-red-500 px-4 py-2 rounded-md w-full hover:bg-red-700"
               >
                 <button

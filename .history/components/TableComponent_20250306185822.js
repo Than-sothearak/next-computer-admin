@@ -2,7 +2,7 @@ import React from "react";
 import { PiEmptyThin } from "react-icons/pi";
 import ButtonViewAndDelete from "./ButtonViewAndDelete";
 
-const TableCategory = ({ data, columns, pageName }) => {
+const TableComponent = ({ data, columns, pageName }) => {
 
   return (
     <>
@@ -28,6 +28,13 @@ const TableCategory = ({ data, columns, pageName }) => {
                 {columns.map((column, colIndex) => (
                   <td key={colIndex} className="py-4 px-4">
                   <div className="flex gap-2 justify-start items-center">
+                  {colIndex === 0 && (
+                         <img
+                         src={`${row?.imageUrl  ? row.imageUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8K9TdeuJNHtTMH-JaUph5CgQ7P1nYgx8z9w&s'}`}
+                         alt={`image-${index}`}
+                         className="w-8 h-8 rounded-full"
+                       />
+                    )}
                    <p> {column.accessor ? column.accessor === "isAdmin" ? row[column.accessor] ? "Admin": "user" : row[column.accessor] 
                     : row[column.header]}</p>
                   </div>
@@ -36,8 +43,8 @@ const TableCategory = ({ data, columns, pageName }) => {
                 <td className="relative">
                   <ButtonViewAndDelete
                     link={`/dashboard/${pageName}/${row._id}`}
-                    id={row._id}
-                    data={data}
+                    userId={row._id}
+                    users={data}
                   />
                 </td>
               </tr>
@@ -55,4 +62,4 @@ const TableCategory = ({ data, columns, pageName }) => {
   );
 };
 
-export default TableCategory;
+export default TableComponent;

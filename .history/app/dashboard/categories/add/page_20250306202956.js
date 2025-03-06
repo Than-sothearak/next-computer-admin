@@ -48,12 +48,12 @@ export default function AddCategory() {
   const [state, action, isPending] = useActionState(addCategory, undefined);
 
   const router = useRouter();
+  console.log(state);
 
   useEffect(() => {
-    
     if (state?.success) {
       setTimeout(() => {
-        router.push("/dashboard/categories");
+        router.push("/dashboard/users");
       }, 1000);
     }
   }, [state, router]);

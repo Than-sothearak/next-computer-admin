@@ -50,7 +50,6 @@ export default function AddCategory() {
   const router = useRouter();
 
   useEffect(() => {
-    
     if (state?.success) {
       setTimeout(() => {
         router.push("/dashboard/categories");

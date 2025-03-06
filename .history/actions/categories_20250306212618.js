@@ -53,7 +53,7 @@ function parseFormData(formData) {
       currentPart = { part: value, values: [] };
       result.properties.push(currentPart);
     } else if (name === "value" && currentPart) {
-      const splitValues = value.split(";");
+      const splitValues = value.split("_");
       currentPart.values.push(splitValues);
     } 
   }

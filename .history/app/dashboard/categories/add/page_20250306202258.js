@@ -9,6 +9,7 @@ export default function AddCategory() {
   const [category, setCategory] = useState("");
   const [parentCategory, setParentCategory] = useState("");
   const [parts, setParts] = useState([]);
+  const [values, setValues] = useState([]);
 
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
@@ -24,21 +25,19 @@ export default function AddCategory() {
     setParts(updatedParts);
   };
 
-  const handleValueChange = (partIndex, valueIndex, value) => {
+  const handleValueChange = (index, value) => {
     const updatedParts = [...parts];
-    updatedParts[partIndex].values[valueIndex] = value;
+    updatedParts[index].newValue = value;
     setParts(updatedParts);
   };
 
-  const addValue = (partIndex) => {
-    const updatedParts = [...parts];
-    updatedParts[partIndex].values.push("");
-    setParts(updatedParts);
-  };
+  const addValue = () => {
+    setValues([...values, { values: "", }]);
+  }
 
   const addPart = () => {
     setIsAddSpec(!isAddSpec);
-    setParts([...parts, { part: "", values: [""] }]);
+    setParts([...parts, { part: "", }]);
   };
 
   const handleRemovePart = (index) => {
@@ -47,16 +46,16 @@ export default function AddCategory() {
 
   const [state, action, isPending] = useActionState(addCategory, undefined);
 
-  const router = useRouter();
-
-  useEffect(() => {
-    
-    if (state?.success) {
-      setTimeout(() => {
-        router.push("/dashboard/categories");
-      }, 1000);
-    }
-  }, [state, router]);
+    const router = useRouter();
+    console.log(state)
+  
+    useEffect(() => {
+      if (state?.success) {
+        setTimeout(() => {
+          router.push("/dashboard/users");
+        }, 1000);
+      }
+    }, [state, router]);
 
   const handleSubmit = async () => {
     const formData = {
@@ -90,18 +89,10 @@ export default function AddCategory() {
                   onChange={handleParentCategoryChange}
                   className="w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
                 >
-                  <option value="" name="parentCategory">
-                    Select a parent category
-                  </option>
-                  <option value="Iwatch" name="parentCategory">
-                    Iwatch
-                  </option>
-                  <option value="Computer" name="parentCategory">
-                    Computer
-                  </option>
-                  <option value="Smartphone" name="parentCategory">
-                    Smartphone
-                  </option>
+                  <option value="" name="parentCategory">Select a parent category</option>
+                  <option value="Iwatch"  name="parentCategory">Iwatch</option>
+                  <option value="Computer"  name="parentCategory">Computer</option>
+                  <option value="Smartphone"  name="parentCategory">Smartphone</option>
                 </select>
               </div>
             </div>
@@ -116,9 +107,9 @@ export default function AddCategory() {
               <BiPlusCircle /> Add Another Part
             </button>
             {parts.length > 0 &&
-              parts.map((part, partIndex) => (
+              parts.map((part, index) => (
                 <div
-                  key={partIndex}
+                  key={index}
                   className="bg-slate-600 justify-between p-4 rounded-md w-1/2 max-lg:w-full my-4 space-y-4 text-sm"
                 >
                   <div className="w-full flex gap-4 max-md:flex-wrap">
@@ -129,9 +120,7 @@ export default function AddCategory() {
                           type="text"
                           name="part"
                           defaultValue={part.part}
-                          onChange={(e) =>
-                            handlePartChange(partIndex, e.target.value)
-                          }
+                          onChange={(e) => handlePartChange(index, e.target.value)}
                           className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
                           placeholder="Enter part (e.g., RAM)"
                         />
@@ -140,36 +129,41 @@ export default function AddCategory() {
                     <div className="w-full">
                       <label className="w-full block font-medium">Value</label>
                       <div className="mt-2 flex gap-2">
-                        <div className="w-full flex flex-col gap-2">
-                          {part.values.map((value, valueIndex) => (
-                            <input
-                              key={valueIndex}
-                              type="text"
-                              name="value"
-                              defaultValue={value}
-                              onChange={(e) =>
-                                handleValueChange(partIndex, valueIndex, e.target.value)
-                              }
-                              className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
-                              placeholder="Enter value (e.g., 16GB)"
-                            />
-                          ))}
-                        </div>
+                      <div className="w-full">
+                      <input
+                          type="text"
+                          name="value"
+                          defaultValue={part.newValue}
+                          onChange={(e) => handleValueChange(index, e.target.value)}
+                          className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+                          placeholder="Enter value (e.g., 16GB, 32GB)"
+                        />
 
+<input
+                          type="text"
+                          name="value"
+                          defaultValue={part.newValue}
+                          onChange={(e) => handleValueChange(index, e.target.value)}
+                          className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+                          placeholder="Enter value (e.g., 16GB, 32GB)"
+                        />
+                      </div>
+                        
                         <button
                           type="button"
-                          className="bg-green-500 text-white px-3 py-1 rounded h-8 w-8"
-                          onClick={() => addValue(partIndex)}
+                          className="bg-green-500 text-white px-3 py-1 rounded h-10"
+                          onClick={() => addValue(index)}
                         >
                           +
                         </button>
                       </div>
+                   
                     </div>
                   </div>
                   <button
                     type="button"
                     className="text-red-500 underline text-sm"
-                    onClick={() => handleRemovePart(partIndex)}
+                    onClick={() => handleRemovePart(index)}
                   >
                     Remove Part
                   </button>

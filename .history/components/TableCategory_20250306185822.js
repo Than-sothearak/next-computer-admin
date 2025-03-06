@@ -36,8 +36,8 @@ const TableCategory = ({ data, columns, pageName }) => {
                 <td className="relative">
                   <ButtonViewAndDelete
                     link={`/dashboard/${pageName}/${row._id}`}
-                    id={row._id}
-                    data={data}
+                    userId={row._id}
+                    users={data}
                   />
                 </td>
               </tr>

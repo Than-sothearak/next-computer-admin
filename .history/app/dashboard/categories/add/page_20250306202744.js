@@ -48,12 +48,12 @@ export default function AddCategory() {
   const [state, action, isPending] = useActionState(addCategory, undefined);
 
   const router = useRouter();
+  console.log(state);
 
   useEffect(() => {
-    
     if (state?.success) {
       setTimeout(() => {
-        router.push("/dashboard/categories");
+        router.push("/dashboard/users");
       }, 1000);
     }
   }, [state, router]);
@@ -151,7 +151,7 @@ export default function AddCategory() {
                                 handleValueChange(partIndex, valueIndex, e.target.value)
                               }
                               className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
-                              placeholder="Enter value (e.g., 16GB)"
+                              placeholder="Enter value (e.g., 16GB, 32GB)"
                             />
                           ))}
                         </div>

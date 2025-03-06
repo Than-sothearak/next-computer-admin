@@ -49,14 +49,13 @@ export default function AddCategory() {
 
   const router = useRouter();
 
-  useEffect(() => {
-    
-    if (state?.success) {
-      setTimeout(() => {
-        router.push("/dashboard/categories");
-      }, 1000);
-    }
-  }, [state, router]);
+  // useEffect(() => {
+  //   if (state?.success) {
+  //     setTimeout(() => {
+  //       router.push("/dashboard/categories");
+  //     }, 1000);
+  //   }
+  // }, [state, router]);
 
   const handleSubmit = async () => {
     const formData = {

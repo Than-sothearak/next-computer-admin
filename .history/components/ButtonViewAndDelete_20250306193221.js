@@ -1,5 +1,6 @@
 "use client";
 import { deleteById } from "@/actions/deleteFromDb";
+import { deleteFromDb } from "@/actions/users";
 import Link from "next/link";
 import React, { useState, useOptimistic, } from "react";
 import { useFormStatus } from "react-dom";

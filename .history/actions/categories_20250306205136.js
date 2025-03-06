@@ -53,9 +53,8 @@ function parseFormData(formData) {
       currentPart = { part: value, values: [] };
       result.properties.push(currentPart);
     } else if (name === "value" && currentPart) {
-      const splitValues = value.split(";");
-      currentPart.values.push(splitValues);
-    } 
+      currentPart.values.push(value);
+    }
   }
 
   return result;
