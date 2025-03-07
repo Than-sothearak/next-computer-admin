@@ -1,4 +1,5 @@
-const LoadingPage = () => {
+"use client"
+const Loading = () => {
   return (
     <div className="flex gap-4 items-center justify-center mt-4 rounded-md bg-slate-800 p-10">
       <div role="status">
@@ -24,4 +25,4 @@ const LoadingPage = () => {
   );
 };
 
-export default LoadingPage;
+export default Loading;
