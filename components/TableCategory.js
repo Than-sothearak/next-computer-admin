@@ -3,52 +3,60 @@ import { PiEmptyThin } from "react-icons/pi";
 import ButtonViewAndDelete from "./ButtonViewAndDelete";
 
 const TableCategory = ({ data, columns, pageName }) => {
-
   return (
     <>
       {data.length !== 0 ? (
         <table className="my-4 w-full table-auto text-sm">
           <thead>
-            <tr className="font-bold h-10">
+            <tr className="font-bold h-10 bg-slate-800">
               {columns.map((col, index) => (
-                <td key={index} className="px-4">
+                <th key={index} className="py-2 px-4 text-left">
                   {col.header}
-                </td>
+                </th>
               ))}
-
-              <td>Action</td>
+              <th className="py-2 px-4 text-left">Action</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((row, index) => (
+            {data.map((rowCat, index) => (
               <tr
                 key={index}
                 className="border-b border-slate-700 hover:bg-slate-700"
               >
                 {columns.map((column, colIndex) => (
                   <td key={colIndex} className="py-4 px-4">
-                  <div className="flex gap-2 justify-start items-center">
-                   <p> {column.accessor ? column.accessor === "isAdmin" ? row[column.accessor] ? "Admin": "user" : row[column.accessor] 
-                    : row[column.header]}</p>
-                  </div>
+                    <div className="flex gap-2 justify-start items-center">
+                      {column.accessor === "parentCategory" ? (
+                        <p>
+                          {data.find(
+                            (category) => category._id === rowCat[column.accessor]
+                          )?.category || "No"}
+                        </p>
+                      ) : (
+                        <p>
+                          {column.accessor
+                            ? rowCat[column.accessor]
+                            : rowCat[column.header]}
+                        </p>
+                      )}
+                    </div>
                   </td>
                 ))}
-                <td className="relative">
+                <td className="relative py-4 px-4">
                   <ButtonViewAndDelete
-                    link={`/dashboard/${pageName}/${row._id}`}
-                    id={row._id}
+                    link={`/dashboard/${pageName}/${rowCat._id}`}
+                    id={rowCat._id}
                     data={data}
                   />
                 </td>
               </tr>
             ))}
-
           </tbody>
         </table>
       ) : (
         <div className="text-slate-500 py-4 text-md flex gap-2 justify-start items-center">
           <PiEmptyThin size={24} />
-          <p className="">No user founded</p>
+          <p>No categories found</p>
         </div>
       )}
     </>

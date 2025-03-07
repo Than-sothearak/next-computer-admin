@@ -2,13 +2,14 @@ import UserForm from "@/components/UserForm";
 import { mongoDb } from "@/utils/connectDB";
 import { User } from "@/models/User";
 import mongoose from "mongoose";
+await mongoDb();
 
 export default async function SingleUserPage(props) {
   const params = await props.params;
   const id = await params.id;
-
+ 
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  await mongoDb();
+
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return <p className="text-red-500">Invalid User ID!</p>;

@@ -4,10 +4,16 @@ import { Category } from "@/models/Categories";
 import { mongoDb } from "@/utils/connectDB";
 await mongoDb();
 
-export async function getCategories() {
+export async function getCategories (query) {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   try {
-    const categories = await Category.find().sort({ createdAt: -1 });
-    return categories;
+    if (query) {
+      return await Category.find({
+        $or: [{ category: { $regex: query, $options: "i" } }],
+      });
+    }
+     return await Category.find().sort({ createdAt: -1 })
+    
   } catch (err) {
     console.error("Error fetching categories:", err);
     return { error: "Failed to fetch due to a server error" };
@@ -17,20 +23,53 @@ export async function getCategories() {
 export async function addCategory(prevState, formData) {
   await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate delay
 
+  if (!formData || typeof formData.get !== "function") {
+    console.error("Invalid or missing formData:", formData);
+    return { error: "No valid form data received" };
+  }
+
+
+  const parsedData = parseFormData(formData);
+  const category = parsedData.category;
+  let errors = {};
+
+  const existingCatByName = await Category.findOne({ category: formData.get('category') });
+  if (existingCatByName) {
+    errors.category = "This category is already have";
+    return { errors };
+  }
+  
+  if (!category) {
+    if (!category) errors.category = "Category is required";
+    return { errors };
+  }
+
   try {
-    // Parse the form data
-    const parsedData = parseFormData(formData);
-
-    // Log the parsed data for debugging
-    console.log("Parsed Data:", parsedData);
-
-    // Save to the database
     await Category.create(parsedData);
 
     return { success: true, message: "Category saved successfully" };
   } catch (err) {
     console.error("Error saving category:", err);
     return { error: "Failed to save due to a server error" };
+  }
+}
+
+export async function updateCategory(catId, prevState, formData) {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  try {
+    const parsedData = parseFormData(formData);
+
+    const category = await Category.findById(catId);
+
+    if (!category) {
+      return { error: "Category not found" };
+    }
+    await Category.updateOne({ _id: catId }, parsedData);
+    console.log("Category updated successfully");
+    return { success: "Category updated successfully", data: parsedData };
+  } catch (err) {
+    console.error("Error updating category:", err);
+    return { error: "Failed to update category due to a server error" };
   }
 }
 
@@ -54,8 +93,8 @@ function parseFormData(formData) {
       result.properties.push(currentPart);
     } else if (name === "value" && currentPart) {
       const splitValues = value.split(";");
-      currentPart.values.push(splitValues);
-    } 
+      currentPart.values = [...currentPart.values, ...splitValues];
+    }
   }
 
   return result;

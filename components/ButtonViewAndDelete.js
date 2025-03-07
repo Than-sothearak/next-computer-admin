@@ -45,7 +45,7 @@ const ButtonViewAndDelete = ({ link, id, data }) => {
           href={link}
           className="bg-teal-600 px-2 py-1 rounded-md hover:bg-teal-900 text-sm"
         >
-          View
+          Edit
         </Link>
         <button
           onClick={() => setShowConfirmation(true)}

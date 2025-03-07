@@ -1,18 +1,16 @@
 "use server";
 
-import { Category } from "@/models/Categories";
 import { User } from "@/models/User";
 import { mongoDb } from "@/utils/connectDB";
-import { revalidatePath } from "next/cache";
-
+await mongoDb();
 export async function getUsers(query) {
-  await mongoDb();
 
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   try {
     if (query) {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       return await User.find({
-        $or: [{ username: { $regex: query, $options: "i" } }],
+        $or: [{ username: { $regex: query, $options: "i" },
+           }],
       });
     }
 
@@ -24,7 +22,7 @@ export async function getUsers(query) {
 }
 
 export async function addUsers(prevState, formData) {
-  await mongoDb();
+
   await new Promise((resolve) => setTimeout(resolve, 1000));
   if (!formData || typeof formData.get !== "function") {
     console.error("Invalid or missing formData:", formData);
@@ -74,7 +72,7 @@ export async function addUsers(prevState, formData) {
 }
 
 export async function updateUser(userId, prevState, formData) {
-  await mongoDb();
+ 
   await new Promise((resolve) => setTimeout(resolve, 1000));
   try {
     const user = await User.findById(userId);

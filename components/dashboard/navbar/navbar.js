@@ -11,12 +11,12 @@ export const Navbar = () => {
   const currentPathname = pathName.split("/").pop();
   return (
     <div className="bg-slate-800 py-4 px-4 rounded-lg w-full max-sm:block flex justify-between items-center">
-      <div className="max-sm:mb-2">
+      <div className="max-sm:mb-2 ">
         <div className="capitalize text-sm text-slate-500 flex gap-1 items-center">
           {pathArray.map((p, index) => {
             const linkPath = `/${pathArray.slice(0, index + 1).join("/")}`;
             return (
-              <Link href={linkPath} key={index} className={`${p === currentPathname ? 'text-white font-bold text-md': 'hover:text-white'}`}>
+              <Link href={linkPath} key={index} className={`flex gap-1 ${p === currentPathname ? 'text-white font-bold text-md': 'hover:text-white'}`}>
                 {p} <span>{index !== pathArray.length - 1 ? ">" : ""}</span>
               </Link>
             );

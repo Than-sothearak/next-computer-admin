@@ -3,13 +3,14 @@ import SearchCompoenent from "@/components/SearchComponent";
 import TableCategory from "@/components/TableCategory";
 import Link from "next/link";
 
-export default async function CategoryPage () {
-  const fecthCategories = await getCategories();
+export default async function CategoryPage ({ searchParams}) {
+  const { query } = await searchParams;
+  const fecthCategories = await getCategories(query);
   
   const categoryColumns = [
     { header: "No", accessor: "_id" },
     { header: "Category", accessor: "category" },
-    { header: "Desciption", accessor: "desciption" },
+    { header: "Parent", accessor: "parentCategory" },
     { header: "Created At", accessor: "createdAt" },
   ];
 
