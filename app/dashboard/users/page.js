@@ -25,7 +25,7 @@ const UserPage = async ({ searchParams }) => {
          
           <SearchComponent
             placeHolder="Search for product..."
-            linkPage="/dashboard/user"
+            linkPage="/dashboard/users"
           />
         </div>
         <Link

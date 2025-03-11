@@ -12,7 +12,9 @@ export default function UserForm({ userId, userData }) {
     address: userData?.address || "",
     password: "",
     role: userData?.isAdmin ? "admin" : "user",
+    imageUrl: userData?.imageUrl || "",
   });
+
   const updateUserWithId = updateUser.bind(null, userData?._id);
 
   const [state, action, isPending] = useActionState(
@@ -29,7 +31,8 @@ export default function UserForm({ userId, userData }) {
         router.push("/dashboard/users");
       }, 1000);
     }
-
+  
+    console.log("image url?" + formData.imageUrl)
 
   // Handle input change
   const handleChange = (e) => {
@@ -46,12 +49,11 @@ export default function UserForm({ userId, userData }) {
   >
     <div className="flex w-full gap-6 mb-6 max-md:flex-wrap justify-center">
       <div>
-        <ChooseSingleImageFile />
+        <ChooseSingleImageFile imageUrl={formData?.imageUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} />
         <h2 className="text-sm font-bold mt-4 text-center">
           {formData.role === "admin" ? "Admin" : "User"}
         </h2>
       </div>
-  
       <div className="h-full w-full max-md:grid-cols-1 text-sm">
         <div className="grid gap-4 max-md:grid-cols-1 text-sm">
           <div>
