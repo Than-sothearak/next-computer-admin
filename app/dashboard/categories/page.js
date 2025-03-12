@@ -7,7 +7,7 @@ export default async function CategoryPage ({ searchParams }) {
  
   const { query } = await searchParams;
   const fecthCategories = await getCategories(query);
- console.log(query)
+
   const categoryColumns = [
     { header: "No", accessor: "_id" },
     { header: "Category", accessor: "category" },

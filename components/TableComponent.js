@@ -6,6 +6,7 @@ const TableComponent = ({ data, columns, pageName }) => {
 
   return (
     <div className="overflow-y-clip overflow-x-auto">
+      <h1 className="mt-4">Total: {data.length}</h1>
       {data.length !== 0 ? (
         <table className="my-4 w-full text-sm">
           <thead>

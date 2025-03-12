@@ -114,6 +114,7 @@ export async function updateUser(userId, prevState, formData) {
   }
 
   try {
+  
     const user = await User.findById(userId);
     if (!user) {
       return { error: "User not found", success: false };
@@ -138,12 +139,24 @@ export async function updateUser(userId, prevState, formData) {
     }
 
     const isAdmin = role === "admin";
-    let imageUrl = user.imageUrl; // Keep existing image URL if no new image
+ 
+    // Keep existing image URL if no new image
+    let imageUrl = user.imageUrl;
 
-
+   
     if (imageFile && imageFile.size > 0) {
-       imageUrl = await uploadFileToS3(imageFile);
+      if (user.imageUrl) {
+        const oldKey = imageUrl?.split("/").pop()
+        if(oldKey) {
+          await deleteFileFromS3(oldKey)
+        } 
+      }
+     
+        imageUrl = await uploadFileToS3(imageFile);
         console.log("New image uploaded to S3:", imageUrl);
+      
+     
+   
     } else {
       console.log("No new image provided, keeping existing URL:", imageUrl);
     }
@@ -157,7 +170,6 @@ export async function updateUser(userId, prevState, formData) {
       imageUrl,
     };
     
-    imageUrl = await uploadFileToS3(imageFile);
     // Hash password only if provided
     if (password) {
       const salt = await bcrypt.genSalt(10);

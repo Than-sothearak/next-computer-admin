@@ -8,6 +8,7 @@ const ProductSchema = new Schema({
   discount: { type: Number,},
   images: [{ type: String }],
   category: { type: mongoose.Types.ObjectId, ref: Category },
+  parentCategory: { type: mongoose.Types.ObjectId, ref: Category },
   properties: {type:Object},
   status: { type: Number,},
 }, {

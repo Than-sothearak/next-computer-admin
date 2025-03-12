@@ -1,26 +1,13 @@
+import { getCategories } from "@/actions/categories";
 import ProductForm from "@/components/ProductForm";
 
-export default function addProductPage() {
-  const categories = [
-    "Laptops",
-    "Desktops",
-    "Monitors",
-    "Keyboards",
-    "Mice",
-    "Headsets",
-    "Graphics Cards",
-    "Processors",
-    "Motherboards",
-    "RAM",
-    "Storage Devices",
-    "Power Supplies",
-    "Cooling Systems",
-    "Computer Cases",
-    "Networking Equipment",
-    "Software",
-  ];
+export default async function addProductPage() {
+  const fecthCategories = await getCategories()
+  const getCategory =  JSON.parse(JSON.stringify(fecthCategories))
+  const parentCategory = fecthCategories.filter(category => !category.parentCategory).map(item => item.category)
+
   return (
     <>
-    <ProductForm categories={categories}/></>
+    <ProductForm categories={getCategory} parentCategory={parentCategory}/></>
   );
 }
