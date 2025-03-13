@@ -2,9 +2,10 @@ import UserForm from "@/components/UserForm";
 import { mongoDb } from "@/utils/connectDB";
 import { User } from "@/models/User";
 import mongoose from "mongoose";
-await mongoDb();
 
 export default async function SingleUserPage(props) {
+  await mongoDb();
+
   const params = await props.params;
   const id = await params.id;
  

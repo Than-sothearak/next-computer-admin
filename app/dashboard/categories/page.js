@@ -7,7 +7,8 @@ export default async function CategoryPage ({ searchParams }) {
  
   const { query } = await searchParams;
   const fecthCategories = await getCategories(query);
-
+  const categories = JSON.parse(JSON.stringify(fecthCategories));
+  
   const categoryColumns = [
     { header: "No", accessor: "_id" },
     { header: "Category", accessor: "category" },
@@ -15,10 +16,6 @@ export default async function CategoryPage ({ searchParams }) {
     { header: "Created At", accessor: "createdAt" },
   ];
 
-
-
-  const categories = JSON.parse(JSON.stringify(fecthCategories));
- 
     return <div className="overflow-x-auto p-4 bg-slate-800 mt-4 rounded-lg">
     <div className="flex justify-between items-center gap-4">
     <div> <SearchCompoenent placeHolder="Search for category..." linkPage="/dashboard/categories"/></div>

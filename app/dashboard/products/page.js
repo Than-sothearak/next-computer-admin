@@ -1,37 +1,22 @@
-import ButtonViewAndDelete from "@/components/ButtonViewAndDelete";
+import { getProduct } from "@/actions/prodoucts";
 import SearchComponent from "@/components/SearchComponent";
 import TableComponent from "@/components/TableComponent";
 import Link from "next/link";
 
-const ProductPage = () => {
+const ProductPage = async ({searchParams}) => {
+    const { query } = await searchParams;
+    const fecthProducts = await getProduct(query);
+    const products = JSON.parse(JSON.stringify(fecthProducts));
+    
   const productColumns = [
-    { header: "ID", accessor: "_id" },
-    { header: "Name", accessor: "name" },
+  
+    { header: "Name", accessor: "productName" },
     { header: "Price", accessor: "price" },
     { header: "Category", accessor: "category" },
     { header: "Stock", accessor: "stock" },
     { header: "Created At", accessor: "createdAt" },
   ];
 
-  const productData = [
-    {
-      _id: "1",
-      name: "Product 1",
-      category: "Electronics",
-      stock: 50,
-      createdAt: "2025-03-06T04:21:36.819Z",
-      price: "$20",
-    },
-    {
-      _id: "2",
-      name: "Product 2",
-      price: "$35",
-      category: "Clothing",
-      stock: 100,
-      createdAt: "2025-03-06T04:21:36.819Z",
-    },
-    // More products
-  ];
 
   return (
     <div className="p-4 bg-slate-800 mt-4 rounded-lg">
@@ -51,7 +36,7 @@ const ProductPage = () => {
         </Link>
       </div>
       <TableComponent
-        data={productData}
+        data={products}
         pageName="products"
         columns={productColumns}
       />

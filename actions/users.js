@@ -88,6 +88,7 @@ export async function addUsers(prevState, formData) {
 
     await User.create(userData);
     return { success: "User added successfully", data: userData };
+   
   } catch (err) {
     console.error("Error saving user:", err);
  

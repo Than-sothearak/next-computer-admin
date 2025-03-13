@@ -1,6 +1,6 @@
 "use server";
 
-import { Category } from "@/models/Categories";
+import { Categories } from "@/models/Categories";
 import { mongoDb } from "@/utils/connectDB";
 
 
@@ -9,11 +9,11 @@ export async function getCategories (query) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   try {
     if (query) {
-      return await Category.find({
+      return await Categories.find({
         $or: [{ category: { $regex: query, $options: "i" } }],
       });
     }
-     return await Category.find().sort({ createdAt: -1 })
+     return await Categories.find().sort({ createdAt: -1 })
     
   } catch (err) {
     console.error("Error fetching categories:", err);
@@ -46,7 +46,7 @@ export async function addCategory(prevState, formData) {
   }
 
   try {
-    await Category.create(parsedData);
+    await Categories.create(parsedData);
 
     return { success: true, message: "Category saved successfully" };
   } catch (err) {
@@ -60,12 +60,12 @@ export async function updateCategory(catId, prevState, formData) {
   try {
     const parsedData = parseFormData(formData);
 
-    const category = await Category.findById(catId);
+    const category = await Categories.findById(catId);
 
     if (!category) {
       return { error: "Category not found" };
     }
-    await Category.updateOne({ _id: catId }, parsedData);
+    await Categories.updateOne({ _id: catId }, parsedData);
     console.log("Category updated successfully");
     return { success: "Category updated successfully", data: parsedData };
   } catch (err) {

@@ -1,6 +1,6 @@
 "use server";
 
-import { Category } from "@/models/Categories";
+import { Categories } from "@/models/Categories";
 import { User } from "@/models/User";
 import { mongoDb } from "@/utils/connectDB";
 import { deleteFileFromS3 } from "@/utils/uploadFileToS3";
@@ -15,7 +15,7 @@ export async function deleteById(id) {
     }
 
     const user = await User.findById(id);
-    const category = await Category.findById(id);
+    const category = await Categories.findById(id);
 
     if (user) {
       let userImage = user?.imageUrl
@@ -28,7 +28,7 @@ export async function deleteById(id) {
       revalidatePath("/dashboard/users");
       return { success: "User deleted successfully" };
     } else if (category) {
-      await Category.deleteOne({ _id: id });
+      await Categories.deleteOne({ _id: id });
       revalidatePath("/dashboard/categories");
       return { success: "User deleted successfully" };
     } else {

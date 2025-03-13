@@ -3,7 +3,7 @@ import { PiEmptyThin } from "react-icons/pi";
 import ButtonViewAndDelete from "./ButtonViewAndDelete";
 
 const TableComponent = ({ data, columns, pageName }) => {
-
+console.log(data)
   return (
     <div className="overflow-y-clip overflow-x-auto">
       <h1 className="mt-4">Total: {data.length}</h1>
@@ -36,8 +36,18 @@ const TableComponent = ({ data, columns, pageName }) => {
                          className="w-8 h-8 rounded-full"
                        />
                     )}
-                   <> {column.accessor ? column.accessor === "isAdmin" ? row[column.accessor] ? "Admin": "user" : row[column.accessor] 
-                    : row[column.header]}</>
+                     {column.accessor === "category" ? (
+                       
+                       <>
+                         {row.category?.category || "No Category"}
+                       </>
+                   
+                    ) : (
+                     
+                      <> {column.accessor ? column.accessor === "isAdmin" ? row[column.accessor] ? "Admin": "user" : row[column.accessor] 
+                        : row[column.header]}</>
+                    )}
+                  
                   </div>
                   </td>
                 ))}

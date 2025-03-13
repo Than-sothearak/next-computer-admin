@@ -1,14 +1,41 @@
-'use client'
-import * as React from 'react'
+import { mongoDb } from "@/utils/connectDB";
 import ProductForm from "@/components/ProductForm";
+import { Product } from "@/models/Product";
+import mongoose from "mongoose";
+import { getCategories } from "@/actions/categories";
 
-export default function SingleProductPage ({params}) {
-    const { id } = React.use(params)
-    const categories = [
-        "Laptops",
-      ];
-    return (  
-        <ProductForm categories={categories} productId={id}/>
-     )
-  
+export default async function SingleProductPage(props) {
+  await mongoDb();
+  const params = await props.params;
+  const id = await params.id;
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return <p className="text-red-500">Invalid product ID!</p>;
+  }
+  const product = await Product.findOne({ _id: id })
+    .lean()
+    .populate("category")
+    .populate("parentCategory")
+
+  if (!product) {
+    return <p className="text-red-500">Product not found!</p>;
+  }
+
+  const fecthCategories = await getCategories();
+  const getCategory = JSON.parse(JSON.stringify(fecthCategories));
+  const parentCategory = JSON.parse(
+    JSON.stringify(
+      fecthCategories.filter((category) => !category.parentCategory)
+    )
+  );
+
+  return (
+    <ProductForm
+      categories={getCategory}
+      parentCategory={parentCategory}
+      product={JSON.parse(JSON.stringify(product))}
+      productId={id}
+    />
+  );
 }

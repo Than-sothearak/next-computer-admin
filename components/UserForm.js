@@ -31,10 +31,8 @@ export default function UserForm({ userId, userData }) {
         router.push("/dashboard/users");
       }, 1000);
     }
-  
-    console.log("image url?" + formData.imageUrl)
 
-  // Handle input change
+
   const handleChange = (e) => {
     setFormData({
       ...formData,

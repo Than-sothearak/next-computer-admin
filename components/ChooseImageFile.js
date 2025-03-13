@@ -33,6 +33,7 @@ export default function ChooseImageFile() {
          id="fileInput"
          onChange={handleFileChange}
          multiple
+         name="image"
          type="file"
          className="w-full p-2 rounded-md border-none bg-slate-700 text-xs focus:ring-0 focus:outline-none"
        />
