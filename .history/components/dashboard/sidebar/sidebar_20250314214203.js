@@ -10,37 +10,38 @@ import { IoMdMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { SidebarListMobile } from "@/components/SidebarListMobile";
 
-export const Sidebar = ({handleClick , isOpen}) => {
+export const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
 
-      {/*small side */}
-      <div className="lg:hidden ml-1 mt-4 z-50 max-sm:hidden">
-      <div className="mt-2 flex justify-center items-center ">
-            <span className="text-white text-lg font-semibold"></span>
-            <button
-              onClick={handleClick}
-              aria-label="Open Sidebar"
-              title="Open Sidebar"
-            >
-              <IoMdMenu size={28} />
-            </button>
-          </div>
+      {/* Mobile side */}
+      <div className="lg:hidden ml-1 mt-4 z-50 hidden">
         <SidebarListMobile navList={pageNavigation} />
         <SidebarListMobile navList={analyticNavigation} />
         <SidebarListMobile navList={userNavigation} />
       </div>
 
       <div
-        className={`bg-slate-800 max-lg:h-screen p-4 w-80 max-lg:fixed
+        className={`bg-slate-800 max-lg:h-screen p-4 w-96 fixed
            top-0 left-0 z-50 transform transition-transform  duration-700 ease-in-out
           ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           } lg:translate-x-0  max-sm:w-full
         `}
       >
- 
+        <div className="flex justify-between items-center">
+          <span className="text-white text-lg font-semibold">Menu</span>
+          <button
+            onClick={() => setIsOpen(false)}
+            aria-label="Close Sidebar"
+            title="Close Sidebar"
+            className="text-white"
+          >
+            <IoClose size={28} />
+          </button>
+        </div>
 
         <div className="cursor-pointer flex  justify-between items-center gap-4 px-2 text-white">
           <div className="flex gap-2 justify-start items-center">
@@ -53,14 +54,16 @@ export const Sidebar = ({handleClick , isOpen}) => {
               <p className="text-xs">Administration</p>
             </div>
           </div>
-          <button
-            onClick={handleClick}
-            aria-label="Close Sidebar"
-            title="Close Sidebar"
-            className="text-white lg:hidden"
-          >
-            <IoClose size={28} />
-          </button>
+          <div className="mt-2 flex justify-center items-center ">
+            <span className="text-white text-lg font-semibold"></span>
+            <button
+              onClick={() => setIsOpen(true)}
+              aria-label="Open Sidebar"
+              title="Open Sidebar"
+            >
+              <IoMdMenu size={28} />
+            </button>
+          </div>
         </div>
        
 

@@ -15,7 +15,7 @@ export const Sidebar = ({handleClick , isOpen}) => {
   return (
     <>
 
-      {/*small side */}
+      {/* Mobile side */}
       <div className="lg:hidden ml-1 mt-4 z-50 max-sm:hidden">
       <div className="mt-2 flex justify-center items-center ">
             <span className="text-white text-lg font-semibold"></span>
@@ -40,7 +40,17 @@ export const Sidebar = ({handleClick , isOpen}) => {
           } lg:translate-x-0  max-sm:w-full
         `}
       >
- 
+        <div className="flex justify-between items-center lg:hidden">
+          <span className="text-white text-lg font-semibold">Menu</span>
+          <button
+            onClick={handleClick}
+            aria-label="Close Sidebar"
+            title="Close Sidebar"
+            className="text-white"
+          >
+            <IoClose size={28} />
+          </button>
+        </div>
 
         <div className="cursor-pointer flex  justify-between items-center gap-4 px-2 text-white">
           <div className="flex gap-2 justify-start items-center">
@@ -53,14 +63,7 @@ export const Sidebar = ({handleClick , isOpen}) => {
               <p className="text-xs">Administration</p>
             </div>
           </div>
-          <button
-            onClick={handleClick}
-            aria-label="Close Sidebar"
-            title="Close Sidebar"
-            className="text-white lg:hidden"
-          >
-            <IoClose size={28} />
-          </button>
+        
         </div>
        
 

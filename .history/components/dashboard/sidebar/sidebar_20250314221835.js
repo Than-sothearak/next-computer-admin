@@ -57,7 +57,7 @@ export const Sidebar = ({handleClick , isOpen}) => {
             onClick={handleClick}
             aria-label="Close Sidebar"
             title="Close Sidebar"
-            className="text-white lg:hidden"
+            className="text-white"
           >
             <IoClose size={28} />
           </button>

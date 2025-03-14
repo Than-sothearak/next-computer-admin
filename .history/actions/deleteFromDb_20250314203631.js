@@ -40,19 +40,9 @@ export async function deleteById(id) {
     }
 
     if (product) {
-      let productImages = product.imageUrls
-    
-      if (productImages && productImages.length > 0) {
-        for ( const image of productImages) {
-           const oldKey = image.split("/").pop()
-           if (oldKey) {
-            await deleteFileFromS3(oldKey)
-          
-           }
-        }
-      }
-      await Product.deleteOne({ _id: id });
-      revalidatePath("/dashboard/products");
+      let productImage = product.imageUrls
+      // await Product.deleteOne({ _id: id });
+      // revalidatePath("/dashboard/products");
       return { success: "Product deleted successfully" };
     }
   } catch (err) {

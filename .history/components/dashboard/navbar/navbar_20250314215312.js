@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import SearchCompoenent from "@/components/SearchComponent";
 import Link from "next/link";
 import { IoMdMenu } from "react-icons/io";
-export const Navbar = ({setIsOpen}) => {
+export const Navbar = () => {
   const pathName = usePathname();
   const pathArray = pathName.split("/").filter(Boolean);
 
@@ -15,7 +15,6 @@ export const Navbar = ({setIsOpen}) => {
       <div className="max-sm:mb-2 flex gap-4 items-center">
           
                     <button
-                    className="sm:hidden"
                       onClick={() => setIsOpen(true)}
                       aria-label="Open Sidebar"
                       title="Open Sidebar"

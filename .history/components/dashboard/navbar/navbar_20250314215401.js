@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import SearchCompoenent from "@/components/SearchComponent";
 import Link from "next/link";
 import { IoMdMenu } from "react-icons/io";
-export const Navbar = ({setIsOpen}) => {
+export const Navbar = () => {
   const pathName = usePathname();
   const pathArray = pathName.split("/").filter(Boolean);
 

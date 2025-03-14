@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import SearchCompoenent from "@/components/SearchComponent";
 import Link from "next/link";
 import { IoMdMenu } from "react-icons/io";
-export const Navbar = ({setIsOpen}) => {
+export const Navbar = () => {
   const pathName = usePathname();
   const pathArray = pathName.split("/").filter(Boolean);
 
@@ -13,16 +13,16 @@ export const Navbar = ({setIsOpen}) => {
   return (
     <div className="bg-slate-800 py-4 px-4 w-full max-sm:block flex justify-between items-center overflow-hidden">
       <div className="max-sm:mb-2 flex gap-4 items-center">
-          
+          <div className="mt-2 flex justify-center items-center max-lg:hidden">
+                    <span className="text-white text-lg font-semibold"></span>
                     <button
-                    className="sm:hidden"
                       onClick={() => setIsOpen(true)}
                       aria-label="Open Sidebar"
                       title="Open Sidebar"
                     >
                       <IoMdMenu size={28} />
                     </button>
-                 
+                  </div>
         <div className="capitalize text-sm text-slate-500 flex gap-1 items-center">
           {pathArray.map((p, index) => {
             const linkPath = `/${pathArray.slice(0, index + 1).join("/")}`;

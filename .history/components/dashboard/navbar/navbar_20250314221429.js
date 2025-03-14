@@ -11,7 +11,7 @@ export const Navbar = ({setIsOpen}) => {
 
   const currentPathname = pathName.split("/").pop();
   return (
-    <div className="bg-slate-800 py-4 px-4 w-full max-sm:block flex justify-between items-center overflow-hidden">
+    <div className="bg-slate-800 py-4 px-4 w-full max-sm:block flex justify-between items-center overflow-hidden mx-4">
       <div className="max-sm:mb-2 flex gap-4 items-center">
           
                     <button

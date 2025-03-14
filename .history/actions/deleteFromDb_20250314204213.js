@@ -47,7 +47,7 @@ export async function deleteById(id) {
            const oldKey = image.split("/").pop()
            if (oldKey) {
             await deleteFileFromS3(oldKey)
-          
+            console.log('All image aslo delete form AWS')
            }
         }
       }
