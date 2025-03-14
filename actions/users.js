@@ -9,7 +9,7 @@ import { revalidatePath } from 'next/cache'
 await mongoDb();
 
 export async function getUsers(query) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 500));
   try {
     if (query) {
       return await User.find({
@@ -24,7 +24,7 @@ export async function getUsers(query) {
 }
 
 export async function addUsers(prevState, formData) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 500));
   if (!formData || typeof formData.get !== "function") {
     console.error("Invalid or missing formData:", formData);
     return { error: "No valid form data received" };
@@ -113,7 +113,7 @@ export async function addUsers(prevState, formData) {
 
 
 export async function updateUser(userId, prevState, formData) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 500));
   if (!formData || typeof formData.get !== "function") {
     console.error("Invalid or missing formData:", formData);
     return { error: "No valid form data received" };

@@ -1,20 +1,20 @@
 "use server";
 
-import { Categories } from "@/models/Categories";
+import { Category } from "@/models/Category";
 import { mongoDb } from "@/utils/connectDB";
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
 export async function getCategories (query) {
   await mongoDb();
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 500));
   try {
     if (query) {
-      return await Categories.find({
+      return await Category.find({
         $or: [{ category: { $regex: query, $options: "i" } }],
       });
     }
-     return await Categories.find().sort({ createdAt: -1 })
+     return await Category.find().sort({ createdAt: -1 })
     
   } catch (err) {
     console.error("Error fetching categories:", err);
@@ -23,7 +23,7 @@ export async function getCategories (query) {
 }
 
 export async function addCategory(prevState, formData) {
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate delay
+  await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate delay
 
   if (!formData || typeof formData.get !== "function") {
     console.error("Invalid or missing formData:", formData);
@@ -35,7 +35,7 @@ export async function addCategory(prevState, formData) {
   const category = parsedData.category;
   let errors = {};
 
-  const existingCatByName = await Categories.findOne({ category: formData.get('category') });
+  const existingCatByName = await Category.findOne({ category: formData.get('category') });
   if (existingCatByName) {
     errors.category = "This category is already have";
     return { errors };
@@ -47,7 +47,7 @@ export async function addCategory(prevState, formData) {
   }
 
   try {
-    await Categories.create(parsedData);
+    await Category.create(parsedData);
 
   } catch (err) {
     console.error("Error saving category:", err);
@@ -59,16 +59,16 @@ export async function addCategory(prevState, formData) {
 }
 
 export async function updateCategory(catId, prevState, formData) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 500));
   try {
     const parsedData = parseFormData(formData);
 
-    const category = await Categories.findById(catId);
+    const category = await Category.findById(catId);
 
     if (!category) {
       return { error: "Category not found" };
     }
-    await Categories.updateOne({ _id: catId }, parsedData);
+    await Category.updateOne({ _id: catId }, parsedData);
 
   } catch (err) {
     console.error("Error updating category:", err);

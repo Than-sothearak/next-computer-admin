@@ -1,5 +1,5 @@
 "use client";
-import { BiCheck } from "react-icons/bi";
+import { BiCheck, BiTrash } from "react-icons/bi";
 import ChooseImageFile from "./ChooseImageFile";
 import { useActionState, useState } from "react";
 import ProductPropertyForm from "./ProductPropertyForm";
@@ -18,17 +18,18 @@ export default function ProductForm({
     parentCategory: product?.parentCategory || "",
     stock: product?.stock || "",
     price: product?.price || "",
-    status: product?.status ? 1 : 0,
-    imageUrl: product?.imageUrl || "",
+    status: product?.status ? 0 : 1,
+    imageUrls: product?.imageUrls || "",
     properties: product?.properties || [],
   });
 
   const [currentProperties, setCurrentProperties] = useState([]);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: name === "status" ? Number(value) : value,
     });
   };
 
@@ -49,7 +50,7 @@ export default function ProductForm({
     productId ? updateProductWithId : addProduct,
     undefined
   );
-  
+
   return (
     <div className=" mt-4 rounded-lg">
       <form action={action} className="space-y-2 text-sm">
@@ -155,15 +156,13 @@ export default function ProductForm({
               ></textarea>
             </div>
             <ProductPropertyForm
-          
               setCurrentProperties={setCurrentProperties}
               categoryProperties={currentProperties}
               productProperties={formData?.properties}
-           
             />
             <ChooseImageFile />
           </div>
-          <div className="max-xl:w-1/2 max-lg:w-full flex flex-col gap-4">
+          <div className="w-1/2 max-lg:w-full flex flex-col gap-4">
             <div className=" bg-slate-800 p-4 w-full flex  flex-col  gap-4 rounded-lg">
               <div className="space-y-4 w-full bg-slate-800 rounded-lg">
                 <h1 className="text-lg font-bold">Visibility</h1>
@@ -175,13 +174,21 @@ export default function ProductForm({
                     id="published"
                     name="status"
                     value={1}
-                    defaultChecked
+                    checked={formData?.status === 1}
+                    onChange={handleChange}
                   />
                   <label>Published</label>
                 </div>
                 <div className="flex items-center">
-                  <input type="radio" id="hidden" name="status" value={0} /> 
-                  <label>Hidden</label>
+                  <input
+                    onChange={handleChange}
+                    checked={formData?.status === 0}
+                    type="radio"
+                    id="hidden"
+                    name="status"
+                    value={0}
+                  />
+                   <label>Hidden</label>
                 </div>
               </div>
               <p className="text-xs text-slate-500">
@@ -196,7 +203,7 @@ export default function ProductForm({
               <select
                 className=" w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
                 name="parentCategory"
-                value={formData?.parentCategory._id}
+                value={formData?.parentCategory ? formData.parentCategory : ""}
                 onChange={handleCategoryChange}
               >
                 {formData?.parentCategory && (
@@ -224,24 +231,40 @@ export default function ProductForm({
                 <BiCheck className="bg-slate-300 rounded-full text-black" />
               </div>
               <div className="grid gap-2 grid-cols-2">
-                <div className="rounded-md w-full min-h-48  bg-slate-500 col-span-2">
-                  <img
-                    className="rounded-md object-cover h-full w-full "
-                    src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/26/0627132/1.jpg?7855"
-                  />
-                </div>
-                <div className="rounded-md w-full min-h-32 bg-slate-500">
-                  <img
-                    className="rounded-md object-cover h-full w-full "
-                    src="https://i.ebayimg.com/images/g/5vsAAeSwWMpnrr5e/s-l300.jpg"
-                  />
-                </div>
-                <div className="rounded-md w-full min-h-32 bg-slate-500">
-                  <img
-                    className="rounded-md object-cover h-full w-full "
-                    src="https://media.takealot.com/covers_images/d5eba0e0756b480181e0aa3f1e430c1a/s-pdpxl.file"
-                  />
-                </div>
+                {formData?.imageUrls && formData.imageUrls.length > 0 ? (
+                  formData?.imageUrls.map((image, index) => (
+                    <div
+                      className={`${
+                        index === 0 ? "col-span-2" : ""
+                      } rounded-md w-full min-h-32 bg-slate-500 relative group`}
+                      key={index}
+                    >
+                      <img
+                        alt={`Image ${index}`}
+                        className="rounded-md object-cover h-full w-full transition-opacity duration-300 group-hover:opacity-25"
+                        src={`${image}`}
+                      />
+                      <button
+                        className="flex justify-center items-center absolute top-1/2 left-1/2  text-slate-200
+               opacity-0 group-hover:opacity-100 transition-opacity duration-300 
+               transform -translate-x-1/2 -translate-y-1/2 "
+                      >
+                        <BiTrash className="duration-300 rounded-full p-2 w-9 h-9
+               transform hover:scale-125 scale-100 bg-black opacity-50 hover:opacity-90 "size={20}/>
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <div
+                    className={`col-span-2 rounded-md w-full min-h-32 bg-slate-500`}
+                  >
+                    <img
+                      alt={`Image`}
+                      className="opacity-20 rounded-md object-cover h-full w-full "
+                      src={`https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png`}
+                    />
+                  </div>
+                )}
               </div>
               <p className="text-xs text-slate-500">Product images.</p>
             </div>

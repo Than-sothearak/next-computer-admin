@@ -31,9 +31,12 @@ const TableComponent = ({ data, columns, pageName }) => {
                   <div className="flex gap-2 justify-start items-center">
                   {colIndex === 0 && (
                          <img
-                         src={`${row?.imageUrl  ? row.imageUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8K9TdeuJNHtTMH-JaUph5CgQ7P1nYgx8z9w&s'}`}
-                         alt={`image-${index}`}
-                         className="w-8 h-8 rounded-full"
+                         src={ Array.isArray(row.imageUrls) && row.imageUrls.length > 0
+                          ? row.imageUrls[0] // Take the first image from the array
+                          : row.imageUrl // If imageUrl is a string, use it
+                            ? row.imageUrl
+                            : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8K9TdeuJNHtTMH-JaUph5CgQ7P1nYgx8z9w&s' }
+                         className="w-8 h-8 rounded-sm object-cover"
                        />
                     )}
                      {column.accessor === "category" ? (

@@ -1,6 +1,6 @@
 "use server";
 
-import { Categories } from "@/models/Categories";
+import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
 import { User } from "@/models/User";
 import { mongoDb } from "@/utils/connectDB";
@@ -34,7 +34,7 @@ export async function deleteById(id) {
     }
 
     if (category) {
-      await Categories.deleteOne({ _id: id });
+      await Category.deleteOne({ _id: id });
       revalidatePath("/dashboard/categories");
       return { success: "Category deleted successfully" };
     }

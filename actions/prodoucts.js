@@ -3,12 +3,13 @@ import { Product } from "@/models/Product";
 import { mongoDb } from "@/utils/connectDB";
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
+import { uploadFileToS3 } from "@/utils/uploadFileToS3";
 await mongoDb();
 
 
 
 export async function getProduct(query) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 500));
   try {
     if (query) {
       return await Product.find({
@@ -21,11 +22,9 @@ export async function getProduct(query) {
       .populate("category")
       .populate("parentCategory");
     }
-    return await Product.find()
-    .sort({ createdAt: -1 })
-    .lean()
-    .populate("category")
-    .populate("parentCategory")
+     return await Product.find()
+    .sort({ createdAt: -1 }).populate("category")
+    .populate("parentCategory");
   } catch (err) {
     console.error("Error fetching products:", err);
     return { error: "Failed to fetch due to a server error" };
@@ -35,7 +34,7 @@ export async function getProduct(query) {
 
 
 export async function addProduct(prevState, formData) {
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate delay
+  await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate delay
 
 try {
   if (!formData || typeof formData.get !== "function") {
@@ -51,8 +50,23 @@ try {
   const status = formData.get("status");
   const discription = formData.get("decription");
   const parentCategory = formData.get("parentCategory");
-  const imageFile = formData.get("image");
+  const imageFiles = formData.getAll("image");
   const properties = propertiesFormData(formData);
+
+  let imageUrls = [];
+    
+  if (imageFiles && imageFiles.length> 0) {
+    for (const imageFile of imageFiles) {
+      if (imageFile.size > 0) {
+        const imageUrl = await uploadFileToS3(imageFile);
+      imageUrls.push(imageUrl)
+      console.log("Image uploaded to S3:", imageUrl);
+      }
+    }
+  } else {
+    console.log("No image provided");
+  }
+
 
   const productData = {
     productName,
@@ -63,7 +77,7 @@ try {
     status,
     discription,
     parentCategory: parentCategory || null,
-    imageFile,
+    imageUrls,
     properties,
   };
 
@@ -100,7 +114,12 @@ if (Object.keys(errors).length > 0) return { errors };
 
 
 export async function updateProduct(productId, prevState, formData) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 500));
+ 
+  const product = await Product.findById(productId);
+  if (!product) {
+    return { error: "Product not found" };
+  }
 
   try {
     const productName = formData.get("productName");
@@ -111,8 +130,22 @@ export async function updateProduct(productId, prevState, formData) {
     const status = formData.get("status");
     const discription = formData.get("decription");
     const parentCategory = formData.get("parentCategory");
-    const imageFile = formData.get("image");
+    const imageFiles = formData.getAll("image");
     const properties = propertiesFormData(formData);
+  
+    let imageUrls = product.imageUrls || [];
+
+        if (imageFiles && imageFiles.length> 0) {
+          for (const imageFile of imageFiles) {
+            if (imageFile.size > 0) {
+              const imageUrl = await uploadFileToS3(imageFile);
+            imageUrls.push(imageUrl)
+            console.log("Image uploaded to S3:", imageUrl);
+            }
+          }
+        } else {
+          console.log("No image provided");
+        }
 
     const productData = {
       productName,
@@ -123,19 +156,12 @@ export async function updateProduct(productId, prevState, formData) {
       status,
       discription,
       parentCategory,
-      imageFile,
+      imageUrls,
       properties,
     };
-
-    // Validation
+  
     const errors = validateProductFields(productData);
     if (Object.keys(errors).length > 0) return { errors };
-
-
-    const product = await Product.findById(productId);
-    if (!product) {
-      return { error: "Product not found" };
-    }
 
     // Update the product
     await Product.updateOne({ _id: productId }, productData);
@@ -168,9 +194,10 @@ function propertiesFormData(formData) {
   return properties;
 }
 
-function validateProductFields({ productName, brandName, category, price, stock }) {
+function validateProductFields({ productName, brandName, category, price, stock, parentCategory }) {
   const errors = {};
   if (!productName) errors.productName = "Name is required";
+  if (!parentCategory) errors.parentCategory = "ParentCategory is required";
   if (!brandName) errors.brandName = "Brand name is required";
   if (!category) errors.category = "Category is required";
   if (!price) errors.price = "Price is required";

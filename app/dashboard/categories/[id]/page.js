@@ -1,6 +1,6 @@
 import { mongoDb } from "@/utils/connectDB";
 import mongoose from "mongoose";
-import { Categories} from "@/models/Categories";
+import { Categories} from "@/models/Category";
 import CategoryForm from "@/components/CategoryForm";
 import { getCategories } from "@/actions/categories";
 await mongoDb();
@@ -17,7 +17,7 @@ export default async function SingleCategoryPage(props) {
   }
   const fecthCategories = await getCategories();
   const categories = JSON.parse(JSON.stringify(fecthCategories))
-  const category = await Categories.findOne({_id: id}).lean();
+  const category = categories.find(cat => cat._id === id);
 
   if (!category) {
     return <p className="text-red-500">Category not found!</p>;
