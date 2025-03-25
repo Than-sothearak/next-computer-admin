@@ -4,7 +4,7 @@ import React from "react";
 import { getUsers } from "@/actions/users";
 import TableComponent from "@/components/TableComponent";
 
-const UserPage = async ({ searchParams }) => {
+const userPage = async ({ searchParams }) => {
   const { query } = await searchParams;
   const fecthUsers = await getUsers(query);
   
@@ -53,4 +53,4 @@ const UserPage = async ({ searchParams }) => {
   );
 };
 
-export default UserPage;
+export default userPage;

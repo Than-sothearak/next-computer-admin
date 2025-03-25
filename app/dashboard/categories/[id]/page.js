@@ -5,7 +5,7 @@ import CategoryForm from "@/components/CategoryForm";
 import { getCategories } from "@/actions/categories";
 await mongoDb();
 
-export default async function SingleCategoryPage(props) {
+export default async function singleCategoryPage(props) {
   const params = await props.params;
   const id = await params.id;
 

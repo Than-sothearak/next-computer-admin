@@ -1,7 +1,7 @@
 import { getCategories } from "@/actions/categories";
 import CategoryForm from "@/components/CategoryForm";
 
-export default async function AddCategory() {
+export default async function addCategory() {
   const fecthCategories = await getCategories();
   const categories = JSON.parse(JSON.stringify(fecthCategories))
   return (

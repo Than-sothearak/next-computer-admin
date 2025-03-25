@@ -4,7 +4,7 @@ import { Product } from "@/models/Product";
 import mongoose from "mongoose";
 import { getCategories } from "@/actions/categories";
 
-export default async function SingleProductPage(props) {
+export default async function singleProductPage(props) {
   await mongoDb();
   const params = await props.params;
   const id = await params.id;

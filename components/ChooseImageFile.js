@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 import { BiTrash, BiUpload } from "react-icons/bi";
 
@@ -60,14 +61,15 @@ export default function ChooseImageFile({files ,setFiles}) {
         {/* {files.length <= 0 && <h1 className="text-slate-300 text-md">Upload image</h1>} */}
  
        {files.length > 0 && (
-           <div className="grid xl:grid-cols-4 md:grid-cols-3 max-lg:grid-col-3 grid-cols-2 gap-4 border-dashed border-slate-600 mt-2 rounded-md border-2 p-4 w-full">
+           <div className="flex flex-wrap justify-start gap-4 border-dashed border-slate-600 mt-2 rounded-md border-2 p-4 w-full">
            {files.map((fileData, index) => (
              <div
                key={index}
-               className="rounded-w-full bg-slate-500 relative group"
+               className="w-40 h-40 max-sm:w-full max-sm:h-52 rounded-md bg-slate-500 relative group "
              >
                {fileData.file.type.startsWith("image/") ? (
                  <img
+                  
                    src={fileData.preview}
                    alt="Preview"
                    className="rounded-md object-cover transition-opacity duration-300 group-hover:opacity-10"

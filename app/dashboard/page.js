@@ -1,7 +1,7 @@
 import LastTransactionComponent from "@/components/LastTransactionsComponent";
 import LineChartComponent from "@/components/LineChartComponent";
 import { FaEarthAfrica } from "react-icons/fa6";
-const DashboardPage = () => {
+const dashboardPage = () => {
 
   return (
     <>
@@ -53,4 +53,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default dashboardPage;

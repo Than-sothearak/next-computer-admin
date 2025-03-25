@@ -3,7 +3,7 @@ import SearchCompoenent from "@/components/SearchComponent";
 import TableCategory from "@/components/TableCategory";
 import Link from "next/link";
 
-export default async function CategoryPage ({ searchParams }) {
+export default async function categoryPage ({ searchParams }) {
  
   const { query } = await searchParams;
   const fecthCategories = await getCategories(query);

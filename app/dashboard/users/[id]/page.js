@@ -3,7 +3,7 @@ import { mongoDb } from "@/utils/connectDB";
 import { User } from "@/models/User";
 import mongoose from "mongoose";
 
-export default async function SingleUserPage(props) {
+export default async function singleUserPage(props) {
   await mongoDb();
 
   const params = await props.params;

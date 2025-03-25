@@ -4,6 +4,7 @@ import ChooseImageFile from "./ChooseImageFile";
 import { useActionState, useEffect, useState } from "react";
 import ProductPropertyForm from "./ProductPropertyForm";
 import { addProduct, updateProduct } from "@/actions/prodoucts";
+import Image from "next/image";
 
 export default function ProductForm({
   categories,
@@ -25,7 +26,6 @@ export default function ProductForm({
 
  const [currentProperties, setCurrentProperties] = useState([]);
  const [files, setFiles] = useState([] || null);
-
 
   
  const handleRemoveImage = (index) => {
@@ -77,7 +77,6 @@ export default function ProductForm({
     })
    }, [product])
 
-   console.log(state?.success)
   return (
     <div className=" mt-4 rounded-lg">
       <form action={action} className="space-y-2 text-sm">
@@ -275,14 +274,14 @@ export default function ProductForm({
                     <div
                       className={`${
                         index === 0 ? "col-span-2" : ""
-                      } rounded-md w-full min-h-32 bg-slate-500 relative group`}
+                      } overflow-hidden shadow-md relative aspect-square rounded-md bg-slate-500 group`}
                       key={index}
                     >
           
-                      <img
-                       
+                      <Image
+                        fill
                         alt={`Image ${index}`}
-                        className="rounded-md object-cover h-full w-full transition-opacity duration-300 group-hover:opacity-25"
+                        className="rounded-md object-cover transition-opacity duration-300 group-hover:opacity-25"
                         src={`${image}`}
                       />
                       <button
@@ -299,9 +298,10 @@ export default function ProductForm({
                   ))
                 ) : (
                   <div
-                    className={`col-span-2 rounded-md w-full min-h-32 bg-slate-500`}
+                    className={`col-span-2 rounded-md w-full min-h-32 bg-slate-500 relative aspect-square`}
                   >
                     <img
+               
                       alt={`Image`}
                       className="opacity-20 rounded-md object-cover h-full w-full "
                       src={`https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png`}

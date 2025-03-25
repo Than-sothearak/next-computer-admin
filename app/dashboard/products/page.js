@@ -3,7 +3,7 @@ import SearchComponent from "@/components/SearchComponent";
 import TableComponent from "@/components/TableComponent";
 import Link from "next/link";
 
-const ProductPage = async ({searchParams}) => {
+const productPage = async ({searchParams}) => {
     const { query } = await searchParams;
     const fecthProducts = await getProduct(query);
     const products = JSON.parse(JSON.stringify(fecthProducts));
@@ -53,4 +53,4 @@ const ProductPage = async ({searchParams}) => {
   );
 };
 
-export default ProductPage;
+export default productPage;
