@@ -5,7 +5,14 @@ import { usePathname } from "next/navigation";
 import SearchCompoenent from "@/components/SearchComponent";
 import Link from "next/link";
 import { IoMdMenu } from "react-icons/io";
-export const Navbar = ({ setIsOpen }) => {
+import { useState } from "react";
+import SideBarMobile from "@/components/SideBarMobile";
+export const Navbar = ({session}) => {
+    const [isOpen, setIsOpen] = useState(false);
+  
+    function handleClick () {
+      setIsOpen(prev => !prev)
+    }
   const pathName = usePathname();
   const pathArray = pathName.split("/").filter(Boolean);
 
@@ -15,7 +22,7 @@ export const Navbar = ({ setIsOpen }) => {
       <div className="max-sm:mb-2 flex gap-4 items-center">
         <button
           className="sm:hidden"
-          onClick={() => setIsOpen(true)}
+          onClick={handleClick}
           aria-label="Open Sidebar"
           title="Open Sidebar"
         >
@@ -53,6 +60,9 @@ export const Navbar = ({ setIsOpen }) => {
           <FaEarthAmericas size={18} />
         </div>
       </div>
+<div className="lg:hidden">
+<SideBarMobile handleClick={handleClick} isOpen={isOpen} session={session}/>
+</div>
     </div>
   );
 };

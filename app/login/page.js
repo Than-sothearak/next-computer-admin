@@ -1,13 +1,25 @@
+"use client"
 import React from "react";
+import { useActionState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { authenticate } from "@/lib/actions";
+ 
+export default function LoginForm() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+  const [errorMessage, formAction, isPending] = useActionState(
+    authenticate,
+    undefined,
+  );
 
-const loginPage = () => {
+
   return (
     <div className="flex min-h-screen w-full justify-center items-center">
       <div className="bg-slate-800 w-full m-4 sm:max-w-md space-y-6 rounded-xl  p-8 shadow-lg">
         <div className="text-center">
           <h1 className="text-2xl font-bold">Login Page</h1>
         </div>
-        <form className="space-y-6">
+        <form action={formAction} className="space-y-6">
           <div className="space-y-4">
             <div className="flex flex-col">
               <label>Email</label>
@@ -28,15 +40,24 @@ const loginPage = () => {
                 placeholder="Enter your password"
                 className="w-full p-4 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
                 required
+                minLength={6}
               />
             </div>
           </div>
           <button
+            value={callbackUrl}
             type="submit"
-            className="w-full rounded-lg bg-blue-600 p-3 text-white font-semibold hover:bg-blue-700 transition "
+            disabled={isPending}
+            className={`w-full rounded-lg bg-blue-600 p-3 text-white font-semibold hover:bg-blue-700 transition ${isPending ?'opacity-50 cursor-not-allowed': ''}`}
           >
-            Login
+            {isPending ? "Loading..." : "Login"}
           </button>
+
+          {errorMessage && (
+            <>
+              <p className="text-center text-sm text-red-500">{errorMessage}</p>
+            </>
+          )}
         </form>
         {/* <div>
         <div className="flex items-center gap-2 text-sm text-white">
@@ -63,5 +84,3 @@ const loginPage = () => {
     </div>
   );
 };
-
-export default loginPage;

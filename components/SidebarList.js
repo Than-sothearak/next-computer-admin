@@ -22,6 +22,7 @@ export const SidebarList = ({navList}) => {
           <h2 className='font-normal'>{item.name}</h2>
         </Link>
       ))}
+        
     </ul>
   </div>
   )
