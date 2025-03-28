@@ -18,12 +18,12 @@ export default function ChooseSingleImageFile({imageUrl}) {
   return (
     <div className="">
       {file ? (
-        <div className="p-2 rounded-lg bg-slate-700 relative">
+        <div className="p-2 rounded-lg relative">
           {file.file.type.startsWith("image/") && (
             <>
               <img
                 src={file.preview}
-                className="w-60 h-52 object-cover rounded-lg"
+                className="w-60 h-52 object-cover rounded-lg w"
                 alt="Selected file preview"
               />
               <button

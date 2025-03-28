@@ -6,7 +6,6 @@ import { deleteFileFromS3, uploadFileToS3 } from "@/utils/uploadFileToS3";
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { auth } from "@/auth";
-import { NextResponse } from "next/server";
 
 await mongoDb();
 
