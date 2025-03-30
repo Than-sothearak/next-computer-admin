@@ -28,6 +28,14 @@ const session = await auth();
         const oldPassword = formData.get("oldPassword");
         const newPassword = formData.get("newPassword");
 
+        const passwordsMatch = await verifyPassword(oldPassword, user.password);
+        
+        if(passwordsMatch === false ) {
+            console.log("password not matched")
+            errors.oldPassword = "Old password is incorrect";
+            return { errors, success: false };
+        }
+
         let errors = {};
         if (!oldPassword) errors.oldPassword = "Old password is required";
         if (!newPassword) errors.newPassword = "New password is required";
@@ -38,13 +46,7 @@ const session = await auth();
         if (Object.keys(errors).length > 0) {
           return { errors, success: false };
         }
-        const passwordsMatch = await verifyPassword(oldPassword, user.password);
-        
-        if(passwordsMatch === false ) {
-            console.log("password not matched")
-            errors.oldPassword = "Old password is incorrect";
-            return { errors, success: false };
-        }
+       
         const newPasswordHash = await hashPassowrd(newPassword)
         await User.updateOne({email: user.email}, {$set: {password: newPasswordHash}})
         

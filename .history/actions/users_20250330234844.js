@@ -64,62 +64,62 @@ export async function addUsers(prevState, formData) {
   }
   const isAdmin = role === "admin";
   const salt = await bcrypt.genSalt(10);
-  if(password.length < 6) {
+  if(password.length >= 6) {
+    const hashPassword = await bcrypt.hash(password, salt);
+  } else {
     errors.password = "Your password is too short. Please use at least 6 characters.";
     return {errors}
-    
-  } else {
-    const hashPassword = await bcrypt.hash(password, salt);
-    try {
-      const existingUserByName = await User.findOne({ username: name });
-      if (existingUserByName) {
-        errors.name = "This username is already registered";
-        return { errors, success: false };
-      }
-  
-      const existingUserByEmail = await User.findOne({ email });
-      if (existingUserByEmail) {
-        errors.email = "This email is already registered";
-        return { errors, success: false };
-      }
-  
-      let imageUrl = "";
-      if (imageFile && imageFile.size > 0) {
-        imageUrl = await uploadFileToS3(imageFile);
-        console.log("Image uploaded to S3:", imageUrl);
-      } else {
-        console.log("No image provided");
-      }
-  
-      const userData = {
-        username: name,
-        email,
-        phone,
-        isAdmin,
-        address,
-        password: hashPassword,
-        imageUrl,
-      };
-  
-      await User.create(userData);
-    
-     
-    } catch (err) {
-      console.error("Error saving user:", err);
-   
-      // Handle Mongoose validation errors
-      if (err.name === "ValidationError") {
-        const validationErrors = {};
-        for (const field in err.errors) {
-          validationErrors[field] = err.errors[field].message;
-        }
-       
-        return { errors: validationErrors, success: false };
-      }
-  
-      return { error: "Failed to save user due to a server error", success: false };
+  }
+ 
+
+  try {
+    const existingUserByName = await User.findOne({ username: name });
+    if (existingUserByName) {
+      errors.name = "This username is already registered";
+      return { errors, success: false };
     }
+
+    const existingUserByEmail = await User.findOne({ email });
+    if (existingUserByEmail) {
+      errors.email = "This email is already registered";
+      return { errors, success: false };
+    }
+
+    let imageUrl = "";
+    if (imageFile && imageFile.size > 0) {
+      imageUrl = await uploadFileToS3(imageFile);
+      console.log("Image uploaded to S3:", imageUrl);
+    } else {
+      console.log("No image provided");
+    }
+
+    const userData = {
+      username: name,
+      email,
+      phone,
+      isAdmin,
+      address,
+      password: hashPassword,
+      imageUrl,
+    };
+
+    await User.create(userData);
   
+   
+  } catch (err) {
+    console.error("Error saving user:", err);
+ 
+    // Handle Mongoose validation errors
+    if (err.name === "ValidationError") {
+      const validationErrors = {};
+      for (const field in err.errors) {
+        validationErrors[field] = err.errors[field].message;
+      }
+     
+      return { errors: validationErrors, success: false };
+    }
+
+    return { error: "Failed to save user due to a server error", success: false };
   }
 
   revalidatePath(`/dashboard/users/`);

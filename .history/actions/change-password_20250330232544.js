@@ -31,10 +31,7 @@ const session = await auth();
         let errors = {};
         if (!oldPassword) errors.oldPassword = "Old password is required";
         if (!newPassword) errors.newPassword = "New password is required";
-        if (!newPassword.trim() || newPassword.length < 6) {
-          errors.newPassword = "Your password is too short. Please use at least 6 characters.";
-      }
-      
+        if (newPassword.length < 6 ) errors.newPassword = "New password is less then 6 character";
         if (Object.keys(errors).length > 0) {
           return { errors, success: false };
         }

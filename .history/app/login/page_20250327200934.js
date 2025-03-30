@@ -24,7 +24,6 @@ export default function LoginForm() {
             <div className="flex flex-col">
               <label>Email</label>
               <input
-               onKeyDown={(e) => e.key === " " && e.preventDefault()} 
                 type="email"
                 name="email"
                 placeholder="Enter your email"
@@ -36,7 +35,6 @@ export default function LoginForm() {
             <div className="flex flex-col">
               <label>Password</label>
               <input
-               onKeyDown={(e) => e.key === " " && e.preventDefault()} 
                 type="password"
                 name="password"
                 placeholder="Enter your password"

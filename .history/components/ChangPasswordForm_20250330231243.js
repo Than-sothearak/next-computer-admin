@@ -68,9 +68,6 @@ const ChangPasswordForm = ({ userId, userData}) => {
                 type="password"
                 name="oldPassword"
                 id="oldPassword"
-              
-  onKeyDown={(e) => e.key === " " && e.preventDefault()} 
-
                 value={formData?.oldPassword}
                 onChange={handleChange}
                 minLength={6}
@@ -96,7 +93,6 @@ const ChangPasswordForm = ({ userId, userData}) => {
                 New password
               </label>
               <input
-                onKeyDown={(e) => e.key === " " && e.preventDefault()} 
                 type="password"
                 name="newPassword"
                 id="newPassword"

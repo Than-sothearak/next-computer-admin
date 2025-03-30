@@ -96,7 +96,6 @@ const ChangPasswordForm = ({ userId, userData}) => {
                 New password
               </label>
               <input
-                onKeyDown={(e) => e.key === " " && e.preventDefault()} 
                 type="password"
                 name="newPassword"
                 id="newPassword"
