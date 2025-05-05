@@ -21,7 +21,7 @@ const productPage = async ({searchParams}) => {
 
 
   return (
-    <div className="p-4 bg-slate-800 mt-4 rounded-lg">
+    <div className="p-4 bg-primary mt-4 rounded-lg">
       <div className="flex justify-between items-center gap-4">
         <div>
          
@@ -32,7 +32,7 @@ const productPage = async ({searchParams}) => {
         </div>
         <Link
           href="/dashboard/products/add"
-          className="bg-blue-500 px-2 py-1 text-center rounded-md hover:bg-blue-900 text-sm"
+          className="bg-blue-500 text-secondarytext px-2 py-1 text-center rounded-md hover:bg-blue-900 text-sm"
         >
           Add new
         </Link>
@@ -44,11 +44,11 @@ const productPage = async ({searchParams}) => {
         columns={productColumns}
       />
       <div className="flex justify-between">
-        <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-slate-700">
+        <button className="text-sm bg-slate-500 text-secondarytext  px-2 py-1 rounded-md hover:bg-secondary">
           Previus
         </button>
 
-        <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-slate-700">
+        <button className="text-sm bg-slate-500 text-secondarytext px-2 py-1 rounded-md hover:bg-secondary">
           Next
         </button>
       </div>

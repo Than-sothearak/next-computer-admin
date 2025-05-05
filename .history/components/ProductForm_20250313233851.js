@@ -58,7 +58,7 @@ export default function ProductForm({
     <div className="mt-4 rounded-lg">
       <form action={action} className="space-y-2 text-sm">
         <div className="flex max-lg:flex-wrap gap-4">
-          <div className="space-y-4 w-full p-4 bg-slate-800 rounded-lg">
+          <div className="space-y-4 w-full p-4 bg-primary rounded-lg">
             <h1 className="font-bold text-lg">Basic Information</h1>
             <div className="space-y-4">
               <div>
@@ -70,7 +70,7 @@ export default function ProductForm({
                     type="text"
                     name="brandName"
                     placeholder="Enter brand name..."
-                    className="w-full p-2 rounded-md mt-2 bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                    className="w-full p-2 rounded-md mt-2 bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                   />
                   {renderCheckIcon(formData?.brandName)}
                 </div>
@@ -87,7 +87,7 @@ export default function ProductForm({
                     required
                     defaultValue={formData?.category}
                     onChange={handleChange}
-                    className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+                    className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
                   >
                     {formData?.category && (
                       <option value={formData?.category._id}>
@@ -115,7 +115,7 @@ export default function ProductForm({
                       placeholder="202.09$"
                       type="number"
                       defaultValue={formData?.price}
-                      className="w-full p-2 rounded-md mt-2 bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                      className="w-full p-2 rounded-md mt-2 bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                     />
                     {renderCheckIcon(formData?.price)}
                   </div>
@@ -133,7 +133,7 @@ export default function ProductForm({
                     onChange={handleChange}
                     value={formData?.productName}
                     placeholder="Enter product name..."
-                    className="mt-2 w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                    className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                   />
                   {renderCheckIcon(formData?.productName)}
                 </div>
@@ -153,7 +153,7 @@ export default function ProductForm({
                     placeholder="Enter stock"
                     name="stock"
                     type="number"
-                    className="mt-2 w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                    className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                   />
                   {renderCheckIcon(formData?.stock)}
                 </div>
@@ -168,7 +168,7 @@ export default function ProductForm({
               <textarea
                 name="decription"
                 placeholder="Write a product description"
-                className="mt-2 w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 rows="4"
               ></textarea>
             </div>

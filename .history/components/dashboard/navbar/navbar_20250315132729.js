@@ -11,7 +11,7 @@ export const Navbar = ({ setIsOpen }) => {
 
   const currentPathname = pathName.split("/").pop();
   return (
-    <div className="bg-slate-800 py-4 px-4 w-full max-sm:block flex justify-between items-center overflow-hidden">
+    <div className="bg-primary py-4 px-4 w-full max-sm:block flex justify-between items-center overflow-hidden">
       <div className="max-sm:mb-2 flex gap-4 items-center">
         <button
           className="sm:hidden"
@@ -31,8 +31,8 @@ export const Navbar = ({ setIsOpen }) => {
                 key={index}
                 className={`flex gap-1 ${
                   p === currentPathname
-                    ? "text-white font-bold text-md"
-                    : "hover:text-white"
+                    ? "text-primarytext font-bold text-md"
+                    : "hover:text-primarytext"
                 }`}
               >
                 {p} <span>{index !== pathArray.length - 1 ? ">" : ""}</span>

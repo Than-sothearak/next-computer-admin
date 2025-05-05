@@ -3,8 +3,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 export default function LineChartComponent({ data }) {
   return (
-    <div className='mt-4 lg:p-4 bg-slate-800 rounded-lg'>
-      <h1 className="text-2xl text-slate-300">Expense & Income Trend</h1>
+    <div className='mt-4 lg:p-4 bg-primary rounded-lg'>
+      <h1 className="text-2xl">Expense & Income Trend</h1>
       <div className='mt-6'>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={data}>

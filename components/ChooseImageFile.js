@@ -32,7 +32,7 @@ export default function ChooseImageFile({files ,setFiles}) {
           files.length <= 0 ? "" : ""
         }  flex flex-col h-full items-center justify-start gap-4`}
       >
-        <div className="w-full h-full flex justify-center items-center gap-8 flex-col border-dashed border-slate-600 mt-2 rounded-md border-2 p-8">
+        <div className="w-full h-full flex justify-center items-center gap-8 flex-col border-dashed border-secondary mt-2 rounded-md border-2 p-8">
           <div className=""> <BiUpload size={28} /></div>
           <div className="text-center w-full">
             <h1 className="font-bold text-lg">Choose a file to upload</h1>
@@ -41,7 +41,7 @@ export default function ChooseImageFile({files ,setFiles}) {
           <div className="flex justify-center w-full">
             <label
               htmlFor="fileInput"
-              className="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-200"
+              className="cursor-pointer bg-blue-600 text-secondarytext px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-200"
             >
               Choose Image
             </label>
@@ -61,19 +61,20 @@ export default function ChooseImageFile({files ,setFiles}) {
         {/* {files.length <= 0 && <h1 className="text-slate-300 text-md">Upload image</h1>} */}
  
        {files.length > 0 && (
-           <div className="flex flex-wrap justify-start gap-4 border-dashed border-slate-600 mt-2 rounded-md border-2 p-4 w-full">
+           <div className="flex flex-wrap justify-start gap-4 border-dashed border-secondary mt-2 rounded-md border-2 p-4 w-full">
            {files.map((fileData, index) => (
              <div
                key={index}
-               className="w-40 h-40 max-sm:w-full max-sm:h-52 rounded-md bg-slate-500 relative group "
+               className="w-40 h-full max-sm:w-full max-sm:h-52 rounded-md relative group "
              >
                {fileData.file.type.startsWith("image/") ? (
-                 <img
-                  
+                <div className="w-40 h-40 border border-secondary rounded-sm max-sm:w-full max-sm:h-full">
+                   <img
                    src={fileData.preview}
                    alt="Preview"
-                   className="rounded-md object-cover transition-opacity duration-300 group-hover:opacity-10"
+                   className="p-2 rounsded-md w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-10"
                  />
+                </div>
                ) : (
                  <p className="text-xs">{fileData.file.name}</p>
                )}
@@ -86,7 +87,7 @@ export default function ChooseImageFile({files ,setFiles}) {
                >
                  <BiTrash
                    className="duration-300 rounded-full p-2 w-9 h-9
-                transform hover:scale-125 scale-100 bg-black opacity-50 hover:opacity-90 hover:text-white "
+                transform hover:scale-125 scale-100 bg-black opacity-50 hover:opacity-90 hover:text-primarytext "
                    size={20}
                  />
                </button>

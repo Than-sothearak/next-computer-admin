@@ -21,7 +21,7 @@ export const Sidebar = () => {
       </div>
 
       <div
-        className={`bg-slate-800 p-4 w-64 min-h-screen fixed top-0 left-0 z-50 transform transition-transform duration-500 ease-in-out
+        className={`bg-primary p-4 w-64 min-h-screen fixed top-0 left-0 z-50 transform transition-transform duration-500 ease-in-out
           ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           } lg:translate-x-0 lg:static lg:w-full
@@ -33,13 +33,13 @@ export const Sidebar = () => {
             onClick={() => setIsOpen(false)}
             aria-label="Close Sidebar"
             title="Close Sidebar"
-            className="text-white"
+            className="text-primarytext"
           >
             <IoClose size={28} />
           </button>
         </div>
 
-        <div className="p-4 bg-red-900 text-white">Profile</div>
+        <div className="p-4 bg-red-900 text-primarytext">Profile</div>
 
         <SidebarList navList={pageNavigation} />
         <SidebarList navList={analyticNavigation} />

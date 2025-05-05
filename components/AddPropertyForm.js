@@ -14,8 +14,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
     if (values[values.length - 1] !== "") {
       updatedProperties[partIndex].values.push(""); // Add new value slot
       setFormData((prev) => ({ ...prev, properties: updatedProperties }));
-     
-    } 
+    }
   };
 
   // Removes a value from the values array of a part
@@ -60,7 +59,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
     <div className="flex flex-col gap-2 mb-4">
       <button
         type="button"
-        className="bg-blue-600 w-36 p-2 rounded-md flex items-center gap-2 text-base hover:underline hover:bg-blue-500"
+        className="bg-blue-600 w-36 p-2 text-secondarytext rounded-md flex items-center gap-2 text-base hover:underline hover:bg-blue-500"
         onClick={addPart}
         title="Click to add more property"
       >
@@ -76,7 +75,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
           formData.properties.map((part, partIndex) => (
             <div
               key={partIndex}
-              className="border border-slate-600 p-2 rounded-md max-lg:w-full text-sm relative"
+              className="border border-secondary p-2 rounded-md max-lg:w-full text-sm relative"
             >
               <div className="w-full flex gap-2 max-md:flex-wrap ">
                 <div className="w-full ">
@@ -90,7 +89,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                       onChange={(e) =>
                         handlePartChange(partIndex, e.target.value)
                       }
-                      className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+                      className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
                       placeholder="Enter value (e.g., CPU)"
                     />
                   </div>
@@ -100,11 +99,9 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                 <div className="flex gap-2 justify-start items-center">
                   <button
                     type="button"
-                    className="bg-blue-500 text-white px-3 py-1 rounded h-8 w-8 hover:bg-blue-700"
+                    className="bg-blue-500 text-secondarytext px-3 py-1 rounded h-8 w-8 hover:bg-blue-700"
                     onClick={() => addValue(partIndex)}
-                    disabled={
-                     part.values[part.values.length -1] === ""
-                    }
+                    disabled={part.values[part.values.length - 1] === ""}
                   >
                     +
                   </button>
@@ -137,14 +134,14 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                           }
                           className={`${
                             value
-                              ? "bg-slate-800 border border-slate-700 text-white"
-                              : "bg-slate-700"
+                              ? "bg-primary border border-secondary"
+                              : "bg-secondary"
                           } w-full px-2 rounded-sm text-xs focus:ring-0 focus:outline-none`}
                           placeholder="Enter value (e.g., 16GB;32GB:128GB;)"
                         />
                         <button
                           type="button"
-                          className="bg-slate-500 text-white px-3 py-1 rounded h-8 w-8 hover:bg-red-500"
+                          className="bg-slate-500 text-secondarytext  px-3 py-1 rounded h-8 w-8 hover:bg-red-500"
                           onClick={() => removeValue(partIndex, valueIndex)}
                         >
                           x
@@ -156,7 +153,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
               </div>
               <button
                 type="button"
-                className="text-red-500 hover:text-white hover:underline text-sm absolute right-0 top-0 p-2 rounded-full"
+                className="text-red-500 hover:text-primarytext hover:underline text-sm absolute right-0 top-0 p-2 rounded-full"
                 onClick={() => handleRemovePart(partIndex)}
               >
                 X Remove

@@ -5,7 +5,7 @@ export const Sidebar = () => {
  
   return (
     <>
-    <div className=" bg-slate-800 p-4 w-full ">
+    <div className=" bg-primary p-4 w-full ">
       <div className="p-4 bg-red-900">Profile</div>
       <button><IoMdMenu size={28}/></button>
      <div className="min-h-screen max-lg:hidden">

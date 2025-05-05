@@ -35,7 +35,7 @@ export default function ChooseImageFile() {
          multiple
          name="image"
          type="file"
-         className="w-full p-2 rounded-md border-none bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+         className="w-full p-2 rounded-md border-none bg-secondary text-xs focus:ring-0 focus:outline-none"
        />
      </div>
      {files.length <= 0 && <h1 className="text-slate-300 text-md">Upload image</h1>}
@@ -53,7 +53,7 @@ export default function ChooseImageFile() {
            )}
            <button
              type="button"
-             className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded"
+             className="absolute top-1 right-1 bg-red-500 text-primarytext text-xs px-2 py-1 rounded"
              onClick={() => handleRemoveFile(index)}
            >
              X

@@ -23,7 +23,7 @@ const TableComponent = ({ data, columns, pageName }) => {
             {data.map((row, index) => (
               <tr
                 key={index}
-                className="border-b border-slate-700 hover:bg-slate-700"
+                className="border-b border-slate-700 hover:bg-secondary"
               >
                 {columns.map((column, colIndex) => (
                   <td key={colIndex} className="py-4 px-4">

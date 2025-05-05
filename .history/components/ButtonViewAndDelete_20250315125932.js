@@ -59,7 +59,7 @@ console.log(optimisticData)
         <button
            type="button"
           onClick={() => setShowConfirmation(true)}
-          className="bg-slate-600 px-2 py-1 rounded-md hover:bg-slate-700 text-sm"
+          className="bg-slate-600 px-2 py-1 rounded-md hover:bg-secondary text-sm"
         >
           Delete
         </button>
@@ -76,12 +76,12 @@ console.log(optimisticData)
               <button
                  type="button"
                 onClick={handleShowConfirm}
-                className="bg-gray-400  rounded-md hover:bg-gray-600 w-full text-white"
+                className="bg-gray-400  rounded-md hover:bg-gray-600 w-full text-primarytext"
               >
                 No
               </button>
        
-                <button type='submit' disabled={pending} className="rounded-md  bg-red-500 px-4 py-2 text-white w-full hover:bg-red-700">
+                <button type='submit' disabled={pending} className="rounded-md  bg-red-500 px-4 py-2 text-primarytext w-full hover:bg-red-700">
                 {pending ? "Deteting..." : "Yes"}
                 </button>
             

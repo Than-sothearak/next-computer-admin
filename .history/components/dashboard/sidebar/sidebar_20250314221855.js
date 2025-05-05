@@ -18,7 +18,7 @@ export const Sidebar = ({handleClick , isOpen}) => {
       {/*small side */}
       <div className="lg:hidden ml-1 mt-4 z-50 max-sm:hidden">
       <div className="mt-2 flex justify-center items-center ">
-            <span className="text-white text-lg font-semibold"></span>
+            <span className="text-primarytext text-lg font-semibold"></span>
             <button
               onClick={handleClick}
               aria-label="Open Sidebar"
@@ -33,7 +33,7 @@ export const Sidebar = ({handleClick , isOpen}) => {
       </div>
 
       <div
-        className={`bg-slate-800 max-lg:h-screen p-4 w-80 max-lg:fixed
+        className={`bg-primary max-lg:h-screen p-4 w-80 max-lg:fixed
            top-0 left-0 z-50 transform transition-transform  duration-700 ease-in-out
           ${
             isOpen ? "translate-x-0" : "-translate-x-full"
@@ -42,7 +42,7 @@ export const Sidebar = ({handleClick , isOpen}) => {
       >
  
 
-        <div className="cursor-pointer flex  justify-between items-center gap-4 px-2 text-white">
+        <div className="cursor-pointer flex  justify-between items-center gap-4 px-2 text-primarytext">
           <div className="flex gap-2 justify-start items-center">
             <img
               className="w-11 h-11 bg-cover rounded-full"
@@ -57,7 +57,7 @@ export const Sidebar = ({handleClick , isOpen}) => {
             onClick={handleClick}
             aria-label="Close Sidebar"
             title="Close Sidebar"
-            className="text-white lg:hidden"
+            className="text-primarytext lg:hidden"
           >
             <IoClose size={28} />
           </button>

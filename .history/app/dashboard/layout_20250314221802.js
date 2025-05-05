@@ -11,7 +11,7 @@ export default function DashboardLayout({ children }) {
   }
   return (
     <div className="flex">
-      <div className="bg-slate-800">
+      <div className="bg-primary">
         <Sidebar isOpen={isOpen} handleClick={handleClick} />
       </div>
       <div className="w-full overflow-x-auto lg:mx-4">

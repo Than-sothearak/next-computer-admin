@@ -57,7 +57,7 @@ export default function AddTransaction({ setTransactions }) {
       </select>
       <button 
         onClick={addTransaction} 
-        className="ml-2 bg-blue-500 text-white px-4 py-2"
+        className="ml-2 bg-blue-500 text-primarytext px-4 py-2"
       >
         Add
       </button>

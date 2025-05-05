@@ -49,7 +49,7 @@ const ButtonViewAndDelete = ({ link, id, data }) => {
         </Link>
         <button
           onClick={() => setShowConfirmation(true)}
-          className="bg-slate-600 px-2 py-1 rounded-md hover:bg-slate-700 text-sm"
+          className="bg-slate-600 px-2 py-1 rounded-md hover:bg-secondary text-sm"
         >
           Delete
          
@@ -65,7 +65,7 @@ const ButtonViewAndDelete = ({ link, id, data }) => {
             <div className="flex justify-between gap-4">
               <button
                 onClick={handleShowConfirm}
-                className="bg-gray-400 px-4 py-2 rounded-md hover:bg-gray-600 w-full text-white"
+                className="bg-gray-400 px-4 py-2 rounded-md hover:bg-gray-600 w-full text-primarytext"
               >
                 No
               </button>
@@ -75,7 +75,7 @@ const ButtonViewAndDelete = ({ link, id, data }) => {
               >
                 <button
                 
-                  className=" text-white w-full"
+                  className=" text-primarytext w-full"
                 
                 >
                

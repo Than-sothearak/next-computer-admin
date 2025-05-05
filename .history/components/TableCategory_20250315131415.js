@@ -20,7 +20,7 @@ const TableCategory = ({ data, columns, pageName }) => {
       {optimisticData.length !== 0 ? (
         <table className="my-4 w-full rounded-lg text-sm">
           <thead>
-            <tr className="font-bold h-10 bg-slate-800">
+            <tr className="font-bold h-10 bg-primary">
               {columns.map((col, index) => (
                 <th key={index} className="px-4 text-left">
                   {col.header}
@@ -33,7 +33,7 @@ const TableCategory = ({ data, columns, pageName }) => {
             {optimisticData.map((rowCat, index) => (
               <tr
                 key={index}
-                className="border-b border-slate-700 hover:bg-slate-700 transition-all"
+                className="border-b border-slate-700 hover:bg-secondary transition-all"
               >
                 {columns.map((column, colIndex) => (
                   <td key={colIndex} className="py-6 px-4">

@@ -5,7 +5,7 @@ export const Sidebar = () => {
  
  console.log(analyticNavigation)
   return (
-    <div className="bg-slate-800 p-4 w-full min-h-screen">
+    <div className="bg-primary p-4 w-full min-h-screen">
       <div className="p-4 bg-red-900">Profile</div>
 
       <SidebarList navList={pageNavigation} />

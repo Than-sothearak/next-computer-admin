@@ -89,7 +89,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                       onChange={(e) =>
                         handlePartChange(partIndex, e.target.value)
                       }
-                      className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+                      className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
                       placeholder="Enter value (e.g., CPU)"
                     />
                   </div>
@@ -99,7 +99,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                 <div className="flex gap-2 justify-start items-center">
                   <button
                     type="button"
-                    className="bg-blue-500 text-white px-3 py-1 rounded h-8 w-8 hover:bg-blue-700"
+                    className="bg-blue-500 text-primarytext px-3 py-1 rounded h-8 w-8 hover:bg-blue-700"
                     onClick={() => addValue(partIndex)}
                     disabled={
                       part.values[part.values.length] === ""
@@ -136,14 +136,14 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                           }
                           className={`${
                             value
-                              ? "bg-slate-800 border border-slate-700 text-white"
-                              : "bg-slate-700"
+                              ? "bg-primary border border-slate-700 text-primarytext"
+                              : "bg-secondary"
                           } w-full px-2 rounded-sm text-xs focus:ring-0 focus:outline-none`}
                           placeholder="Enter value (e.g., 16GB;32GB:128GB;)"
                         />
                         <button
                           type="button"
-                          className="bg-slate-500 text-white px-3 py-1 rounded h-8 w-8 hover:bg-red-500"
+                          className="bg-slate-500 text-primarytext px-3 py-1 rounded h-8 w-8 hover:bg-red-500"
                           onClick={() => removeValue(partIndex, valueIndex)}
                         >
                           x
@@ -155,7 +155,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
               </div>
               <button
                 type="button"
-                className="text-red-500 hover:text-white hover:underline text-sm absolute right-0 top-0 p-2 rounded-full"
+                className="text-red-500 hover:text-primarytext hover:underline text-sm absolute right-0 top-0 p-2 rounded-full"
                 onClick={() => handleRemovePart(partIndex)}
               >
                 X Remove

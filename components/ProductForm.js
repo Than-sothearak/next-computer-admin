@@ -24,21 +24,20 @@ export default function ProductForm({
     properties: product?.properties || [],
   });
 
- const [currentProperties, setCurrentProperties] = useState([]);
- const [files, setFiles] = useState([] || null);
+  const [currentProperties, setCurrentProperties] = useState([]);
+  const [files, setFiles] = useState([] || null);
 
-  
- const handleRemoveImage = (index) => {
-  setFormData((prevFormData) => {
-    const removedImage = prevFormData.imageUrls[index]; // Get the removed image URL
+  const handleRemoveImage = (index) => {
+    setFormData((prevFormData) => {
+      const removedImage = prevFormData.imageUrls[index]; // Get the removed image URL
 
-    return {
-      ...prevFormData,
-      imageUrls: prevFormData.imageUrls.filter((_, i) => i !== index), // Remove from imageUrls
-      removedImages: [...(prevFormData.removedImages || []), removedImage], // Store removed image properly
-    };
-  });
-};
+      return {
+        ...prevFormData,
+        imageUrls: prevFormData.imageUrls.filter((_, i) => i !== index), // Remove from imageUrls
+        removedImages: [...(prevFormData.removedImages || []), removedImage], // Store removed image properly
+      };
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,23 +64,22 @@ export default function ProductForm({
     productId ? updateProductWithId : addProduct,
     undefined
   );
-  
 
-  useEffect (() => {
+  useEffect(() => {
     if (state?.success) {
-      setFiles([])
+      setFiles([]);
     }
     setFormData({
       ...formData,
-      imageUrls: product?.imageUrls
-    })
-   }, [product])
+      imageUrls: product?.imageUrls,
+    });
+  }, [product]);
 
   return (
-    <div className=" mt-4 rounded-lg">
+    <div className=" mt-4 rounded-lg text-black">
       <form action={action} className="space-y-2 text-sm">
         <div className="flex max-lg:flex-wrap gap-4">
-          <div className="space-y-4 w-full p-4 bg-slate-800 rounded-lg">
+          <div className="space-y-4 w-full p-4 bg-primary rounded-lg">
             <h1 className="font-bold text-lg">Basic Infomation</h1>
             <div className="space-y-4">
               <div>
@@ -92,7 +90,7 @@ export default function ProductForm({
                   type="text"
                   name="brandName"
                   placeholder="Enter brand name..."
-                  className="w-full p-2 rounded-md mt-2 bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                  className="w-full p-2 rounded-md mt-2 bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 />
                 {state?.errors?.brandName && (
                   <p className="text-red-500 mt-2">{state.errors.brandName}</p>
@@ -105,7 +103,7 @@ export default function ProductForm({
                     name="category"
                     defaultValue={formData?.category}
                     onChange={handleChange}
-                    className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+                    className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
                   >
                     {product?.category && (
                       <option value={product?.category._id}>
@@ -132,7 +130,7 @@ export default function ProductForm({
                     placeholder="202.09$"
                     type="number"
                     defaultValue={formData?.price}
-                    className="w-full p-2 rounded-md mt-2 bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                    className="w-full p-2 rounded-md mt-2 bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                   />
                   {state?.errors?.price && (
                     <p className="text-red-500 mt-2">{state.errors.price}</p>
@@ -147,7 +145,7 @@ export default function ProductForm({
                   onChange={handleChange}
                   value={formData?.productName}
                   placeholder="Enter product name..."
-                  className="mt-2 w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                  className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 />
                 {state?.errors?.productName && (
                   <p className="text-red-500 mt-2">
@@ -164,7 +162,7 @@ export default function ProductForm({
                   placeholder="Enter stock"
                   name="stock"
                   type="number"
-                  className="mt-2 w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                  className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 />
                 {state?.errors?.stock && (
                   <p className="text-red-500 mt-2">{state.errors.stock}</p>
@@ -177,7 +175,7 @@ export default function ProductForm({
               <textarea
                 name="decription"
                 placeholder="Write a product decrition"
-                className="mt-2 w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 rows="4"
               ></textarea>
             </div>
@@ -186,11 +184,11 @@ export default function ProductForm({
               categoryProperties={currentProperties}
               productProperties={formData?.properties}
             />
-            <ChooseImageFile files={files} setFiles={setFiles}/>
+            <ChooseImageFile files={files} setFiles={setFiles} />
           </div>
           <div className="w-1/2 max-lg:w-full flex flex-col gap-4">
-            <div className=" bg-slate-800 p-4 w-full flex  flex-col  gap-4 rounded-lg">
-              <div className="space-y-4 w-full bg-slate-800 rounded-lg">
+            <div className=" bg-primary p-4 w-full flex  flex-col  gap-4 rounded-lg">
+              <div className="space-y-4 w-full bg-primary rounded-lg">
                 <h1 className="text-lg font-bold">Visibility</h1>
               </div>
               <div className="flex gap-4 items-center">
@@ -222,12 +220,12 @@ export default function ProductForm({
               </p>
             </div>
 
-            <div className=" bg-slate-800 p-4 w-full flex  flex-col  gap-4 rounded-lg">
-              <div className="space-y-4 w-full bg-slate-800 rounded-lg">
+            <div className=" bg-primary p-4 w-full flex  flex-col  gap-4 rounded-lg">
+              <div className="space-y-4 w-full bg-primary rounded-lg">
                 <h1 className="text-lg font-bold">Parent Category</h1>
               </div>
               <select
-                className=" w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                className=" w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 name="parentCategory"
                 value={formData?.parentCategory ? formData.parentCategory : ""}
                 onChange={handleCategoryChange}
@@ -248,8 +246,8 @@ export default function ProductForm({
                 Select a category that will be the parent of the current one.
               </p>
             </div>
-            <div className=" bg-slate-800 p-4 w-full flex  flex-col  gap-4 rounded-lg">
-              <div className="flex justify-start items-center gap-2 w-full bg-slate-800">
+            <div className=" bg-primary p-4 w-full flex  flex-col  gap-4 rounded-lg">
+              <div className="flex justify-start items-center gap-2 w-full bg-primary">
                 <div>
                   <h1 className="text-lg font-bold">Product Image</h1>
                 </div>
@@ -257,18 +255,16 @@ export default function ProductForm({
                 <BiCheck className="bg-slate-300 rounded-full text-black" />
               </div>
               <div className="grid gap-2 grid-cols-2">
-              {formData?.removedImages && (
-                formData.removedImages.map((item, index) => (
-                  <input
-                key={index}
-                name='removeImages'
-                type="text"
-                defaultValue={item}
-             
-                className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none hidden"
-              />
-                ))
-              )}
+                {formData?.removedImages &&
+                  formData.removedImages.map((item, index) => (
+                    <input
+                      key={index}
+                      name="removeImages"
+                      type="text"
+                      defaultValue={item}
+                      className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none hidden"
+                    />
+                  ))}
                 {product?.imageUrls && product?.imageUrls.length > 0 ? (
                   formData?.imageUrls.map((image, index) => (
                     <div
@@ -277,7 +273,6 @@ export default function ProductForm({
                       } overflow-hidden shadow-md relative aspect-square rounded-md bg-slate-500 group`}
                       key={index}
                     >
-          
                       <Image
                         fill
                         alt={`Image ${index}`}
@@ -285,14 +280,17 @@ export default function ProductForm({
                         src={`${image}`}
                       />
                       <button
-                      type="button"
-                      onClick={() => handleRemoveImage(index)}
+                        type="button"
+                        onClick={() => handleRemoveImage(index)}
                         className="flex justify-center items-center absolute top-1/2 left-1/2  text-slate-200
                opacity-0 group-hover:opacity-100 transition-opacity duration-300 
                transform -translate-x-1/2 -translate-y-1/2 "
                       >
-                        <BiTrash className="duration-300 rounded-full p-2 w-9 h-9
-               transform hover:scale-125 scale-100 bg-black opacity-50 hover:opacity-90 "size={20}/>
+                        <BiTrash
+                          className="duration-300 rounded-full p-2 w-9 h-9
+               transform hover:scale-125 scale-100 bg-black opacity-50 hover:opacity-90 "
+                          size={20}
+                        />
                       </button>
                     </div>
                   ))
@@ -301,7 +299,6 @@ export default function ProductForm({
                     className={`col-span-2 rounded-md w-full min-h-32 bg-slate-500 relative aspect-square`}
                   >
                     <img
-               
                       alt={`Image`}
                       className="opacity-20 rounded-md object-cover h-full w-full "
                       src={`https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png`}
@@ -317,7 +314,7 @@ export default function ProductForm({
         <button
           type="submit"
           disabled={isPending}
-          className={`p-2 bg-blue-600 w-full mt-6 hover:bg-blue-500 hover:text-slate-200 rounded-md ${
+          className={`p-2 bg-blue-600 text-secondarytext w-full mt-6 mb-10 hover:bg-blue-500 hover:text-slate-200 rounded-md ${
             isPending ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
@@ -331,12 +328,12 @@ export default function ProductForm({
         </button>
 
         {state?.success && (
-          <p className="text-green-400 text-sm mt-4 text-center">
+          <p className="text-green-600 text-sm mt-4 text-center">
             Product {productId ? "updated" : "added"} successfully!
           </p>
         )}
         {state?.errors && (
-          <p className="text-red-400 text-sm mt-4 text-center"></p>
+          <p className="text-red-600 text-sm mt-4 text-center"></p>
         )}
       </form>
     </div>

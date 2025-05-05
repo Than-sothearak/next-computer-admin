@@ -15,7 +15,7 @@ export default function LoginForm() {
 
   return (
     <div className="flex min-h-screen w-full justify-center items-center">
-      <div className="bg-slate-800 w-full m-4 sm:max-w-md space-y-6 rounded-xl  p-8 shadow-lg">
+      <div className="bg-primary w-full m-4 sm:max-w-md space-y-6 rounded-xl  p-8 shadow-lg">
         <div className="text-center">
           <h1 className="text-2xl font-bold">Login Page</h1>
         </div>
@@ -28,7 +28,7 @@ export default function LoginForm() {
                 type="email"
                 name="email"
                 placeholder="Enter your email"
-                className="w-full p-4 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                className="w-full p-4 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 required
               />
             </div>
@@ -40,7 +40,7 @@ export default function LoginForm() {
                 type="password"
                 name="password"
                 placeholder="Enter your password"
-                className="w-full p-4 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                className="w-full p-4 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 required
                 minLength={6}
               />
@@ -50,7 +50,7 @@ export default function LoginForm() {
             value={callbackUrl}
             type="submit"
             disabled={isPending}
-            className={`w-full rounded-lg bg-blue-600 p-3 text-white font-semibold hover:bg-blue-700 transition ${isPending ?'opacity-50 cursor-not-allowed': ''}`}
+            className={`w-full rounded-lg bg-blue-600 p-3 text-primarytext font-semibold hover:bg-blue-700 transition ${isPending ?'opacity-50 cursor-not-allowed': ''}`}
           >
             {isPending ? "Loading..." : "Login"}
           </button>
@@ -62,13 +62,13 @@ export default function LoginForm() {
           )}
         </form>
         {/* <div>
-        <div className="flex items-center gap-2 text-sm text-white">
+        <div className="flex items-center gap-2 text-sm text-primarytext">
           <hr className="w-full border-gray-300" />
           or
           <hr className="w-full border-gray-300" />
         </div>
 
-        <button className="w-full flex items-center justify-center gap-2 rounded-lg border border-gray-300 p-3  hover:bg-slate-700 transition">
+        <button className="w-full flex items-center justify-center gap-2 rounded-lg border border-gray-300 p-3  hover:bg-secondary transition">
           <svg className="h-5 w-5" viewBox="0 0 48 48">
             <path fill="#4285F4" d="M24 20v8h11.6c-.6 2.7-3 8-11.6 8-7 0-12.6-5.6-12.6-12.6S17 11 24 11c4 0 6.5 1.5 8.1 2.8L35 10C32.6 8.2 28.5 6 24 6 13 6 6 13 6 24s7 18 18 18c9.8 0 17-6.9 17-17 0-1.1-.1-1.9-.3-2.8H24z"></path>
           </svg>

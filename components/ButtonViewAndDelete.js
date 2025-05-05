@@ -38,21 +38,21 @@ const ButtonViewAndDelete = ({ link, id, setOptimisticData,pending, session }) =
 
       {/* Dropdown menu */}
       <div
-        className={`absolute bg-slate-500 p-2 flex gap-2 justify-items-center items-center rounded-md transition-opacity duration-200 ease-out z-10 right-8 top-4 max-md:right-0 ${
+        className={`absolute bg-primary border border-secondary shadow-sm p-2 flex gap-2 justify-items-center items-center rounded-md transition-opacity duration-200 ease-out z-10 right-8 top-4 max-md:right-0 ${
           isClicked ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onMouseEnter={() => setIsClicked(true)}
       >
         <Link
           href={link}
-          className="bg-blue-500 px-2 py-1 rounded-md hover:bg-blue-600 text-sm"
+          className="border border-secondary px-2 py-1 rounded-md hover:bg-tertiary hover:text-secondarytext text-sm"
         >
           Edit
         </Link>
         <button
            type="button"
           onClick={() => setShowConfirmation(true)}
-          className="bg-slate-600 px-2 py-1 rounded-md hover:bg-slate-700 text-sm"
+          className="bg-red-500 text-secondarytext px-2 py-1 rounded-md hover:bg-tertiary hover:text-secondarytext text-sm"
         >
           Delete
         </button>
@@ -60,8 +60,8 @@ const ButtonViewAndDelete = ({ link, id, setOptimisticData,pending, session }) =
 
       {/* Confirmation Modal */}
       {showConfirmation && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-80 flex justify-center items-center z-50">
-          <div className="bg-slate-900 p-6 rounded-md shadow-lg">
+        <div className="fixed inset-0 bg-secondary bg-opacity-80 flex justify-center items-center z-50">
+          <div className="bg-primary p-6 rounded-md shadow-lg">
             <p className="text-center text-sm mb-4">
               Are you sure you want to delete this item?
             </p>
@@ -69,12 +69,12 @@ const ButtonViewAndDelete = ({ link, id, setOptimisticData,pending, session }) =
               <button
                  type="button"
                 onClick={handleShowConfirm}
-                className="bg-gray-400  rounded-md hover:bg-gray-600 w-full text-white"
+                className="bg-gray-400  rounded-md hover:bg-gray-600 w-full text-secondarytext"
               >
                 No
               </button>
        
-                <button disabled={pending} className="rounded-md  bg-red-500 px-4 py-2 text-white w-full hover:bg-red-700">
+                <button disabled={pending} className="rounded-md  bg-red-500 px-4 py-2 text-secondarytext w-full hover:bg-red-700">
                 {pending ? "Deteting..." : "Yes"}
                 </button>
             

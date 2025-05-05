@@ -56,7 +56,7 @@ export default function ProductPropertyForm({ categoryProperties, productPropert
  console.log(formData)
 
   return (
-    <div className="bg-slate-800 w-full rounded-lg border p-4 border-slate-600">
+    <div className="bg-primary w-full rounded-lg border p-4 border-slate-600">
       <h1 className="text-lg font-bold mb-2">Product Properties</h1>
       <span className="xs italic">*Note: Select parent category to get properties</span>
       {categoryProperties?.map((items, index) => (
@@ -69,13 +69,13 @@ export default function ProductPropertyForm({ categoryProperties, productPropert
               type="text"
               defaultValue={items.part}
               placeholder="Enter value..."
-              className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none hidden"
+              className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none hidden"
              
             />
           
       {inputValues[index]?.length <= 0 &&      <select
               name="value"
-              className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none mt-2"
+              className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none mt-2"
               onChange={(e) => handleSelectChange(index, e.target.value)}
             >
               <option value="">Select</option>
@@ -95,7 +95,7 @@ export default function ProductPropertyForm({ categoryProperties, productPropert
               defaultValue={items.value}
               type="text"
               placeholder="Enter value..."
-              className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+              className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
             
             />
           )}
@@ -114,7 +114,7 @@ export default function ProductPropertyForm({ categoryProperties, productPropert
               type="text"
               defaultValue={items.part}
               placeholder="Enter value..."
-              className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none hidden"
+              className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none hidden"
              
             />
           
@@ -128,7 +128,7 @@ export default function ProductPropertyForm({ categoryProperties, productPropert
               defaultValue={items.value}
               type="text"
               placeholder="Enter value..."
-              className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+              className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
             
             />
           )}
@@ -157,7 +157,7 @@ export default function ProductPropertyForm({ categoryProperties, productPropert
                 type="text"
                 name="part"
                 placeholder="Enter part..."
-                className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+                className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
                 value={item.part}
                 onChange={(e) => handleChange(index, "part", e.target.value)}
               />
@@ -166,7 +166,7 @@ export default function ProductPropertyForm({ categoryProperties, productPropert
                 name="value"
                 type="text"
                 placeholder="Enter value..."
-                className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+                className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
                 value={item.value}
                 onChange={(e) => handleChange(index, "value", e.target.value)}
               />
@@ -180,7 +180,7 @@ export default function ProductPropertyForm({ categoryProperties, productPropert
       <button
         type="button"
         onClick={addProperty}
-        className="mt-3 flex items-center gap-1 bg-blue-600 text-white px-3 py-1 rounded text-sm"
+        className="mt-3 flex items-center gap-1 bg-blue-600 text-primarytext px-3 py-1 rounded text-sm"
       >
         <BiPlus /> Add Property
       </button>

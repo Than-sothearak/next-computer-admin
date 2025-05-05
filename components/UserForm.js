@@ -40,13 +40,14 @@ export default function UserForm({ userId, userData, session }) {
     return (
       <div
      
-        className="w-[978px] max-2xl:w-full mx-auto bg-slate-800 mt-4 rounded-2xl relative"
+        className="w-[978px] max-2xl:w-full mx-auto bg-primary mt-4 border rounded-xl relative"
       >
-        <div className="rounded-t-2xl bg-slate-500 text-center p-4">
+        <div className=" bg-primary text-center p-4 rounded-t-xl">
           <h1 className="font-bold text-xl">
             {userId ? "Edit user" : "Create new user"}
           </h1>
         </div>
+        <div className="border-b border-secondary"></div>
         <form action={action} className="flex w-full gap-6 max-md:flex-wrap justify-center p-4">
           <div>
             <ChooseSingleImageFile
@@ -65,7 +66,7 @@ export default function UserForm({ userId, userData, session }) {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-bold text-white mb-1"
+                  className="block text-sm font-bold text-primarytext mb-1"
                 >
                   Full Name
                 </label>
@@ -76,7 +77,7 @@ export default function UserForm({ userId, userData, session }) {
                   defaultValue={formData?.name}
                   onChange={handleChange}
                   placeholder="John Doe"
-                  className="bg-slate-700 border w-full px-4 py-2.5 rounded-lg transition-all border-slate-500 appearance-none bg-transparent outline-none focus:ring-2 focus:border-none"
+                  className="bg-secondary border w-full px-4 py-2.5 rounded-lg transition-all border-secondary appearance-none bg-transparent outline-none focus:ring-2 focus:border-none"
                 />
                 {state?.errors?.name && (
                   <p className="mt-1 text-sm text-red-600">
@@ -89,7 +90,7 @@ export default function UserForm({ userId, userData, session }) {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-bold text-white mb-1"
+                  className="block text-sm font-bold text-primarytext mb-1"
                 >
                   Email Address
                 </label>
@@ -100,7 +101,7 @@ export default function UserForm({ userId, userData, session }) {
                   defaultValue={formData?.email}
                   onChange={handleChange}
                   placeholder="john@example.com"
-                  className="bg-slate-700 border w-full px-4 py-2.5 rounded-lg transition-all appearance-none bg-transparent border-slate-500 outline-none focus:ring-2 focus:border-none"
+                  className="bg-secondary border w-full px-4 py-2.5 rounded-lg transition-all appearance-none bg-transparent border-secondary outline-none focus:ring-2 focus:border-none"
                 />
                 {state?.errors?.email && (
                   <p className="mt-1 text-sm text-red-600">
@@ -113,7 +114,7 @@ export default function UserForm({ userId, userData, session }) {
               <div>
                 <label
                   htmlFor="phone"
-                  className="block text-sm font-bold text-white mb-1"
+                  className="block text-sm font-bold text-primarytext mb-1"
                 >
                   Phone Number
                 </label>
@@ -124,7 +125,7 @@ export default function UserForm({ userId, userData, session }) {
                   defaultValue={formData?.phone}
                   onChange={handleChange}
                   placeholder="+1 (555) 123-4567"
-                  className="bg-slate-700 border w-full px-4 py-2.5 rounded-lg transition-all appearance-none bg-transparent outline-none focus:ring-2 focus:border-none border-slate-500"
+                  className="bg-secondary border w-full px-4 py-2.5 rounded-lg transition-all appearance-none bg-transparent outline-none focus:ring-2 focus:border-none border-secondary "
                 />
                 {state?.errors?.phone && (
                   <p className="mt-1 text-sm text-red-600">
@@ -137,7 +138,7 @@ export default function UserForm({ userId, userData, session }) {
               <div>
                 <label
                   htmlFor="role"
-                  className="block text-sm font-bold text-white mb-1"
+                  className="block text-sm font-bold text-primarytext mb-1"
                 >
                   User Role
                 </label>
@@ -146,7 +147,7 @@ export default function UserForm({ userId, userData, session }) {
                   id="role"
                   defaultValue={formData?.role}
                   onChange={handleChange}
-                  className="bg-slate-800 border-slate-500 w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiAjdjQgdjRaIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtY2hldnJvbi1kb3duIj48cGF0aCBkPSJtNiA5IDYgNiA2LTYiLz48L3N2Zz4=')] bg-no-repeat bg-[right_0.75rem_center]"
+                  className="bg-primaryw-full px-4 py-2.5 rounded-lg border border-secondary  focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiAjdjQgdjRaIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtY2hldnJvbi1kb3duIj48cGF0aCBkPSJtNiA5IDYgNiA2LTYiLz48L3N2Zz4=')] bg-no-repeat bg-[right_0.75rem_center]"
                 >
                   <option value="user">User</option>
                   <option value="admin">Administrator</option>
@@ -158,7 +159,7 @@ export default function UserForm({ userId, userData, session }) {
             <div className="text-xs">
               <label
                 htmlFor="address"
-                className="block text-sm font-bold text-white mb-1"
+                className="block text-sm font-bold text-primarytext mb-1"
               >
                 Address
               </label>
@@ -169,7 +170,7 @@ export default function UserForm({ userId, userData, session }) {
                 defaultValue={formData.address}
                 onChange={handleChange}
                 placeholder="123 Main St, City, Country"
-                className="bg-slate-700 border w-full border-slate-500 px-4 py-2.5 rounded-lg transition-all appearance-none bg-transparent outline-none focus:ring-2 focus:border-none"
+                className="bg-secondary border w-full border-secondary  px-4 py-2.5 rounded-lg transition-all appearance-none bg-transparent outline-none focus:ring-2 focus:border-none"
               />
               {state?.errors?.address && (
                 <p className="mt-1 text-sm text-red-600">
@@ -182,7 +183,7 @@ export default function UserForm({ userId, userData, session }) {
               <div className="text-xs">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-bold text-white mb-1"
+                  className="block text-sm font-bold text-primarytext mb-1"
                 >
                   Password
                 </label>
@@ -197,7 +198,7 @@ export default function UserForm({ userId, userData, session }) {
                       ? "Leave blank to keep current"
                       : "Create a password aleat 6 charactors"
                   }
-                  className="bg-slate-700 border w-full px-4 py-2.5 rounded-lg transition-all appearance-none bg-transparent outline-none focus:ring-2 focus:border-none"
+                  className="bg-secondary border w-full px-4 py-2.5 rounded-lg transition-all appearance-none bg-transparent outline-none focus:ring-2 focus:border-none"
                 />
                 {state?.errors?.password && (
                   <p className="mt-1 text-sm text-red-600">
@@ -217,14 +218,14 @@ export default function UserForm({ userId, userData, session }) {
               <button
                 type="submit"
                 disabled={isPending}
-                className={`w-full bg-blue-600 hover:bg-blue-700 rounded-xl py-3 ${
+                className={`text-secondarytext w-full bg-blue-600 hover:bg-blue-700 rounded-xl py-3 ${
                   isPending ? "opacity-70 cursor-not-allowed" : ""
                 }`}
               >
                 {isPending ? (
                   <span className="flex items-center justify-center">
                     <svg
-                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                      className="animate-spin -ml-1 mr-2 h-4 w-4 "
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -276,7 +277,7 @@ export default function UserForm({ userId, userData, session }) {
         {userId && (
               (
               <>
-                <div className="border-b border-slate-600"></div>
+                <div className="border-b border-secondary"></div>
                 <ChangPasswordForm userData={userData} formData={formData} handleChange={handleChange} userId={userId}/></>
                )
             )}

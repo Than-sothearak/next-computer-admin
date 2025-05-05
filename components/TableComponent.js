@@ -37,7 +37,7 @@ const TableComponent = ({ data, columns, pageName, session}) => {
             {optimisticData.map((row, index) => (
               <tr
                 key={index}
-                className="border-b border-slate-700 hover:bg-slate-700"
+                className="border-b border-secondary hover:bg-secondary"
               >
                 {columns.map((column, colIndex) => (
                   <td key={colIndex} className="py-4 px-4">

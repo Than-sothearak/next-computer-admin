@@ -52,7 +52,7 @@ const CategoryForm = ({ catData, catId, categories }) => {
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+                className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
               />
               {state?.errors?.category && (
                 <p className="text-red-500 mt-1 ml-2">{state.errors.category}</p>
@@ -65,7 +65,7 @@ const CategoryForm = ({ catData, catId, categories }) => {
                 name="parentCategory"
                 value={formData.parentCategory}
                 onChange={handleChange}
-                className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+                className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
               >
                 <option value="">Select a parent category</option>
                 {categories.map(item => 

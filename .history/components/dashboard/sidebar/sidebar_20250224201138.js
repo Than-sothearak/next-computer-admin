@@ -23,25 +23,25 @@ export const Sidebar = () => {
 
       {/* Sidebar */}
       <div 
-        className={`bg-slate-800 p-4 w-64 min-h-screen fixed top-0 left-0 z-50 transform transition-transform duration-300 ease-in-out
+        className={`bg-primary p-4 w-64 min-h-screen fixed top-0 left-0 z-50 transform transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full"} 
         `}
       >
         {/* Close Button (Only for Mobile) */}
         <div className="flex justify-between items-center mb-4 lg:hidden">
-          <span className="text-white text-lg font-semibold">Menu</span>
+          <span className="text-primarytext text-lg font-semibold">Menu</span>
           <button 
             onClick={() => setIsOpen(false)}
             aria-label="Close Sidebar"
             title="Close Sidebar"
-            className="text-white"
+            className="text-primarytext"
           >
             <IoClose size={28} />
           </button>
         </div>
 
         {/* Profile Section */}
-        <div className="p-4 bg-red-900 text-white">Profile</div>
+        <div className="p-4 bg-red-900 text-primarytext">Profile</div>
 
         {/* Navigation */}
         <SidebarList navList={pageNavigation} />

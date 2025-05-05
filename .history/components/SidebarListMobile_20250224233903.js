@@ -6,7 +6,7 @@ export const SidebarListMobile = ({navList}) => {
     const pathName = usePathname();
   return (
     <div className="mt-4 z-10">
-    <ul className="bg-slate-800 flex flex-col gap-1 mt-2 cursor-pointer">
+    <ul className="bg-primary flex flex-col gap-1 mt-2 cursor-pointer">
       {navList.links.map((item) => (
         <Link
         title={item.name}

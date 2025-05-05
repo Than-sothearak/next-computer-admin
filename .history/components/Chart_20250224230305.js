@@ -49,7 +49,7 @@ const data = [
 
 const Chart = () => {
   return (
-    <div className='mt-4 rounded-lg bg-slate-800 p-4'>
+    <div className='mt-4 rounded-lg bg-primary p-4'>
         <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}

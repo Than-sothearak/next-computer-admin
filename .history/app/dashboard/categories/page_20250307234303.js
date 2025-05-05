@@ -19,7 +19,7 @@ export default async function CategoryPage ({ searchParams}) {
 
   const categories = JSON.parse(JSON.stringify(fecthCategories));
  
-    return <div className="overflow-x-auto p-4 bg-slate-800 mt-4 rounded-lg">
+    return <div className="overflow-x-auto p-4 bg-primary mt-4 rounded-lg">
     <div className="flex justify-between items-center gap-4">
     <div> <SearchCompoenent placeHolder="Search for category..." linkPage="/dashboard/categories"/></div>
     <Link href="/dashboard/categories/add" className="bg-blue-500 px-2 py-1 rounded-md hover:bg-blue-900 text-sm text-center">Add new</Link>
@@ -30,9 +30,9 @@ export default async function CategoryPage ({ searchParams}) {
         columns={categoryColumns}
       />
     <div className="flex justify-between">
-      <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-slate-700">Previus</button>
+      <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-secondary">Previus</button>
 
-      <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-slate-700">Next</button>
+      <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-secondary">Next</button>
     </div>
   </div>
 }

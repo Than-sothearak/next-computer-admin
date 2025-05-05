@@ -22,7 +22,7 @@ export default function ProductPropertyForm({ categoryProperties, setCurrentProp
   };
 
   return (
-    <div className="bg-slate-800 w-full rounded-lg border p-4 border-slate-600">
+    <div className="bg-primary w-full rounded-lg border p-4 border-slate-600">
       <h1 className="text-lg font-bold mb-2">Product Properties</h1>
       <span className="text-xs italic">*Note: Select parent category to get properties</span>
 
@@ -37,7 +37,7 @@ export default function ProductPropertyForm({ categoryProperties, setCurrentProp
               </button>
             </div>
             <select
-              className="w-full p-2 rounded-md bg-slate-700 text-xs"
+              className="w-full p-2 rounded-md bg-secondary text-xs"
               onChange={(e) => handleChange(index, "value", e.target.value)}
             >
               <option value="">Select</option>
@@ -45,7 +45,7 @@ export default function ProductPropertyForm({ categoryProperties, setCurrentProp
             </select>
             {!values[index] && (
               <input
-                className="w-full p-2 rounded-md bg-slate-700 text-xs"
+                className="w-full p-2 rounded-md bg-secondary text-xs"
                 type="text"
                 placeholder="Enter value..."
                 onChange={(e) => handleChange(index, "value", e.target.value)}
@@ -67,14 +67,14 @@ export default function ProductPropertyForm({ categoryProperties, setCurrentProp
             </div>
             <div className="flex gap-2">
               <input
-                className="w-full p-2 rounded-md bg-slate-700 text-xs"
+                className="w-full p-2 rounded-md bg-secondary text-xs"
                 type="text"
                 placeholder="Enter part..."
                 value={item.part}
                 onChange={(e) => handleChange(index, "part", e.target.value)}
               />
               <input
-                className="w-full p-2 rounded-md bg-slate-700 text-xs"
+                className="w-full p-2 rounded-md bg-secondary text-xs"
                 type="text"
                 placeholder="Enter value..."
                 value={item.value}
@@ -86,7 +86,7 @@ export default function ProductPropertyForm({ categoryProperties, setCurrentProp
       </div>
 
       <button onClick={() => setProperties([...properties, { part: "", value: "" }])} 
-        className="mt-3 flex items-center gap-1 bg-blue-600 text-white px-3 py-1 rounded text-sm">
+        className="mt-3 flex items-center gap-1 bg-blue-600 text-primarytext px-3 py-1 rounded text-sm">
         <BiPlus /> Add Property
       </button>
     </div>

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 export const Navbar = () => {
   const pathName = usePathname()
   return (
-    <div className="bg-slate-800 py-6 px-4 rounded-lg w-full flex justify-between items-center">
+    <div className="bg-primary py-6 px-4 rounded-lg w-full flex justify-between items-center">
       <div>
         <h2 className="capitalize font-bold">{pathName.split("/").pop()}</h2>
       </div>

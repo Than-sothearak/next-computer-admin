@@ -22,7 +22,7 @@ const userPage = async ({ searchParams }) => {
   const users = JSON.parse(JSON.stringify(fecthUsers));
 
   return (
-    <div className="p-4 justify-center bg-slate-800 mt-4 rounded-lg">
+    <div className="p-4 justify-center bg-primary mt-4 rounded-lg">
       <div className="flex justify-between items-center gap-4">
         <div>
          
@@ -33,7 +33,7 @@ const userPage = async ({ searchParams }) => {
         </div>
         <Link
           href="/dashboard/users/add"
-          className="bg-blue-500 px-2 py-1 text-center rounded-md hover:bg-blue-900 text-sm"
+          className="bg-blue-500 px-2 py-1 text-center rounded-md hover:bg-blue-900 text-sm text-secondarytext"
         >
           Add new
         </Link>
@@ -44,11 +44,11 @@ const userPage = async ({ searchParams }) => {
   <TableComponent data={users} pageName="users" columns={userColumns} session={session} />
 
       {/* Pagination Buttons */}
-      <div className="flex justify-between">
-        <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-slate-700">
+      <div className="flex justify-between text-secondarytext">
+        <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-secondary">
           Previous
         </button>
-        <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-slate-700">
+        <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-secondary">
           Next
         </button>
       </div>

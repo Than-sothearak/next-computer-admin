@@ -40,7 +40,7 @@ export default function ChooseImageFile({files ,setFiles}) {
           <div className="flex justify-center w-full">
             <label
               htmlFor="fileInput"
-              className="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-200"
+              className="cursor-pointer bg-blue-600 text-primarytext px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-200"
             >
               Choose Image
             </label>
@@ -84,7 +84,7 @@ export default function ChooseImageFile({files ,setFiles}) {
                >
                  <BiTrash
                    className="duration-300 rounded-full p-2 w-9 h-9
-                transform hover:scale-125 scale-100 bg-black opacity-50 hover:opacity-90 hover:text-white "
+                transform hover:scale-125 scale-100 bg-black opacity-50 hover:opacity-90 hover:text-primarytext "
                    size={20}
                  />
                </button>

@@ -28,7 +28,7 @@ export default function ChooseSingleImageFile({imageUrl}) {
               />
               <button
                 onClick={() => setEditClicked(true)}
-                className="p-2 bg-slate-600 rounded-full absolute -bottom-2 left-1/2 transform -translate-x-1/2"
+                className="p-2 text-secondarytext bg-slate-600 rounded-full absolute -bottom-2 left-1/2 transform -translate-x-1/2"
                 type="button"
               >
                 <BiPencil />
@@ -37,10 +37,10 @@ export default function ChooseSingleImageFile({imageUrl}) {
           )}
         </div>
       ) : (
-        <div className="p-2 rounded-lg bg-slate-700 relative">
+        <div className="p-2 rounded-lg bg-secondary relative">
           <button
             onClick={() => setEditClicked(prev => !prev)}
-            className="p-2 bg-slate-600 rounded-full absolute -bottom-2 left-1/2 transform -translate-x-1/2"
+            className="p-2 bg-slate-600 text-secondarytext rounded-full absolute -bottom-2 left-1/2 transform -translate-x-1/2"
             type="button"
           >
             <BiPencil />
@@ -62,7 +62,7 @@ export default function ChooseSingleImageFile({imageUrl}) {
                name="image"
               type="file"
               accept="image/*"
-              className="w-full mt-4 p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+              className="w-full mt-4 p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
             />
           <p className="text-xs italic text-center mt-2">Choose file size below 1MB</p>
            </div>

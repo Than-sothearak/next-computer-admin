@@ -67,7 +67,7 @@ export default function AddCategory() {
   };
 
   return (
-    <div className="p-4 bg-slate-800 mt-4 rounded-lg">
+    <div className="p-4 bg-primary mt-4 rounded-lg">
       <form action={action} className="space-y-2 text-sm">
         <div className="grid gap-4">
           <div>
@@ -80,14 +80,14 @@ export default function AddCategory() {
                   name="category"
                   defaultValue={category}
                   onChange={handleCategoryChange}
-                  className="w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                  className="w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 />
               </div>
               <div className="w-full flex flex-col gap-2">
                 <label className="block font-medium">Parent Category</label>
                 <select
                   onChange={handleParentCategoryChange}
-                  className="w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                  className="w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 >
                   <option value="" name="parentCategory">Select a parent category</option>
                   <option value="Iwatch"  name="parentCategory">Iwatch</option>
@@ -121,7 +121,7 @@ export default function AddCategory() {
                           name="part"
                           defaultValue={part.part}
                           onChange={(e) => handlePartChange(index, e.target.value)}
-                          className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+                          className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
                           placeholder="Enter part (e.g., RAM)"
                         />
                       </div>
@@ -135,7 +135,7 @@ export default function AddCategory() {
                           name="value"
                           defaultValue={part.newValue}
                           onChange={(e) => handleValueChange(index, e.target.value)}
-                          className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+                          className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
                           placeholder="Enter value (e.g., 16GB, 32GB)"
                         />
 
@@ -144,14 +144,14 @@ export default function AddCategory() {
                           name="value"
                           defaultValue={part.newValue}
                           onChange={(e) => handleValueChange(index, e.target.value)}
-                          className="w-full p-2 rounded-md bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+                          className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
                           placeholder="Enter value (e.g., 16GB, 32GB)"
                         />
                       </div>
                         
                         <button
                           type="button"
-                          className="bg-green-500 text-white px-3 py-1 rounded h-10"
+                          className="bg-green-500 text-primarytext px-3 py-1 rounded h-10"
                           onClick={() => addValue(index)}
                         >
                           +
@@ -173,7 +173,7 @@ export default function AddCategory() {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded"
+          className="w-full bg-blue-600 text-primarytext py-2 rounded"
         >
           Add Category
         </button>

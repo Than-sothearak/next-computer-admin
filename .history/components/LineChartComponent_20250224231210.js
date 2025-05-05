@@ -50,7 +50,7 @@ const Data = [
 
 export default function LineChartComponent() {
     return (
-      <div className='mt-4 p-4 bg-slate-800 rounded-lg'>
+      <div className='mt-4 p-4 bg-primary rounded-lg'>
         <h1 className="text-2xl text-slate-300">Last Transactions</h1>
         <div className='mt-4'>
         <ResponsiveContainer width="100%" height={400}>

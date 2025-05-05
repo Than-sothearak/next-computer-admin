@@ -30,7 +30,7 @@ const ChangPasswordForm = ({ userId, userData}) => {
   <button
       onClick={() => setIsClicked((prv) => !prv)}
       type="button"
-      className="hover:text-blue-500 flex justify-center items-center gap-2 text-sm font-bold text-white mb-1 text-center rounded-md"
+      className="hover:text-blue-500 flex justify-center items-center gap-2 text-sm font-bold text-primarytext mb-1 text-center rounded-md"
     >
          <MdOutlineLock  size={24}/>
       Password
@@ -40,7 +40,7 @@ const ChangPasswordForm = ({ userId, userData}) => {
     {/* <p>Password change successfully</p> */}
 
     {isCLicked && (
-      <div className="bg-slate-700 rounded-2xl w-1/2 max-md:w-full p-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+      <div className="bg-secondary rounded-2xl w-1/2 max-md:w-full p-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
         <div className="flex flex-col">
           <div className="flex justify-end">
             <button
@@ -60,7 +60,7 @@ const ChangPasswordForm = ({ userId, userData}) => {
             <div>
               <label
                 htmlFor="address"
-                className="text-start block text-sm font-bold text-white mb-1"
+                className="text-start block text-sm font-bold text-primarytext mb-1"
               >
                 Old password
               </label>
@@ -79,7 +79,7 @@ const ChangPasswordForm = ({ userId, userData}) => {
                     ? "Please enter your old password!"
                     : "Create a password aleat 6 charactors"
                 }
-                className="bg-slate-700 border w-full px-4 py-2.5 rounded-lg transition-all appearance-none bg-transparent outline-none focus:ring-2 focus:border-none"
+                className="bg-secondary border w-full px-4 py-2.5 rounded-lg transition-all appearance-none bg-transparent outline-none focus:ring-2 focus:border-none"
               />
                {state?.errors?.oldPassword && (
                   <p className="mt-1 text-sm text-red-500">
@@ -91,7 +91,7 @@ const ChangPasswordForm = ({ userId, userData}) => {
             <div>
               <label
                 htmlFor="address"
-                className="text-start block text-sm font-bold text-white mb-1"
+                className="text-start block text-sm font-bold text-primarytext mb-1"
               >
                 New password
               </label>
@@ -108,7 +108,7 @@ const ChangPasswordForm = ({ userId, userData}) => {
                     ? "Create a new password aleat 6 charactors"
                     : "Create a password aleat 6 charactors"
                 }
-                className="bg-slate-700 border w-full px-4 py-2.5 rounded-lg transition-all appearance-none bg-transparent outline-none focus:ring-2 focus:border-none"
+                className="bg-secondary border w-full px-4 py-2.5 rounded-lg transition-all appearance-none bg-transparent outline-none focus:ring-2 focus:border-none"
               />
                {state?.errors?.newPassword && (
                   <p className="mt-1 text-sm text-red-500">

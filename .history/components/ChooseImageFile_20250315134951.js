@@ -29,7 +29,7 @@ export default function ChooseImageFile() {
       <div
         className={`${
           files.length <= 0 ? "" : ""
-        }  flex  items-center justify-center gap-4 bg-slate-700 mt-2 rounded-md py-10`}
+        }  flex  items-center justify-center gap-4 bg-secondary mt-2 rounded-md py-10`}
       >
         <div className="flex justify-center items-center gap-8 flex-col border-dashed border-slate-600 mt-2 rounded-md border-2 p-4">
           <div className=""> <BiUpload size={28} /></div>
@@ -40,7 +40,7 @@ export default function ChooseImageFile() {
           <div className="flex justify-center w-full">
             <label
               htmlFor="image-upload"
-              className="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-200"
+              className="cursor-pointer bg-blue-600 text-primarytext px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-200"
             >
               Choose Image
             </label>

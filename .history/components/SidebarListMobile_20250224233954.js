@@ -12,7 +12,7 @@ export const SidebarListMobile = ({navList}) => {
         title={item.name}
           href={item.path}
           key={item.path}
-          className={` flex gap-2 justify-start items-center hover:bg-slate-700 ${
+          className={` flex gap-2 justify-start items-center hover:bg-secondary ${
             pathName === item.path ? "bg-slate-500 hover:bg-slate-500" : "bg-balck "
           } rounded-xl px-4 py-4`}
         >

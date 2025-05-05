@@ -7,7 +7,7 @@ export default async function DashboardLayout({ children }) {
   const session = await auth();
   return (
     <div className="flex">
-      <div className="bg-slate-800 h-screen">
+      <div className="bg-primary h-screen">
         <Sidebar session={session}/>
       </div>
       <div className="w-full overflow-x-auto lg:mx-4">

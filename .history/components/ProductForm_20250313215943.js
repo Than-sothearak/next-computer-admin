@@ -56,7 +56,7 @@ console.log(formData)
     <div className=" mt-4 rounded-lg">
       <form action={action} className="space-y-2 text-sm">
         <div className="flex max-lg:flex-wrap gap-4">
-          <div className="space-y-4 w-full p-4 bg-slate-800 rounded-lg">
+          <div className="space-y-4 w-full p-4 bg-primary rounded-lg">
             <h1 className="font-bold text-lg">Basic Infomation</h1>
             <div className="space-y-4">
               <div>
@@ -67,7 +67,7 @@ console.log(formData)
                   type="text"
                   name="brandName"
                   placeholder="Enter brand name..."
-                  className="w-full p-2 rounded-md mt-2 bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                  className="w-full p-2 rounded-md mt-2 bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 />
                 {state?.errors?.brandName && (
                   <p className="text-red-500 mt-2">{state.errors.brandName}</p>
@@ -81,7 +81,7 @@ console.log(formData)
                     required
                     defaultValue={formData?.category}
                     onChange={handleChange}
-                    className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+                    className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
                   >
                     {formData?.category && (
                       <option value={formData?.category._id}>
@@ -108,7 +108,7 @@ console.log(formData)
                     placeholder="202.09$"
                     type="number"
                     defaultValue={formData?.price}
-                    className="w-full p-2 rounded-md mt-2 bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                    className="w-full p-2 rounded-md mt-2 bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                   />
                   {state?.errors?.price && (
                     <p className="text-red-500 mt-2">{state.errors.price}</p>
@@ -123,7 +123,7 @@ console.log(formData)
                   onChange={handleChange}
                   value={formData?.productName}
                   placeholder="Enter product name..."
-                  className="mt-2 w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                  className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 />
                 {state?.errors?.productName && (
                   <p className="text-red-500 mt-2">
@@ -140,7 +140,7 @@ console.log(formData)
                   placeholder="Enter stock"
                   name="stock"
                   type="number"
-                  className="mt-2 w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                  className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 />
                 {state?.errors?.stock && (
                   <p className="text-red-500 mt-2">{state.errors.stock}</p>
@@ -153,7 +153,7 @@ console.log(formData)
               <textarea
                 name="decription"
                 placeholder="Write a product decrition"
-                className="mt-2 w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 rows="4"
               ></textarea>
             </div>
@@ -164,8 +164,8 @@ console.log(formData)
             <ChooseImageFile />
           </div>
           <div className="max-xl:w-1/2 max-lg:w-full flex flex-col gap-4">
-            <div className=" bg-slate-800 p-4 w-full flex  flex-col  gap-4 rounded-lg">
-              <div className="space-y-4 w-full bg-slate-800 rounded-lg">
+            <div className=" bg-primary p-4 w-full flex  flex-col  gap-4 rounded-lg">
+              <div className="space-y-4 w-full bg-primary rounded-lg">
                 <h1 className="text-lg font-bold">Visibility</h1>
               </div>
               <div className="flex gap-4 items-center">
@@ -189,12 +189,12 @@ console.log(formData)
               </p>
             </div>
 
-            <div className=" bg-slate-800 p-4 w-full flex  flex-col  gap-4 rounded-lg">
-              <div className="space-y-4 w-full bg-slate-800 rounded-lg">
+            <div className=" bg-primary p-4 w-full flex  flex-col  gap-4 rounded-lg">
+              <div className="space-y-4 w-full bg-primary rounded-lg">
                 <h1 className="text-lg font-bold">Parent Category</h1>
               </div>
               <select
-                className=" w-full p-2 rounded-md bg-slate-700 border-none border-white text-xs focus:ring-0 focus:outline-none"
+                className=" w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 name="parentCategory"
                 defaultValue={formData?.parentCategory}
                 onChange={formData?.parentCategory ? handleChange : handleCategoryChange}
@@ -215,8 +215,8 @@ console.log(formData)
                 Select a category that will be the parent of the current one.
               </p>
             </div>
-            <div className=" bg-slate-800 p-4 w-full flex  flex-col  gap-4 rounded-lg">
-              <div className="flex justify-start items-center gap-2 w-full bg-slate-800">
+            <div className=" bg-primary p-4 w-full flex  flex-col  gap-4 rounded-lg">
+              <div className="flex justify-start items-center gap-2 w-full bg-primary">
                 <div>
                   <h1 className="text-lg font-bold">Product Image</h1>
                 </div>

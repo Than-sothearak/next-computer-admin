@@ -42,7 +42,7 @@ export default function UserForm({ userId, userData }) {
   return (
     <form
     action={action}
-    className="w-[978px] max-2xl:w-full mx-auto p-4 bg-slate-800 mt-4 rounded-lg"
+    className="w-[978px] max-2xl:w-full mx-auto p-4 bg-primary mt-4 rounded-lg"
   >
     <div className="flex w-full gap-6 mb-6 max-md:flex-wrap justify-center">
       <div>
@@ -63,7 +63,7 @@ export default function UserForm({ userId, userData }) {
               defaultValue={formData?.name}
               onChange={handleChange}
               placeholder="Enter your name"
-              className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+              className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
             />
             {state?.errors?.name && (
               <p className="text-red-500 mt-2">{state.errors.name}</p>
@@ -81,7 +81,7 @@ export default function UserForm({ userId, userData }) {
               defaultValue={formData?.email}
               onChange={handleChange}
               placeholder="Enter your email address"
-              className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+              className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
             />
             {state?.errors?.email && (
               <p className="text-red-500 mt-2">{state.errors.email}</p>
@@ -101,7 +101,7 @@ export default function UserForm({ userId, userData }) {
               defaultValue={formData?.phone}
               onChange={handleChange}
               placeholder="Enter your phone number"
-              className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+              className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
             />
             {state?.errors?.phone && (
               <p className="text-red-500 mt-2">{state.errors.phone}</p>
@@ -117,7 +117,7 @@ export default function UserForm({ userId, userData }) {
               defaultValue={formData.address}
               onChange={handleChange}
               placeholder="Enter your address"
-              className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+              className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
             />
             {state?.errors?.address && (
               <p className="text-red-500 mt-2">{state.errors.address}</p>
@@ -134,7 +134,7 @@ export default function UserForm({ userId, userData }) {
               defaultValue={formData?.password}
               onChange={handleChange}
               placeholder="Leave empty to keep current password"
-              className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+              className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
             />
             {state?.errors?.password && (
               <p className="text-red-500 mt-2">{state.errors.password}</p>
@@ -148,7 +148,7 @@ export default function UserForm({ userId, userData }) {
               id="role"
               defaultValue={formData?.role}
               onChange={handleChange}
-              className="w-full p-2 rounded-md bg-slate-700 border-none text-xs focus:ring-0 focus:outline-none"
+              className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
             >
               <option value="user">User</option>
               <option value="admin">Admin</option>

@@ -11,10 +11,10 @@ export const Navbar = () => {
 
   const currentPathname = pathName.split("/").pop();
   return (
-    <div className="bg-slate-800 py-4 px-4 w-full max-sm:block flex justify-between items-center overflow-hidden">
+    <div className="bg-primary py-4 px-4 w-full max-sm:block flex justify-between items-center overflow-hidden">
       <div className=" flex gap-4 items-center">
           <div className="mt-2 flex justify-center items-center sm:hidden">
-                    <span className="text-white text-lg font-semibold"></span>
+                    <span className="text-primarytext text-lg font-semibold"></span>
                     <button
                       onClick={() => setIsOpen(true)}
                       aria-label="Open Sidebar"
@@ -27,7 +27,7 @@ export const Navbar = () => {
           {pathArray.map((p, index) => {
             const linkPath = `/${pathArray.slice(0, index + 1).join("/")}`;
             return (
-              <Link href={linkPath} key={index} className={`flex gap-1 ${p === currentPathname ? 'text-white font-bold text-md': 'hover:text-white'}`}>
+              <Link href={linkPath} key={index} className={`flex gap-1 ${p === currentPathname ? 'text-primarytext font-bold text-md': 'hover:text-primarytext'}`}>
                 {p} <span>{index !== pathArray.length - 1 ? ">" : ""}</span>
               </Link>
             );

@@ -34,7 +34,7 @@ const ProductPage = () => {
   ];
 
   return (
-    <div className="p-4 bg-slate-800 mt-4 rounded-lg">
+    <div className="p-4 bg-primary mt-4 rounded-lg">
       <div className="flex justify-between items-center gap-4">
         <div>
           {" "}
@@ -56,11 +56,11 @@ const ProductPage = () => {
         columns={productColumns}
       />
       <div className="flex justify-between">
-        <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-slate-700">
+        <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-secondary">
           Previus
         </button>
 
-        <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-slate-700">
+        <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-secondary">
           Next
         </button>
       </div>

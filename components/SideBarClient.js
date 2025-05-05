@@ -20,7 +20,7 @@ const SideBarClient = ({session}) => {
     {/*small side */}
     <div className="lg:hidden ml-1 mt-4 z-50 max-sm:hidden">
     <div className="mt-2 flex justify-center items-center ">
-          <span className="text-white text-lg font-semibold"></span>
+          <span className="text-primarytext text-lg font-semibold"></span>
           <button
             onClick={handleClick}
             aria-label="Open Sidebar"

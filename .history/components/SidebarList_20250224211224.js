@@ -13,7 +13,7 @@ export const SidebarList = ({navList}) => {
         title={item.name}
           href={item.path}
           key={item.path}
-          className={`hover:bg-slate-700 flex gap-3 justify-start items-center ${
+          className={`hover:bg-secondary flex gap-3 justify-start items-center ${
             pathName === item.path ? "bg-slate-500 hover:bg-slate-500" : "bg-balck "
           } rounded-xl px-4 py-4`}
         >

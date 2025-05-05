@@ -8,7 +8,7 @@ const TableCategory = ({ data, columns, pageName }) => {
       {data.length !== 0 ? (
         <table className="w-full rounded-lg overflow-hidden text-sm">
           <thead>
-            <tr className="font-bold h-10 bg-slate-800">
+            <tr className="font-bold h-10 bg-primary">
               {columns.map((col, index) => (
                 <th key={index} className="py-2 text-left">
                   {col.header}
@@ -21,7 +21,7 @@ const TableCategory = ({ data, columns, pageName }) => {
             {data.map((rowCat, index) => (
               <tr
                 key={index}
-                className="border-b border-slate-700 hover:bg-slate-700 transition-all"
+                className="border-b border-slate-700 hover:bg-secondary transition-all"
               >
                 {columns.map((column, colIndex) => (
                   <td key={colIndex} className="w-10 py-4 text-clip">

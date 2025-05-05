@@ -23,12 +23,12 @@ export const Sidebar = () => {
 
       {/* Sidebar */}
       <div 
-        className={`bg-slate-800 p-4 w-full min-h-screen 
+        className={`bg-primary p-4 w-full min-h-screen 
           ${isOpen ? "block fixed top-0 left-0 w-64 z-50" : "max-lg:hidden"}
         `}
       >
         {/* Profile Section */}
-        <div className="p-4 bg-red-900 text-white">Profile</div>
+        <div className="p-4 bg-red-900 text-primarytext">Profile</div>
 
         {/* Navigation */}
         <SidebarList navList={pageNavigation} />

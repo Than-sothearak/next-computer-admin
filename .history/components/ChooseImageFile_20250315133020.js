@@ -36,7 +36,7 @@ export default function ChooseImageFile() {
          multiple
          name="images"
          type="file"
-         className="w-full p-2 rounded-md border-none bg-slate-700 text-xs focus:ring-0 focus:outline-none"
+         className="w-full p-2 rounded-md border-none bg-secondary text-xs focus:ring-0 focus:outline-none"
        />
      </div>
      {files.length <= 0 && <h1 className="text-slate-300 text-md">Upload image</h1>}

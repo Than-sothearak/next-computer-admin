@@ -21,7 +21,7 @@ export const Sidebar = () => {
       <div className="fixed top-4 left-4 z-50">
         <button
           onClick={handleClick}
-          className="text-white p-2 bg-gray-800 rounded-md"
+          className="text-primarytext p-2 bg-gray-800 rounded-md"
           aria-label="Toggle Sidebar"
         >
           {isOpen ? <IoClose size={28} /> : <IoMdMenu size={28} />}
@@ -30,11 +30,11 @@ export const Sidebar = () => {
 
       {/* Sidebar Container */}
       <div
-        className={`bg-slate-800 h-screen p-4 fixed top-0 left-0 z-40 transition-all duration-700 ease-in-out 
+        className={`bg-primary h-screen p-4 fixed top-0 left-0 z-40 transition-all duration-700 ease-in-out 
         ${isOpen ? "w-80" : "w-20"} max-lg:w-80 max-lg:translate-x-[-100%] lg:translate-x-0`}
       >
         {/* User Info */}
-        <div className={`cursor-pointer flex items-center gap-4 px-2 text-white ${!isOpen && "justify-center"}`}>
+        <div className={`cursor-pointer flex items-center gap-4 px-2 text-primarytext ${!isOpen && "justify-center"}`}>
           <img
             className="w-11 h-11 bg-cover rounded-full"
             src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"

@@ -9,7 +9,7 @@ export default function LastTransactionComponent () {
         Refunded: "bg-blue-100 text-blue-700",
       };
     return (
-        <div className="mt-4 rounded-lg bg-slate-800 p-4">
+        <div className="mt-4 rounded-lg bg-primary p-4">
         <h1 className="text-2xl text-slate-300">Last Transactions</h1>
         <div>
         <table className="w-full rounded-lg overflow-hidden">
