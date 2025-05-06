@@ -114,7 +114,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
             return (
               <div
               key={originIndex}
-              className={`border border-secondary p-2 rounded-md max-lg:w-full text-sm relative ${!checkIsPropertyEmpty[originIndex] ? '': ''}`}
+              className={`border border-secondary p-2 rounded-md max-lg:w-full text-sm relative ${!checkIsPropertyEmpty[originIndex] ? 'bg-secondary ': ''}`}
             >
               <div className="w-full flex gap-2 max-md:flex-wrap ">
                 <div className="w-full ">
@@ -128,7 +128,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                       onChange={(e) =>
                         handlePartChange(originIndex, e.target.value)
                       }
-                      className={`font-bold w-full p-2 rounded-md  text-xs focus:ring-0 focus:outline-none ${!checkIsPropertyEmpty[originIndex] ? 'bg-tertiary text-primary' : ''}`}
+                      className={`font-bold w-full p-2 rounded-md  text-xs focus:ring-0 focus:outline-none ${!checkIsPropertyEmpty[originIndex] ? 'bg-secondary' : ''}`}
                       placeholder="Enter value (e.g., CPU)"
                     />
                   </div>

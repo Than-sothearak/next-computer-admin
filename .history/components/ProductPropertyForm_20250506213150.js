@@ -73,7 +73,7 @@ export default function ProductPropertyForm({
         <div key={index} className="flex gap-2 flex-col border border-secondary p-2 rounded-md">
           <div className="">
           <div className="flex gap-4 justify-between">
-              <label className="font-bold">{items.part}</label>
+              <label>{items.part}</label>
               <button
                 title="Remove"
                 className=""
@@ -176,6 +176,7 @@ export default function ProductPropertyForm({
             className="flex flex-col gap-2 border border-secondary p-2 rounded-md"
             key={index}
           >
+          hhh
             <div className="flex gap-4 justify-between">
               <label>Part {index + 1}</label>
               <button

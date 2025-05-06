@@ -128,7 +128,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                       onChange={(e) =>
                         handlePartChange(originIndex, e.target.value)
                       }
-                      className={`font-bold w-full p-2 rounded-md  text-xs focus:ring-0 focus:outline-none ${!checkIsPropertyEmpty[originIndex] ? 'bg-tertiary text-primary' : ''}`}
+                      className="font-bold w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
                       placeholder="Enter value (e.g., CPU)"
                     />
                   </div>

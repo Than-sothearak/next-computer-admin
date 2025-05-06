@@ -1,11 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { BiPlusCircle } from "react-icons/bi";
-import { MdKeyboardArrowDown, MdOutlineDoNotDisturb } from "react-icons/md";
+import { MdOutlineDoNotDisturb } from "react-icons/md";
 
 const AddPropertyForm = ({ formData, setFormData }) => {
   const [isAddSpec, setIsAddSpec] = useState(false);
-  const [showValue, setShowValue] = useState(false)
 
   // Adds a new empty value for a part
   const addValue = (partIndex) => {
@@ -17,11 +16,6 @@ const AddPropertyForm = ({ formData, setFormData }) => {
       updatedProperties[partIndex].values.push(""); // Add new value slot
       setFormData((prev) => ({ ...prev, properties: updatedProperties }));
     }
-
-    setShowValue((prev) => ({
-      ...prev,
-      [partIndex]: true
-    }));
   };
 
   // Removes a value from the values array of a part
@@ -53,11 +47,6 @@ const AddPropertyForm = ({ formData, setFormData }) => {
     const updatedProperties = [...formData.properties];
     updatedProperties[index].part = value;
     setFormData((prev) => ({ ...prev, properties: updatedProperties }));
-
-    setShowValue((prev) => ({
-      ...prev,
-      [index]: value.trim() !== ""
-    }));
   };
 
   // Handles updating values inside parts
@@ -67,38 +56,23 @@ const AddPropertyForm = ({ formData, setFormData }) => {
     setFormData((prev) => ({ ...prev, properties: updatedProperties }));
   };
 
-  const checkIsPropertyEmpty = formData.properties.reduce((acc, item, index) => {
-    const isEmpty =
-      !item.part.trim() ||
-      !Array.isArray(item.values) ||
-      item.values.length === 0 ||
-      (item.values.length === 1 && !item.values[0].trim());
-  
-    acc[index] = isEmpty;
-    return acc;
-  }, {});
-
-  const anyPropertyEmpty = Object.values(checkIsPropertyEmpty).some(Boolean);
-
-  console.log(anyPropertyEmpty)
-
-  const toggleShowValue = (index) => {
-    setShowValue((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
-  };
+  const checkIsPropertyEmpty = formData.properties.some(item =>
+    !item.part.trim() ||
+    !Array.isArray(item.values) ||
+    item.values.length === 0 ||
+    (item.values.length === 1 && !item.values[0].trim())
+  );
 
   return (
     <div className="flex flex-col gap-2 mb-4">
       <button
         type="button"
-        className={`${anyPropertyEmpty ? 'cursor-not-allowed bg-blue-200' : 'hover:bg-blue-500 bg-blue-600'}  w-36 p-2 text-secondarytext rounded-md flex items-center gap-2 text-base hover:underline `}
+        className={`${checkIsPropertyEmpty ? 'cursor-not-allowed bg-blue-200' : 'hover:bg-blue-500 bg-blue-600'}  w-36 p-2 text-secondarytext rounded-md flex items-center gap-2 text-base hover:underline `}
         onClick={addPart}
         title="Click to add more property"
-        disabled={anyPropertyEmpty}
+        disabled={checkIsPropertyEmpty}
       >
-        {!anyPropertyEmpty ?  <BiPlusCircle /> :  <MdOutlineDoNotDisturb />}
+        {!checkIsPropertyEmpty ?  <BiPlusCircle /> :  <MdOutlineDoNotDisturb />}
         Add property
        
       </button>
@@ -114,11 +88,11 @@ const AddPropertyForm = ({ formData, setFormData }) => {
             return (
               <div
               key={originIndex}
-              className={`border border-secondary p-2 rounded-md max-lg:w-full text-sm relative ${!checkIsPropertyEmpty[originIndex] ? '': ''}`}
+              className={`border border-secondary p-2 rounded-md max-lg:w-full text-sm relative`}
             >
               <div className="w-full flex gap-2 max-md:flex-wrap ">
                 <div className="w-full ">
-                  <label className="w-full block font-medium">Part {partIndex + 1}</label>
+                  <label className="w-full block font-medium">Part</label>
                   <div className="mt-2">
                     <input
                       type="text"
@@ -128,38 +102,29 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                       onChange={(e) =>
                         handlePartChange(originIndex, e.target.value)
                       }
-                      className={`font-bold w-full p-2 rounded-md  text-xs focus:ring-0 focus:outline-none ${!checkIsPropertyEmpty[originIndex] ? 'bg-tertiary text-primary' : ''}`}
+                      className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
                       placeholder="Enter value (e.g., CPU)"
                     />
                   </div>
                 </div>
               </div>
               <div className="w-full mt-2">
-                <div className="flex justify-between gap-2 items-center">
+                <div className="flex gap-2 justify-start items-center">
                 
-                 <div>
-                 <label className="w-full block font-medium">
+                  <label className="w-full block font-medium">
                     Value {part.values.length}
                   </label>
-                 </div>
-                  <button type="button" title="Show value" onClick={() => toggleShowValue(originIndex)}>
-                  <div className="flex items-center justify-center">
-                 {!showValue[originIndex] ? <p> Show more </p>: <p> Hide </p>}<MdKeyboardArrowDown size={18}/>
-                  </div>
-                  </button>
                 </div>
-                <div className={`transition-all duration-300 ease-in-out overflow-y-auto ${
-    !showValue[originIndex]
-      ? "max-h-0 opacity-0"
-      : "max-h-[500px] opacity-100"
-  } mt-2 gap-2`}>
+                <div className="mt-2 flex gap-2 max-h-[240px] overflow-y-auto">
                   <div className="w-full flex flex-wrap gap-2 justify-between">
-                    {part.values.slice().reverse().map((value, valueIndex) => {
-                      const originValueIndex = part.values.length - 1 - valueIndex
-                      return (
-                        <div
+                    {part.values.map((value, valueIndex) => (
+                      <div
                         key={valueIndex}
-                        className={`flex w-full gap-2 `}
+                        className={`flex w-full gap-2 ${
+                          valueIndex === part.values.length - 1
+                            ? "order-first"
+                            : ""
+                        }`}
                       >
                         <input
                           required
@@ -168,8 +133,8 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                           value={value}
                           onChange={(e) =>
                             handleValueChange(
-                              originIndex,
-                              originValueIndex,
+                              partIndex,
+                              valueIndex,
                               e.target.value
                             )
                           }
@@ -183,15 +148,12 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                         <button
                           type="button"
                           className="bg-slate-500 text-secondarytext  px-3 py-1 rounded h-8 w-8 hover:bg-red-500"
-                          onClick={() => removeValue(originIndex, originValueIndex)}
+                          onClick={() => removeValue(partIndex, valueIndex)}
                         >
                           x
                         </button>
                       </div>
-                      )
-                    }
-                      
-                    )}
+                    ))}
                   </div>
              
                 </div>
@@ -199,7 +161,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                 <button
                     type="button"
                     className={`${part.values[part.values.length - 1] === "" ? 'cursor-not-allowed text-slate-400': 'hover:bg-blue-700 hover:text-primary text-blue-600 '} border px-3 py-1 rounded h-8 w-full mt-4 `}
-                    onClick={() => addValue(originIndex)}
+                    onClick={() => addValue(partIndex)}
                     disabled={part.values[part.values.length - 1] === ""}
                   >
                    Add more value
@@ -208,10 +170,9 @@ const AddPropertyForm = ({ formData, setFormData }) => {
               <button
                 type="button"
                 className="text-red-500 hover:text-primarytext hover:underline text-sm absolute right-0 top-0 p-2 rounded-full"
-                onClick={() => handleRemovePart(originIndex)}
+                onClick={() => handleRemovePart(partIndex)}
               >
                 X Remove
-             
               </button>
             </div>
             )

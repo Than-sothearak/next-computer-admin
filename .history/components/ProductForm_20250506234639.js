@@ -313,7 +313,7 @@ export default function ProductForm({
 
         <button
           type="submit"
-          disabled={isPending}
+          disabled={isPending || state?.errors}
           className={`p-2 bg-blue-600 text-secondarytext w-full mt-6 mb-10 hover:bg-blue-500 hover:text-slate-200 rounded-md ${
             isPending ? "opacity-50 cursor-not-allowed" : ""
           }`}

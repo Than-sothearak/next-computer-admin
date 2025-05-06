@@ -325,7 +325,7 @@ export default function ProductForm({
             : productId
             ? "Update"
             : "Add"}
-          
+            disabled={state?.errors}
         </button>
 
         {state?.success && (

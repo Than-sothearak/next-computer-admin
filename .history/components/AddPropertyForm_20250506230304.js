@@ -17,11 +17,6 @@ const AddPropertyForm = ({ formData, setFormData }) => {
       updatedProperties[partIndex].values.push(""); // Add new value slot
       setFormData((prev) => ({ ...prev, properties: updatedProperties }));
     }
-
-    setShowValue((prev) => ({
-      ...prev,
-      [partIndex]: true
-    }));
   };
 
   // Removes a value from the values array of a part
@@ -67,20 +62,12 @@ const AddPropertyForm = ({ formData, setFormData }) => {
     setFormData((prev) => ({ ...prev, properties: updatedProperties }));
   };
 
-  const checkIsPropertyEmpty = formData.properties.reduce((acc, item, index) => {
-    const isEmpty =
-      !item.part.trim() ||
-      !Array.isArray(item.values) ||
-      item.values.length === 0 ||
-      (item.values.length === 1 && !item.values[0].trim());
-  
-    acc[index] = isEmpty;
-    return acc;
-  }, {});
-
-  const anyPropertyEmpty = Object.values(checkIsPropertyEmpty).some(Boolean);
-
-  console.log(anyPropertyEmpty)
+  const checkIsPropertyEmpty = formData.properties.some(item =>
+    !item.part.trim() ||
+    !Array.isArray(item.values) ||
+    item.values.length === 0 ||
+    (item.values.length === 1 && !item.values[0].trim())
+  );
 
   const toggleShowValue = (index) => {
     setShowValue((prev) => ({
@@ -93,12 +80,12 @@ const AddPropertyForm = ({ formData, setFormData }) => {
     <div className="flex flex-col gap-2 mb-4">
       <button
         type="button"
-        className={`${anyPropertyEmpty ? 'cursor-not-allowed bg-blue-200' : 'hover:bg-blue-500 bg-blue-600'}  w-36 p-2 text-secondarytext rounded-md flex items-center gap-2 text-base hover:underline `}
+        className={`${checkIsPropertyEmpty ? 'cursor-not-allowed bg-blue-200' : 'hover:bg-blue-500 bg-blue-600'}  w-36 p-2 text-secondarytext rounded-md flex items-center gap-2 text-base hover:underline `}
         onClick={addPart}
         title="Click to add more property"
-        disabled={anyPropertyEmpty}
+        disabled={checkIsPropertyEmpty}
       >
-        {!anyPropertyEmpty ?  <BiPlusCircle /> :  <MdOutlineDoNotDisturb />}
+        {!checkIsPropertyEmpty ?  <BiPlusCircle /> :  <MdOutlineDoNotDisturb />}
         Add property
        
       </button>
@@ -114,7 +101,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
             return (
               <div
               key={originIndex}
-              className={`border border-secondary p-2 rounded-md max-lg:w-full text-sm relative ${!checkIsPropertyEmpty[originIndex] ? '': ''}`}
+              className={`border border-secondary p-2 rounded-md max-lg:w-full text-sm relative`}
             >
               <div className="w-full flex gap-2 max-md:flex-wrap ">
                 <div className="w-full ">
@@ -128,7 +115,7 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                       onChange={(e) =>
                         handlePartChange(originIndex, e.target.value)
                       }
-                      className={`font-bold w-full p-2 rounded-md  text-xs focus:ring-0 focus:outline-none ${!checkIsPropertyEmpty[originIndex] ? 'bg-tertiary text-primary' : ''}`}
+                      className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
                       placeholder="Enter value (e.g., CPU)"
                     />
                   </div>
@@ -211,7 +198,6 @@ const AddPropertyForm = ({ formData, setFormData }) => {
                 onClick={() => handleRemovePart(originIndex)}
               >
                 X Remove
-             
               </button>
             </div>
             )
