@@ -7,6 +7,7 @@ import { revalidatePath } from 'next/cache'
 
 export async function getCategories (query) {
   await mongoDb();
+
   await new Promise((resolve) => setTimeout(resolve, 500));
   try {
     if (query) {
@@ -18,6 +19,21 @@ export async function getCategories (query) {
     
   } catch (err) {
     console.error("Error fetching categories:", err);
+    return { error: "Failed to fetch due to a server error" };
+  }
+}
+
+export async function getSingleCategory (catId) { 
+  await mongoDb();
+  try {
+    if (!catId) {
+      return { error: "No category ID provided" };
+    }
+    const category = await Category.findById(catId);
+    return category;
+}
+catch (err) {
+    console.error("Error fetching category:", err);
     return { error: "Failed to fetch due to a server error" };
   }
 }

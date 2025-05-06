@@ -14,10 +14,14 @@ export const Navbar = ({session}) => {
     function handleClick () {
       setIsOpen(prev => !prev)
     }
+
   const pathName = usePathname();
   const pathArray = pathName.split("/").filter(Boolean);
 
   const currentPathname = pathName.split("/").pop();
+  
+  let name;
+
   return (
     <div className="bg-primary py-4 px-4 w-full max-sm:block flex justify-between items-center overflow-hidden">
       <div className="max-sm:mb-2 flex gap-4 items-center">
@@ -43,7 +47,7 @@ export const Navbar = ({session}) => {
                     : "hover:text-blue-500"
                 }`}
               >
-                {p} <span>{index !== pathArray.length - 1 ? ">" : ""}</span>
+               {p}<span>{index !== pathArray.length - 1 ? ">" : ""}</span>
               </Link>
             );
           })}
