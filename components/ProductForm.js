@@ -16,6 +16,7 @@ export default function ProductForm({
     brandName: product?.brandName || "",
     productName: product?.productName || "",
     category: product?.category || "",
+    description: product?.description || "",
     parentCategory: product?.parentCategory || "",
     stock: product?.stock || "",
     price: product?.price || "",
@@ -173,8 +174,9 @@ export default function ProductForm({
             <div>
               <label className="block font-medium">Description</label>
               <textarea
-                name="decription"
-                placeholder="Write a product decrition"
+                name="description"
+                defaultValue={formData?.description}
+                placeholder="Write a product description"
                 className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                 rows="4"
               ></textarea>

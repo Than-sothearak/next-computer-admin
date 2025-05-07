@@ -46,7 +46,7 @@ export async function addProduct(prevState, formData) {
     const price = formData.get("price");
     const stock = formData.get("stock");
     const status = formData.get("status");
-    const discription = formData.get("decription");
+    const discription = formData.get("discription");
     const parentCategory = formData.get("parentCategory");
     const imageFiles = formData.getAll("images");
     const properties = propertiesFormData(formData);
@@ -119,7 +119,7 @@ export async function updateProduct(productId, prevState, formData) {
     const price = formData.get("price");
     const stock = formData.get("stock");
     const status = formData.get("status");
-    const discription = formData.get("decription");
+    const description = formData.get("description");
     const parentCategory = formData.get("parentCategory");
     const imageFiles = formData.getAll("images");
     let removedImages = formData.getAll("removeImages") || [];
@@ -168,7 +168,7 @@ export async function updateProduct(productId, prevState, formData) {
       price,
       stock,
       status,
-      discription,
+      description,
       parentCategory,
       imageUrls,
       properties,
