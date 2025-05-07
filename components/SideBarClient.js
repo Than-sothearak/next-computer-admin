@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   analyticNavigation,
   pageNavigation,
@@ -9,17 +9,17 @@ import { SidebarListMobile } from "@/components/SidebarListMobile";
 import { useState } from "react";
 import SideBarMobile from "./SideBarMobile";
 
-const SideBarClient = ({session}) => {
-      const [isOpen, setIsOpen] = useState(false);
-     
-      function handleClick () {
-        setIsOpen(prev => !prev)
-      }
+const SideBarClient = ({ session, user}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleClick() {
+    setIsOpen((prev) => !prev);
+  }
   return (
     <>
-    {/*small side */}
-    <div className="lg:hidden ml-1 mt-4 z-50 max-sm:hidden">
-    <div className="mt-2 flex justify-center items-center ">
+      {/*small side */}
+      <div className="lg:hidden ml-1 mt-4 z-50 max-sm:hidden">
+        <div className="mt-2 flex justify-center items-center ">
           <span className="text-primarytext text-lg font-semibold"></span>
           <button
             onClick={handleClick}
@@ -29,22 +29,27 @@ const SideBarClient = ({session}) => {
             <IoMdMenu size={28} />
           </button>
         </div>
-      <SidebarListMobile navList={pageNavigation} />
-      <SidebarListMobile navList={analyticNavigation} />
-      <SidebarListMobile navList={userNavigation} />
-    </div>
+        <SidebarListMobile navList={pageNavigation} />
+        <SidebarListMobile navList={analyticNavigation} />
+        <SidebarListMobile navList={userNavigation} />
+      </div>
 
-    <SideBarMobile handleClick={handleClick} session={session} isOpen={isOpen} />
-
-    {/* Overlay (closes sidebar when clicked) */}
-    {isOpen && (
-      <div
-        className="fixed inset-0 bg-black bg-opacity-50 lg:hidden"
-        onClick={() => setIsOpen(false)}
+      <SideBarMobile
+        user={user}
+        handleClick={handleClick}
+        session={session}
+        isOpen={isOpen}
       />
-    )}
-  </>
-  )
-}
 
-export default SideBarClient
+      {/* Overlay (closes sidebar when clicked) */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 lg:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+    </>
+  );
+};
+
+export default SideBarClient;

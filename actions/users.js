@@ -129,7 +129,7 @@ export async function addUsers(prevState, formData) {
 
 export async function updateUser(userId, prevState, formData) {
   const session = await auth();
-  if (!session?.user?.isAdmin) {
+  if (!session?.user?.isAdmin && session?.user?._id !== userId) {
     return console.log("Access denied!")
   }
   await new Promise((resolve) => setTimeout(resolve, 500));
@@ -209,5 +209,5 @@ export async function updateUser(userId, prevState, formData) {
   }
 
     revalidatePath(`/dashboard/users/${userId}`);
-    redirect("/dashboard/users/");
+    redirect(`/dashboard/users/${userId}`);
 }

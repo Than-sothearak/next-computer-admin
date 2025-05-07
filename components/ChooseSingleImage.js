@@ -18,17 +18,17 @@ export default function ChooseSingleImageFile({imageUrl}) {
   return (
     <div className="">
       {file ? (
-        <div className="p-2 rounded-lg relative">
+        <div className="w-full flex justify-center p-2 rounded-full relative">
           {file.file.type.startsWith("image/") && (
             <>
               <img
                 src={file.preview}
-                className="w-60 h-52 object-cover rounded-lg w"
+                className="w-32 h-32 object-cover rounded-full bg-secondary p-1"
                 alt="Selected file preview"
               />
               <button
                 onClick={() => setEditClicked(true)}
-                className="p-2 text-secondarytext bg-slate-600 rounded-full absolute -bottom-2 left-1/2 transform -translate-x-1/2"
+                className="p-2 bg-slate-600 text-secondarytext rounded-full absolute -bottom-2 left-1/2 transform -translate-x-1/2"
                 type="button"
               >
                 <BiPencil />
@@ -37,17 +37,17 @@ export default function ChooseSingleImageFile({imageUrl}) {
           )}
         </div>
       ) : (
-        <div className="p-2 rounded-lg bg-secondary relative">
+        <div className="w-full flex justify-center p-2 rounded-full relative">
           <button
             onClick={() => setEditClicked(prev => !prev)}
-            className="p-2 bg-slate-600 text-secondarytext rounded-full absolute -bottom-2 left-1/2 transform -translate-x-1/2"
+            className="p-2 bg-slate-600 text-secondarytext rounded-full absolute -bottom-2 left-1/2 transform -translate-x-1/2 "
             type="button"
           >
             <BiPencil />
           </button>
           <img
             src={imageUrl || null}
-            className="w-60 h-52 object-cover rounded-lg"
+            className="w-32 h-32 object-cover rounded-full bg-secondary p-1"
             alt="Default profile"
           />
         </div>

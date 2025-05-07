@@ -9,7 +9,7 @@ export async function changePassword(userId, prevState, formData) {
 await mongoDb();
 const session = await auth();
 
-  if (!session?.user?.isAdmin) {
+  if (!session?.user?.isAdmin && session?.user?._id !== userId)  {
     return console.log("Access denied!")
   }
 
@@ -52,6 +52,6 @@ const session = await auth();
   } catch (err) {
   console.log(err)
   }
-  redirect("/dashboard/users/");
+  redirect("/dashboard/users/"+userId);
      
 }

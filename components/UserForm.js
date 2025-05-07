@@ -29,14 +29,14 @@ export default function UserForm({ userId, userData, session }) {
     });
   };
 
-  if (!session?.user?.isAdmin)
+  if (session?.user?.isAdmin === false && session?.user?._id !== userId)
     return (
       <div className="p-4 text-center text-red-500">
         <p>You are not authorize to this page!</p>
       </div>
     );
 
-  if (session?.user?.isAdmin)
+  if (session?.user?.isAdmin || session?.user?._id === userId) 
     return (
       <div
      

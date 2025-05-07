@@ -48,6 +48,7 @@ export const { auth, signIn, signOut } = NextAuth({
         token.imageUrl = user.imageUrl;
         token.email = user.email;
         token.isAdmin = user.isAdmin;
+        token._id = user._id;
       }
 
       return token;
@@ -55,6 +56,7 @@ export const { auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       if (token) {
         session.user = {
+          _id: token._id,
           username: token.username,
           email: token.email,
           imageUrl: token.imageUrl,
