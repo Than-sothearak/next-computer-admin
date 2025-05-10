@@ -1,5 +1,5 @@
 "use server";
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 import { User } from "@/models/User";
 import { mongoDb } from "@/utils/connectDB";
 import { deleteFileFromS3, uploadFileToS3 } from "@/utils/uploadFileToS3";
@@ -10,15 +10,24 @@ import { auth } from "@/auth";
 await mongoDb();
 
 
-export async function getUsers(query) {
+export async function getUsers(query, page) {
   await new Promise((resolve) => setTimeout(resolve, 500));
+  const ITEM_PER_PAGE = 10
+  
   try {
     if (query) {
-      return await User.find({
+      
+      const users = await User.find({
         $or: [{ username: { $regex: query, $options: "i" } }],
-      });
+      })
+      const count = users.length;
+      return { users, count }
     }
-    return await User.find().sort({ createdAt: -1 });
+
+    const count = await User.countDocuments();
+    const users = await User.find().sort({ createdAt: -1 }).limit(ITEM_PER_PAGE).skip(ITEM_PER_PAGE * (page-1));
+   
+    return { users, count }
   } catch (err) {
     console.error(err);
     throw new Error("Failed to fetch users!");

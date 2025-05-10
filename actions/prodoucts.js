@@ -6,11 +6,13 @@ import { revalidatePath } from "next/cache";
 import { deleteFileFromS3, uploadFileToS3 } from "@/utils/uploadFileToS3";
 await mongoDb();
 
-export async function getProduct(query) {
+export async function getProduct(query, page) {
+  const ITEM_PER_PAGE= 20;
   await new Promise((resolve) => setTimeout(resolve, 500));
+  
   try {
     if (query) {
-      return await Product.find({
+      const products = await Product.find({
         $or: [
           { productName: { $regex: query, $options: "i" } },
 
@@ -20,11 +22,15 @@ export async function getProduct(query) {
         .lean()
         .populate("category")
         .populate("parentCategory");
+        const count = products.length
+      return {products, count}
     }
-    return await Product.find()
-      .sort({ createdAt: -1 })
-      .populate("category")
-      .populate("parentCategory");
+    const products = await Product.find()
+    .sort({ createdAt: -1 })
+    .populate("category")
+    .populate("parentCategory").limit(ITEM_PER_PAGE).skip(ITEM_PER_PAGE * (page -1));
+    const count = await Product.countDocuments();
+    return {products, count}
   } catch (err) {
     console.error("Error fetching products:", err);
     return { error: "Failed to fetch due to a server error" };

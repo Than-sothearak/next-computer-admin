@@ -1,17 +1,21 @@
 import { getProduct } from "@/actions/prodoucts";
 import { auth } from "@/auth";
+import Pagination from "@/components/Pagination";
 import SearchComponent from "@/components/SearchComponent";
 import TableComponent from "@/components/TableComponent";
 import Link from "next/link";
 
-const productPage = async ({searchParams}) => {
-  const session = await auth()
-    const { query } = await searchParams;
-    const fecthProducts = await getProduct(query);
-    const products = JSON.parse(JSON.stringify(fecthProducts));
-    
+const productPage = async ({ searchParams }) => {
+  const session = await auth();
+  const { query } = await searchParams;
+
+  const { page } = (await searchParams) || 1;
+  const { products, count } = await getProduct(query, page);
+  const ITEM_PER_PAGE = 20;
+  const countPage = Math.ceil(parseFloat(count / ITEM_PER_PAGE)) || 1;
+ 
   const productColumns = [
-  
+    
     { header: "Name", accessor: "productName" },
     { header: "Price", accessor: "price" },
     { header: "Category", accessor: "category" },
@@ -19,12 +23,10 @@ const productPage = async ({searchParams}) => {
     { header: "Created At", accessor: "createdAt" },
   ];
 
-
   return (
     <div className="p-4 bg-primary mt-4 rounded-lg">
       <div className="flex justify-between items-center gap-4">
         <div>
-         
           <SearchComponent
             placeHolder="Search for product..."
             linkPage="/dashboard/products"
@@ -38,20 +40,15 @@ const productPage = async ({searchParams}) => {
         </Link>
       </div>
       <TableComponent
-      session={session}
-        data={products}
+        session={session}
+        data={JSON.parse(JSON.stringify(products))}
         pageName="products"
         columns={productColumns}
+        currentPage={page || 1}
+        itemPerPage={ITEM_PER_PAGE}
       />
-      <div className="flex justify-between">
-        <button className="text-sm bg-slate-500 text-secondarytext  px-2 py-1 rounded-md hover:bg-secondary">
-          Previus
-        </button>
-
-        <button className="text-sm bg-slate-500 text-secondarytext px-2 py-1 rounded-md hover:bg-secondary">
-          Next
-        </button>
-      </div>
+      {/* Pagination Buttons */}
+      <Pagination totalPages={countPage} currentPage={page} query={query} />
     </div>
   );
 };

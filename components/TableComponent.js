@@ -6,7 +6,7 @@ import { useFormStatus } from "react-dom";
 import Image from "next/image";
 import { useSession } from "next-auth/react"
 
-const TableComponent = ({ data, columns, pageName, session}) => {
+const TableComponent = ({ data, columns, pageName, session, currentPage, itemPerPage}) => {
 
     const { pending } = useFormStatus();
     
@@ -21,9 +21,11 @@ const TableComponent = ({ data, columns, pageName, session}) => {
     <div className="overflow-y-clip overflow-x-auto">
       <h1 className="mt-4">Total: {data.length}</h1>
       {optimisticData.length !== 0 ? (
-        <table className="my-4 w-full text-sm">
+        <table className="my-4 w-full text-sm" >
           <thead>
+           
             <tr className="font-bold h-10">
+              <td>No</td>
               {columns.map((col, index) => (
                 <td key={index} className="px-4">
                   {col.header}
@@ -39,6 +41,7 @@ const TableComponent = ({ data, columns, pageName, session}) => {
                 key={index}
                 className="border-b border-secondary hover:bg-secondary"
               >
+<td>{(Number(currentPage)-1) * itemPerPage + index +1}</td>
                 {columns.map((column, colIndex) => (
                   <td key={colIndex} className="py-4 px-4">
                   <div className="flex gap-2 justify-start items-center">
@@ -54,17 +57,20 @@ const TableComponent = ({ data, columns, pageName, session}) => {
                        className="rounded-sm object-cover"
                      /></div>
                     )}
-                     {column.accessor === "category" ? (
-                       
-                       <>
-                         {row.category?.category || "No Category"}
-                       </>
-                   
-                    ) : (
-                     
-                      <> {column.accessor ? column.accessor === "isAdmin" ? row[column.accessor] ? "Admin": "user" : row[column.accessor] 
-                        : row[column.header]}</>
-                    )}
+                {/* Name column (truncated) */}
+      {column.accessor === "productName" ? (
+        <span className="truncate overflow-hidden whitespace-nowrap max-w-[150px] block">
+          {row[column.accessor]}
+        </span>
+      ) : column.accessor === "category" ? (
+        row.category?.category || "No Category"
+      ) : (
+        column.accessor
+          ? column.accessor === "isAdmin"
+            ? row[column.accessor] ? "Admin" : "User"
+            : row[column.accessor]
+          : row[column.header]
+      )}
                   
                   </div>
                   </td>

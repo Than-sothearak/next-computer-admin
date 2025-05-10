@@ -4,13 +4,18 @@ import React from "react";
 import { getUsers } from "@/actions/users";
 import TableComponent from "@/components/TableComponent";
 import { auth } from "@/auth";
+import Pagination from "@/components/Pagination";
 
 const userPage = async ({ searchParams }) => {
-  const { query } = await searchParams;
-  const fecthUsers = await getUsers(query);
   const session = await auth();
+  const { query } = await searchParams;
   
-
+  const {page} = await searchParams || 1;
+  const {users, count} = await getUsers(query, page);
+  const ITEM_PER_PAGE = 10
+  const countPage = Math.ceil(parseFloat(count/ITEM_PER_PAGE)) || 1;
+  
+  
   const userColumns = [
    
     { header: "Username", accessor: "username" },
@@ -19,7 +24,6 @@ const userPage = async ({ searchParams }) => {
     { header: "Role", accessor: "isAdmin" },
   ];
 
-  const users = JSON.parse(JSON.stringify(fecthUsers));
 
   return (
     <div className="p-4 justify-center bg-primary mt-4 rounded-lg">
@@ -41,17 +45,13 @@ const userPage = async ({ searchParams }) => {
       
 
       {/* Users Table */}
-  <TableComponent data={users} pageName="users" columns={userColumns} session={session} />
+  <TableComponent 
+  currentPage={page || 1}
+  itemPerPage={ITEM_PER_PAGE}
+  data={JSON.parse(JSON.stringify(users))} pageName="users" columns={userColumns} session={session} />
 
       {/* Pagination Buttons */}
-      <div className="flex justify-between text-secondarytext">
-        <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-secondary">
-          Previous
-        </button>
-        <button className="text-sm bg-slate-500 px-2 py-1 rounded-md hover:bg-secondary">
-          Next
-        </button>
-      </div>
+      <Pagination totalPages={countPage} currentPage={page} query={query} />
     </div>
   );
 };
