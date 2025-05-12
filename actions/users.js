@@ -135,7 +135,7 @@ export async function addUsers(prevState, formData) {
   redirect("/dashboard/users/");
 }
 
-
+    
 export async function updateUser(userId, prevState, formData) {
   const session = await auth();
   if (!session?.user?.isAdmin && session?.user?._id !== userId) {

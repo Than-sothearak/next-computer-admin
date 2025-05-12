@@ -1,4 +1,5 @@
 import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
+import sharp from "sharp";
 
 const s3Client = new S3Client({
   region: "ap-southeast-1",
@@ -12,12 +13,29 @@ const s3Client = new S3Client({
 export async function uploadFileToS3(file) {
   try {
     const fileName = `${Date.now()}-${file.name}`;
+    
+    // Convert file to Buffer
+    const fileBuffer = Buffer.isBuffer(file) ? file : Buffer.from(await file.arrayBuffer());
+
+    // Compress and resize the image to ensure it's under 500 KB
+    let compressedImageBuffer = await sharp(fileBuffer)
+      .resize({ width: 1024 }) // Resize to a max width of 1024px (adjust as needed)
+      .jpeg({ quality: 80 }) // Set JPEG quality to 80%
+      .toBuffer();
+
+    // Check if the compressed image exceeds 500 KB
+    while (compressedImageBuffer.length > 500 * 1024) {
+      compressedImageBuffer = await sharp(compressedImageBuffer)
+        .jpeg({ quality: Math.max(10, Math.floor((compressedImageBuffer.length / 500) * 80)) }) // Reduce quality further
+        .toBuffer();
+    }
+
     const params = {
       Bucket: process.env.AWS_S3_BUCKET,
       ACL: "public-read", // Remove this if you don't want public access
       Key: `${fileName}`,
-      Body: Buffer.from(await file.arrayBuffer()),
-      ContentType: file.type,
+      Body: compressedImageBuffer,
+      ContentType: "image/jpeg",
     };
 
     await s3Client.send(new PutObjectCommand(params));
