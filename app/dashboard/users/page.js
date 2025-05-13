@@ -51,7 +51,9 @@ const userPage = async ({ searchParams }) => {
   data={JSON.parse(JSON.stringify(users))} pageName="users" columns={userColumns} session={session} />
 
       {/* Pagination Buttons */}
-      <Pagination totalPages={countPage} currentPage={page} query={query} />
+      <Pagination 
+      pathname={"users"}
+      totalPages={countPage} currentPage={page} query={query} />
     </div>
   );
 };

@@ -39,7 +39,6 @@ catch (err) {
 }
 
 export async function addCategory(prevState, formData) {
-  await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate delay
 
   if (!formData || typeof formData.get !== "function") {
     console.error("Invalid or missing formData:", formData);

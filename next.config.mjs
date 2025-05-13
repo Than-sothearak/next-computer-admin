@@ -23,6 +23,16 @@ const nextConfig = {
         hostname: 'upload.wikimedia.org',
       
       },
+       {
+        protocol: 'https',
+        hostname: 'www.pngmart.com',
+      
+      },
+        {
+        protocol: 'https',
+        hostname: 'cdn.pixabay.com',
+      
+      },
     ],
   },
   experimental: {

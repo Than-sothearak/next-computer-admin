@@ -6,20 +6,20 @@ import SearchCompoenent from "@/components/SearchComponent";
 import Link from "next/link";
 import { IoMdMenu } from "react-icons/io";
 import { useState } from "react";
-import SideBarMobile from "@/components/SideBarMobile";
+import SideBarMobile from "@/components/SideBarMain";
 
-export const Navbar = ({session}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    
-    function handleClick () {
-      setIsOpen(prev => !prev)
-    }
+export const Navbar = ({ session, user}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleClick() {
+    setIsOpen((prev) => !prev);
+  }
 
   const pathName = usePathname();
   const pathArray = pathName.split("/").filter(Boolean);
 
   const currentPathname = pathName.split("/").pop();
-  
+
   let name;
 
   return (
@@ -47,7 +47,8 @@ export const Navbar = ({session}) => {
                     : "hover:text-blue-500"
                 }`}
               >
-               {p}<span>{index !== pathArray.length - 1 ? ">" : ""}</span>
+                {p}
+                <span>{index !== pathArray.length - 1 ? ">" : ""}</span>
               </Link>
             );
           })}
@@ -65,9 +66,14 @@ export const Navbar = ({session}) => {
           <FaEarthAmericas size={18} />
         </div>
       </div>
-<div className="lg:hidden">
-<SideBarMobile handleClick={handleClick} isOpen={isOpen} session={session}/>
-</div>
+      <div className="lg:hidden">
+        <SideBarMobile
+          currentUser={user}
+          handleClick={handleClick}
+          isOpen={isOpen}
+          session={session}
+        />
+      </div>
     </div>
   );
 };

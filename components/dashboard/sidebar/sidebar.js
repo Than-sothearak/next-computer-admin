@@ -4,7 +4,7 @@ import { mongoDb } from "@/utils/connectDB";
 
 export default async function Sidebar({ session }) {
   await mongoDb()
-  const user = await User.find();
+   const user = await User.findOne({ _id: session?.user?._id });
   return (
     <>
       <SideBarClient

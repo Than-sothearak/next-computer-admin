@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState, useRef } from "react";
 import { BiPencil } from "react-icons/bi";
 
@@ -21,7 +22,10 @@ export default function ChooseSingleImageFile({imageUrl}) {
         <div className="w-full flex justify-center p-2 rounded-full relative">
           {file.file.type.startsWith("image/") && (
             <>
-              <img
+              <Image
+              width={100}
+              height={100}
+
                 src={file.preview}
                 className="w-32 h-32 object-cover rounded-full bg-secondary p-1"
                 alt="Selected file preview"
@@ -45,7 +49,9 @@ export default function ChooseSingleImageFile({imageUrl}) {
           >
             <BiPencil />
           </button>
-          <img
+          <Image
+            width={100}
+            height={100}
             src={imageUrl || null}
             className="w-32 h-32 object-cover rounded-full bg-secondary p-1"
             alt="Default profile"

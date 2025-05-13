@@ -219,6 +219,6 @@ export async function updateUser(userId, prevState, formData) {
     return { error: "Failed to update user due to a server error", success: false };
   }
 
-    revalidatePath(`/dashboard/users/${userId}`);
+    revalidatePath(`/dashboard/`);
     redirect(`/dashboard/users/${userId}`);
 }

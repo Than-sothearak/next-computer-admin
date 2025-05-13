@@ -1,13 +1,15 @@
 import { useRouter } from 'next/navigation';
 import React from 'react'
 
-const Receipt = ({ payment }) => {
+const Receipt = ({ payment, setLatestPayment }) => {
   const router = useRouter();
-  
+
   return (
-    <div className="max-w-md mx-auto bg-white shadow-xl rounded-xl p-6 text-sm text-gray-800 font-mono">
+   <>
+     <div className="max-w-md mx-auto border rounded-xl p-6 text-sm text-gray-800 font-mono">
       <div className="text-center border-b border-gray-300 pb-4 mb-4">
-        <h2 className="text-xl font-bold">🧾 Receipt</h2>
+        <h2 className="text-xl font-bold">🧾 Receipts</h2>
+  
         <p className="text-xs text-gray-500">{new Date(payment.date).toLocaleString()}</p>
       </div>
 
@@ -43,13 +45,24 @@ const Receipt = ({ payment }) => {
       <div className="text-center mt-4">
         <button
           type='button'
-          className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 transition"
+          className="underline px-4 py-1 rounded hover:text-blue-500 transition"
           onClick={() => router.push('/receipt')}
         >
-          Print
+          Click here for print
         </button>
       </div>
     </div>
+
+       <div className='flex justify-center mt-4 '>
+           <button
+          type='button'
+          className="text-xs text-gray-500 hover:text-gray-700 "
+          onClick={() => setLatestPayment(null)}
+        >
+          <p className='text-center text-lg underline'>Close</p>
+        </button>
+       </div>
+   </>
   );
 };
 

@@ -7,7 +7,7 @@ import {
 import { IoMdMenu } from "react-icons/io";
 import { SidebarListMobile } from "@/components/SidebarListMobile";
 import { useState } from "react";
-import SideBarMobile from "./SideBarMobile";
+import SideBarMain from "./SideBarMain";
 
 const SideBarClient = ({ session, user}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +20,7 @@ const SideBarClient = ({ session, user}) => {
       {/*small side */}
       <div className="lg:hidden ml-1 mt-4 z-50 max-sm:hidden">
         <div className="mt-2 flex justify-center items-center ">
-          <span className="text-primarytext text-lg font-semibold"></span>
+          <span className="text-primary text text-lg font-semibold"></span>
           <button
             onClick={handleClick}
             aria-label="Open Sidebar"
@@ -34,8 +34,8 @@ const SideBarClient = ({ session, user}) => {
         <SidebarListMobile navList={userNavigation} />
       </div>
 
-      <SideBarMobile
-        user={user}
+      <SideBarMain
+        currentUser={user}
         handleClick={handleClick}
         session={session}
         isOpen={isOpen}
@@ -44,7 +44,7 @@ const SideBarClient = ({ session, user}) => {
       {/* Overlay (closes sidebar when clicked) */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 lg:hidden z-20"
           onClick={() => setIsOpen(false)}
         />
       )}

@@ -9,6 +9,7 @@ const productPage = async ({ searchParams }) => {
   const session = await auth();
   const { query } = await searchParams;
 
+  const pathname = "products"
   const { page } = (await searchParams) || 1;
   const { products, count } = await getProduct(query, page);
   const ITEM_PER_PAGE = 20;
@@ -48,7 +49,10 @@ const productPage = async ({ searchParams }) => {
         itemPerPage={ITEM_PER_PAGE}
       />
       {/* Pagination Buttons */}
-      <Pagination totalPages={countPage} currentPage={page} query={query} />
+      <Pagination 
+      totalPages={countPage} 
+      pathname={pathname}
+      currentPage={page} query={query} />
     </div>
   );
 };

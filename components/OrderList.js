@@ -4,14 +4,15 @@ import { useState } from "react";
 import { FaCcAmazonPay, FaCcVisa } from "react-icons/fa6";
 import { MdDeleteForever } from "react-icons/md";
 import Receipt from "./Receipt";
+import { useRouter } from "next/navigation";
+
 
 const OrderList = ({ isOpen, cartItems, setCartItems, productlist }) => {
-  const [order, setOrders] = useState("");
   const [latestPayment, setLatestPayment] = useState(null);
-
   const [inputCustomerID, setInCustomerID] = useState("");
   const [inputCustomerPhone, setInCustomerPhone] = useState("");
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
   function generateCustomerID() {
     const date = new Date();
     const datePart = date.toISOString().slice(0, 10).replace(/-/g, ""); // e.g., 20250510
@@ -25,7 +26,7 @@ const OrderList = ({ isOpen, cartItems, setCartItems, productlist }) => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target; // Destructure name and value from the target element
+    const { name, value } = e.target;
 
     if (name === "customerID") {
       setInCustomerID(value);
@@ -34,29 +35,47 @@ const OrderList = ({ isOpen, cartItems, setCartItems, productlist }) => {
     }
   };
 
-  const handlePayment = () => {
-    // Gather payment info
+  const handlePayment = async () => {
     const paymentInfo = {
       customerID: inputCustomerID,
       customerPhone: inputCustomerPhone,
       items: cartItems,
       totalAmount: total().toFixed(2),
-      paymentMethod: "Pay by cash", // You can dynamically update this based on user selection
-      paymentStatus: "Completed", // Or "Completed" after successful payment
+      paymentMethod: "Pay by cash",
+      paymentStatus: "Completed",
       date: new Date(),
     };
-    setOrders((prev) => [...prev, paymentInfo]);
-    setLatestPayment(paymentInfo); 
-    // Store in localStorage (optional)
-    localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
-    // You can also redirect to a confirmation page or show a success message
-    alert("Payment information has been saved!");
-    setCartItems([]);
-    setInCustomerID("");
-    setInCustomerPhone("");
-  };
+  
+    setIsSubmitting(true);
 
-  console.log(order)
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(paymentInfo),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save order");
+      }
+      setLatestPayment(paymentInfo);
+      localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
+      alert("Payment successful!");
+   
+      setCartItems([]);
+      setInCustomerID("");
+      setInCustomerPhone("");
+      router.push("/dashboard/pos");
+      
+    } catch (error) {
+      console.error("Error saving order:", error);
+      alert("Failed to save order. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const handleIncreasQty = (id) => {
     setCartItems((prev) =>
@@ -89,18 +108,13 @@ const OrderList = ({ isOpen, cartItems, setCartItems, productlist }) => {
         .filter((item) => item.quantity > 0)
     );
   };
+
   const handleRemoveItem = (id) => {
     setCartItems((prev) => prev.filter((item) => item._id !== id));
   };
 
   const total = () => {
     return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    //   [
-    //   { price: 10, quantity: 2 },  // 10 * 2 = 20
-    //   { price: 5, quantity: 3 }    // 5 * 3 = 15
-    // ]
-    // 0 + (10 * 2) = 20
-    // 20 + (5 * 3) = 35
   };
 
   return (
@@ -120,14 +134,22 @@ const OrderList = ({ isOpen, cartItems, setCartItems, productlist }) => {
       >
         Order list
       </h1>
-      <div className="flex flex-col gap-2 max-sm:mt-4 mt-2 border p-4 rounded-md">
-        <h1 className="">Customer inforamtion</h1>
+     
+      {latestPayment ? 
+      <Receipt 
+      payment={latestPayment}
+      setLatestPayment={setLatestPayment}
+   /> : 
+      (
+        <>
+         <div className="flex flex-col gap-2 max-sm:mt-4 mt-2 border p-4 rounded-md">
+        <h1 className="">Customer information</h1>
         <div className="flex max-md:flex-wrap gap-2 items-center text-sm">
           <input
             onChange={handleChange}
             type="text"
-            name="customerId"
-            defaultValue={inputCustomerID || ""}
+            name="customerID"
+            value={inputCustomerID || ""}
             className="w-full border p-1 rounded-md "
             placeholder="Customer ID"
           ></input>
@@ -144,6 +166,7 @@ const OrderList = ({ isOpen, cartItems, setCartItems, productlist }) => {
             type="number"
             onChange={handleChange}
             name="customerPhone"
+            value={inputCustomerPhone || ""}
             className="w-full border p-1 rounded-md "
             placeholder="Customer phone number"
           ></input>
@@ -161,15 +184,12 @@ const OrderList = ({ isOpen, cartItems, setCartItems, productlist }) => {
           </tr>
         </thead>
         <tbody>
-          {cartItems?.map((item, index) => {
+          {cartItems?.map((item) => {
             const itemProduct = productlist.find((p) => p._id === item._id);
             const unavailableStock = itemProduct?.stock === item?.quantity;
             return (
               <tr className="border-b " key={item?._id}>
                 <td className="py-2">
-                  <div className="px-4">
-                    <p></p>
-                  </div>
                   <h1 className="font-bold text-sm">{item?.productName}</h1>
                 </td>
                 <td className="py-2">${item?.price.toFixed(2)}</td>
@@ -196,7 +216,7 @@ const OrderList = ({ isOpen, cartItems, setCartItems, productlist }) => {
                   </div>
                 </td>
                 <td className="p-2 text-end">
-                  {(item?.quantity * item?.price).toFixed(2)}$
+                  ${(item?.quantity * item?.price).toFixed(2)}
                 </td>
                 <td className="py-2 text-end text-red-500">
                   <button onClick={() => handleRemoveItem(item._id)}>
@@ -230,19 +250,30 @@ const OrderList = ({ isOpen, cartItems, setCartItems, productlist }) => {
             <td></td>
             <td className="text-end">
               <button
-              disabled={inputCustomerID === "" || inputCustomerPhone === "" || cartItems.length === 0}
-
+                disabled={
+                  inputCustomerID === "" ||
+                  inputCustomerPhone === "" ||
+                  cartItems.length === 0 ||
+                  isSubmitting
+                }
                 onClick={handlePayment}
-                className={`${inputCustomerID === "" || inputCustomerPhone === "" || cartItems.length === 0 ? 'bg-secondary cursor-not-allowed' : ''} py-2 px-4 bg-blue-500 rounded-md text-primary`}
+                className={`${
+                  inputCustomerID === "" ||
+                  inputCustomerPhone === "" ||
+                  cartItems.length === 0 ||
+                  isSubmitting
+                    ? "bg-secondary cursor-not-allowed"
+                    : ""
+                } py-2 px-4 bg-blue-500 rounded-md text-primary`}
               >
-                Payment
+                {isSubmitting ? "Processing..." : "Payment"}
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-      {latestPayment && <Receipt payment={latestPayment} />}
-
+        </>
+      ) }
     </div>
   );
 };

@@ -4,7 +4,6 @@ import { PiEmptyThin } from "react-icons/pi";
 import ButtonViewAndDelete from "./ButtonViewAndDelete";
 import { useFormStatus } from "react-dom";
 import Image from "next/image";
-import { useSession } from "next-auth/react"
 
 const TableComponent = ({ data, columns, pageName, session, currentPage, itemPerPage}) => {
 
