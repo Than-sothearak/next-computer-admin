@@ -12,6 +12,7 @@ const ProductSchema = new Schema({
   category: { type: mongoose.Types.ObjectId, ref: Category },
   parentCategory: { type: mongoose.Types.ObjectId, ref: Category },
   properties: {type:Object},
+  variants: {type:Object},
   status: { type: Number,},
 }, {
   timestamps: true,

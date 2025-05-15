@@ -68,7 +68,7 @@ export default function ProductPropertyForm({
       <span className="xs italic">
         *Note: Select parent category to get properties
       </span>
-     <div className="flex flex-col gap-2 mt-2">
+     {/* <div className="flex flex-col gap-2 mt-2">
      {categoryProperties?.map((items, index) => (
         <div key={index} className="flex gap-2 flex-col border border-secondary p-2 rounded-md">
           <div className="">
@@ -108,7 +108,7 @@ export default function ProductPropertyForm({
           </div>
 
           {/* Input for custom value entry (hidden if a value is selected) */}
-          {!selectedValues[index] && (
+          {/* {!selectedValues[index] && (
             <input
               onChange={(e) => handleInputChange(index, e.target.value)}
               name="value"
@@ -124,50 +124,11 @@ export default function ProductPropertyForm({
           </span>
         </div>
       ))}
-     </div>
+     </div> 
+     */} 
 
      <div className="flex gap-2 flex-col mt-4">
-     {/* {productProperties?.map((items, index) => (
-        <div key={index} className="w-full flex gap-2 flex-col border border-slate-500 p-2 rounded-md">
-         
-          <div className="w-full">
-            <div className="flex justify-between"><label className="block font-medium">{items.part}</label>
-            <button
-                title="Remove"
-                className=""
-                type="button"
-                onClick={() => removeProperty(index)}
-              >
-                <IoRemoveCircleOutline size={24} />
-              </button>
-            </div>
-            <input
-              name="part"
-              type="text"
-              defaultValue={items.part}
-              placeholder="Enter value..."
-              className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none hidden"
-            />
-          </div>
 
-          
-          {!selectedValues[index] && (
-            <input
-              onChange={(e) => handleInputChange(index, e.target.value)}
-              name="value"
-              defaultValue={items.value}
-              type="text"
-              placeholder="Enter value..."
-              className="w-full p-2 rounded-md bg-secondary text-xs focus:ring-0 focus:outline-none"
-            />
-          )}
-
-          <span className="text-xs italic">
-            Note: Select value or Enter value above
-          </span>
-          
-        </div>
-      ))} */}
      </div>
 
       <div className="flex gap-4 flex-col ">
@@ -214,9 +175,9 @@ export default function ProductPropertyForm({
       <button
         type="button"
         onClick={addProperty}
-        className="mt-3 flex items-center gap-1 bg-blue-600 text-secondarytext px-3 py-1 rounded text-sm"
+        className="mt-3 flex items-center gap-1 border text px-3 py-1 rounded text-sm"
       >
-        <BiPlus /> Add Property
+        <BiPlus /> Add Part
       </button>
     </div>
   );

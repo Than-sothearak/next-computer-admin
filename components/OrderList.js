@@ -119,7 +119,7 @@ const OrderList = ({ isOpen, cartItems, setCartItems, productlist }) => {
 
   return (
     <div
-      className={`bg-primary p-4 sm:mt-4 h-full overflow-scroll
+      className={`bg-primary p-4 sm:mt-4 overflow-scroll
         left-0 z-10 transform sm:rounded-lg top-0 max-sm:block transition-transform w-1/2  duration-700 ease-in-out
        ${
          isOpen

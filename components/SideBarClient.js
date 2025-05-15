@@ -18,7 +18,7 @@ const SideBarClient = ({ session, user}) => {
   return (
     <>
       {/*small side */}
-      <div className="lg:hidden ml-1 mt-4 z-50 max-sm:hidden">
+      <div className="lg:hidden  ml-1 mt-4 z-50 max-sm:hidden">
         <div className="mt-2 flex justify-center items-center ">
           <span className="text-primary text text-lg font-semibold"></span>
           <button

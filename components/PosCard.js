@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import SearchCompoenent from "./SearchComponent";
 import { IoCartOutline, IoGrid, IoListSharp } from "react-icons/io5";
 import OrderList from "./OrderList";
+import { AiOutlineStock } from "react-icons/ai";
+import { FaCartArrowDown } from "react-icons/fa6";
 
 const PosCard = ({ products }) => {
   const [productlist, setProductlist] = useState(products);
@@ -49,7 +51,7 @@ const PosCard = ({ products }) => {
 
   return (
     <>
-      <div className="w-full p-4 bg-primary mt-4 rounded-lg">
+      <div className="w-full p-4 bg-primary h-full mt-4 rounded-lg">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={`flex items-center  gap-2 text-primary z-20 sm:hidden p-2  bg-red-500 fixed w-22 top-2 ${
@@ -88,7 +90,7 @@ const PosCard = ({ products }) => {
         </div>
 
         {isGridView ? (
-          <div className="grid grid-cols-2  xl:grid-cols-3 2xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
             {products?.map((product, index) => {
               const itemInCart = cartItems.find(
                 (item) => item._id === product._id
@@ -98,7 +100,7 @@ const PosCard = ({ products }) => {
               return (
                 <div
                   key={index}
-                  className="bg-white rounded-lg shadow-md p-4 flex flex-col justify-between border"
+                  className="bg-white rounded-lg  shadow-md p-4 flex flex-col justify-between border"
                 >
                   <div className="flex flex-col items-center">
                     {product?.imageUrls?.[0] ? (
@@ -124,12 +126,14 @@ const PosCard = ({ products }) => {
                     <h2 className="text-sm text-center font-semibold truncate w-full max-w-[200px]">
                       {product.productName}
                     </h2>
-                    <p className="text-gray-600 text-sm font-bold text-center">
-                      Price: ${product.price}
+                    <div className="w-full flex justify-between items-center gap-2">
+                    <p className="text-gray-600 text-lg font-bold text-center">
+                     $ {product.price}
                     </p>
-                    <p className="text-gray-600 text-sm text-center">
-                      Stock: {availableStock}
-                    </p>
+                    <div className="text-gray-600 text-sm flex justify-start items-center gap-1 text-center">
+                    <FaCartArrowDown className="" />{availableStock} 
+                    </div>
+                    </div>
                   </div>
 
                   <button

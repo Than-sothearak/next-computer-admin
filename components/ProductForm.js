@@ -5,6 +5,7 @@ import { useActionState, useEffect, useState } from "react";
 import ProductPropertyForm from "./ProductPropertyForm";
 import { addProduct, updateProduct } from "@/actions/prodoucts";
 import Image from "next/image";
+import VariantForm from "./VariantForm";
 
 export default function ProductForm({
   categories,
@@ -27,6 +28,12 @@ export default function ProductForm({
 
   const [currentProperties, setCurrentProperties] = useState([]);
   const [files, setFiles] = useState([] || null);
+  const variantFields = currentProperties || [];
+
+  const [variants, setVariants] = useState([
+    { values: {}, stock_quantity: "", price: "", sku: "" }
+  ]);
+  
 
   const handleRemoveImage = (index) => {
     setFormData((prevFormData) => {
@@ -75,6 +82,28 @@ export default function ProductForm({
       imageUrls: product?.imageUrls,
     });
   }, [product]);
+
+  const handleVariantChange = (index, field, value) => {
+    const updatedVariants = [...variants];
+    updatedVariants[index].values[field] = value;
+    setVariants(updatedVariants);
+  };
+  
+  const handleOtherFieldChange = (index, field, value) => {
+    const updatedVariants = [...variants];
+    updatedVariants[index][field] = value;
+    setVariants(updatedVariants);
+  };
+
+  const addVariant = () => {
+    setVariants([...variants, { values: {}, stock_quantity: "", price: "", sku: "" }]);
+  };
+  
+  const removeVariant = (index) => {
+    setVariants(variants.filter((_, i) => i !== index));
+  };
+  
+  
 
   return (
     <div className=" mt-4 rounded-lg text-black">
@@ -186,6 +215,81 @@ export default function ProductForm({
               categoryProperties={currentProperties}
               productProperties={formData?.properties}
             />
+<div className="bg-primary p-4 rounded-lg">
+  <h2 className="text-lg font-bold mb-2">Product Variants</h2>
+  {variants.map((variant, index) => (
+    <div key={index} className="grid grid-cols-2 gap-2 mb-4 bg-secondary p-2 rounded-md">
+      {variantFields.map((field, i) => (
+        <div key={i}>
+          <label className="text-xs font-semibold">{field.part}</label>
+          <select
+            className="w-full text-xs p-1 rounded-md bg-white"
+            value={variant.values[field.part] || ""}
+            onChange={(e) =>
+              handleVariantChange(index, field.part, e.target.value)
+            }
+          >
+            <option value="">Select {field.part}</option>
+            {field.values.map((val, idx) => (
+              <option key={idx} value={val}>
+                {val}
+              </option>
+            ))}
+          </select>
+        </div>
+      ))}
+
+      <input
+        type="number"
+        placeholder="Stock Quantity"
+        value={variant.stock_quantity}
+        className="text-xs p-1 rounded-md"
+        onChange={(e) =>
+          handleOtherFieldChange(index, "stock_quantity", e.target.value)
+        }
+      />
+
+      <input
+        type="number"
+        placeholder="Price"
+        value={variant.price}
+        className="text-xs p-1 rounded-md"
+        onChange={(e) =>
+          handleOtherFieldChange(index, "price", e.target.value)
+        }
+      />
+
+      <input
+        type="text"
+        placeholder="SKU"
+        value={variant.sku}
+        className="text-xs p-1 rounded-md"
+        onChange={(e) =>
+          handleOtherFieldChange(index, "sku", e.target.value)
+        }
+      />
+
+      <button
+        type="button"
+        onClick={() => removeVariant(index)}
+        className="text-red-500 text-xs underline"
+      >
+        Remove Variant
+      </button>
+    </div>
+  ))}
+
+  <button
+    type="button"
+    onClick={addVariant}
+    className="text-sm bg-blue-500 text-white px-3 py-1 rounded-md"
+  >
+    Add Variant
+  </button>
+</div>
+
+
+
             <ChooseImageFile files={files} setFiles={setFiles} />
           </div>
           <div className="w-1/2 max-lg:w-full flex flex-col gap-4">
