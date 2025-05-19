@@ -21,8 +21,8 @@ const SideBarMain = ({ handleClick, isOpen, session, currentUser }) => {
       className={`bg-primary max-lg:h-full overflow-scroll p-4 w-80 max-lg:fixed
          top-0 left-0 z-30 transform transition-transform  duration-700 ease-in-out
         ${
-          isOpen ? "" : "-translate-x-full"
-        } lg:translate-x-0 max-sm:w-full
+          isOpen ? "" : ""
+        } lg:translate-x-0  max-sm:w-full
       `}
     >
     
