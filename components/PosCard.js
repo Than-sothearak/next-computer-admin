@@ -2,9 +2,8 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import SearchCompoenent from "./SearchComponent";
-import { IoCartOutline, IoGrid, IoListSharp } from "react-icons/io5";
+import { IoCartOutline, IoGrid, IoListSharp, IoPricetag } from "react-icons/io5";
 import OrderList from "./OrderList";
-import { AiOutlineStock } from "react-icons/ai";
 import { FaCartArrowDown } from "react-icons/fa6";
 
 const PosCard = ({ products }) => {
@@ -88,9 +87,10 @@ const PosCard = ({ products }) => {
             </button>
           </div>
         </div>
-
         {isGridView ? (
-          <div className="grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+          // Grid view
+
+          <div className="grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 h-full overflow-y-auto">
             {products?.map((product, index) => {
               const itemInCart = cartItems.find(
                 (item) => item._id === product._id
@@ -128,7 +128,7 @@ const PosCard = ({ products }) => {
                     </h2>
                     <div className="w-full flex justify-between items-center gap-2">
                     <p className="text-gray-600 text-lg font-bold text-center">
-                     $ {product.price}
+                     ${product.price}
                     </p>
                     <div className="text-gray-600 text-sm flex justify-start items-center gap-1 text-center">
                     <FaCartArrowDown className="" />{availableStock} 
@@ -153,6 +153,9 @@ const PosCard = ({ products }) => {
             })}
           </div> 
         ) : (
+
+
+          // List view
           <div className="flex flex-col gap-2 justify-center">
             {products?.map((product, index) => {
               const itemInCart = cartItems.find(
@@ -165,7 +168,7 @@ const PosCard = ({ products }) => {
                   key={index}
                   className="bg-white gap-4 rounded-lg p-2 flex justify-between items-center border"
                 >
-                  <div className="flex  items-center gap-2 justify-between w-full">
+                  <div className="flex items-center gap-2 justify-between w-full">
                     {product?.imageUrls?.[0] ? (
                       <Image
                         width={200}
@@ -189,20 +192,23 @@ const PosCard = ({ products }) => {
                     <div className="flex items-center justify-between  w-full">
                       <h2 className="text-xs">{product.productName}</h2>
                       <div className="flex gap-2">
-                        <p className="text-gray-600 text-sm font-bold text-center">
-                          Price: ${product.price}
-                        </p>
-                        <p className="text-gray-600 text-sm text-center">
-                          Stock: {availableStock}
-                        </p>
+                        <div className="text-gray-600 flex items-center gap-1 text-sm font-bold text-center">
+                          <IoPricetag /> ${product.price}
+                        </div>
+                        <span className="text-gray-600 flex items-center gap-1 text-sm text-center">
+                          |
+                        </span>
+                        <div className="text-gray-600 flex items-center gap-1 text-sm text-center">
+                               <FaCartArrowDown className="" />{availableStock} 
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <button
+                 <button
                    disabled={availableStock <= 0}
                     onClick={() => handleAddToCart(product)}
-                    className={`mt-3 bg-blue-600 text-white text-xs py-1 px-2 rounded  ${availableStock <=0 ? 'bg-secondary cursor-not-allowed' : 'hover:bg-blue-800'}`}
+                    className={` bg-blue-600 text-white text-xs py-1 px-2 rounded  ${availableStock <=0 ? 'bg-secondary cursor-not-allowed' : 'hover:bg-blue-800'}`}
                   >
                     Add
                   </button>

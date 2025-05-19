@@ -11,8 +11,7 @@ const productPage = async ({ searchParams }) => {
 
   const pathname = "products"
   const { page } = (await searchParams) || 1;
-  const { products, count } = await getProduct(query, page);
-  const ITEM_PER_PAGE = 20;
+  const { products, count, ITEM_PER_PAGE } = await getProduct(query, page);
   const countPage = Math.ceil(parseFloat(count / ITEM_PER_PAGE)) || 1;
  
   const productColumns = [
@@ -41,6 +40,7 @@ const productPage = async ({ searchParams }) => {
         </Link>
       </div>
       <TableComponent
+        productCount={count}
         session={session}
         data={JSON.parse(JSON.stringify(products))}
         pageName="products"

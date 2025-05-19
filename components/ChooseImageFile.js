@@ -1,6 +1,4 @@
 "use client";
-import Image from "next/image";
-import { useState } from "react";
 import { BiTrash, BiUpload } from "react-icons/bi";
 
 export default function ChooseImageFile({files ,setFiles}) {
@@ -23,6 +21,7 @@ export default function ChooseImageFile({files ,setFiles}) {
     updatedFiles.forEach((fileData) => newFileList.items.add(fileData.file));
     document.getElementById("fileInput").files = newFileList.files;
   };
+
 
   return (
     <div className="">

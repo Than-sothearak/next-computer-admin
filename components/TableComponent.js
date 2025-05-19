@@ -5,7 +5,7 @@ import ButtonViewAndDelete from "./ButtonViewAndDelete";
 import { useFormStatus } from "react-dom";
 import Image from "next/image";
 
-const TableComponent = ({ data, columns, pageName, session, currentPage, itemPerPage}) => {
+const TableComponent = ({ productCount, data, columns, pageName, session, currentPage, itemPerPage}) => {
 
     const { pending } = useFormStatus();
     
@@ -18,7 +18,7 @@ const TableComponent = ({ data, columns, pageName, session, currentPage, itemPer
 
   return (
     <div className="overflow-y-clip overflow-x-auto">
-      <h1 className="mt-4">Total: {data.length}</h1>
+      <h1 className="mt-4">Total: {productCount}</h1>
       {optimisticData.length !== 0 ? (
         <table className="my-4 w-full text-sm" >
           <thead>

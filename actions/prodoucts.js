@@ -7,9 +7,8 @@ import { deleteFileFromS3, uploadFileToS3 } from "@/utils/uploadFileToS3";
 await mongoDb();
 
 export async function getProduct(query, page) {
-  const ITEM_PER_PAGE= 20;
+  const ITEM_PER_PAGE = 20;
 
-  
   try {
     if (query) {
       const products = await Product.find({
@@ -22,15 +21,17 @@ export async function getProduct(query, page) {
         .lean()
         .populate("category")
         .populate("parentCategory");
-        const count = products.length
-      return {products, count}
+      const count = products.length;
+      return { products, count, ITEM_PER_PAGE };
     }
     const products = await Product.find()
-    .sort({ createdAt: -1 })
-    .populate("category")
-    .populate("parentCategory").limit(ITEM_PER_PAGE).skip(ITEM_PER_PAGE * (page -1));
+      .sort({ createdAt: -1 })
+      .populate("category")
+      .populate("parentCategory")
+      .limit(ITEM_PER_PAGE)
+      .skip(ITEM_PER_PAGE * (page - 1));
     const count = await Product.countDocuments();
-    return {products, count}
+    return { products, count, ITEM_PER_PAGE };
   } catch (err) {
     console.error("Error fetching products:", err);
     return { error: "Failed to fetch due to a server error" };
@@ -38,8 +39,6 @@ export async function getProduct(query, page) {
 }
 
 export async function addProduct(prevState, formData) {
-
-
   try {
     if (!formData || typeof formData.get !== "function") {
       console.error("Invalid or missing formData:", formData);
@@ -52,24 +51,10 @@ export async function addProduct(prevState, formData) {
     const price = formData.get("price");
     const stock = formData.get("stock");
     const status = formData.get("status");
-    const discription = formData.get("discription");
+    const description = formData.get("description");
     const parentCategory = formData.get("parentCategory");
     const imageFiles = formData.getAll("images");
     const properties = propertiesFormData(formData);
-
-    let imageUrls = [];
-
-    if (imageFiles && imageFiles.length > 0) {
-      for (const imageFile of imageFiles) {
-        if (imageFile.size > 0) {
-          const imageUrl = await uploadFileToS3(imageFile);
-          imageUrls.push(imageUrl);
-          console.log("Image uploaded to S3:", imageUrl);
-        }
-      }
-    } else {
-      console.log("No image provided");
-    }
 
     const productData = {
       productName,
@@ -78,9 +63,8 @@ export async function addProduct(prevState, formData) {
       price,
       stock,
       status,
-      discription,
+      description,
       parentCategory: parentCategory || null,
-      imageUrls,
       properties,
     };
 
@@ -95,19 +79,35 @@ export async function addProduct(prevState, formData) {
       return { errors };
     }
 
-    if (!productName) {
-      if (!productName) errors.productName = "Product is required";
-      return { errors };
+    let imageUrls = [];
+    console.log("Image files:", imageFiles);
+    if (imageFiles && imageFiles.length > 0) {
+      for (const imageFile of imageFiles) {
+        if (imageFile.size > 0) {
+          const imageUrl = await uploadFileToS3(imageFile) // Replace with actual upload logic
+          imageUrls.push(imageUrl);
+          console.log("Image uploaded to S3:", imageUrl);
+        }
+      }
+    } else {
+      console.log("No image provided");
     }
-
-    await Product.create(productData);
+   
+    await Product.create({
+      ...productData,
+      imageUrls: imageUrls,
+    });
+  
+ 
   } catch (err) {
-    console.error("Error saving category:", err);
+    console.error("Error saving products:", err);
     return { error: "Failed to save due to a server error" };
   }
 
-  revalidatePath(`/dashboard/products/`);
-  redirect("/dashboard/products/");
+    revalidatePath(`/dashboard/products/`);
+    redirect("/dashboard/products/");
+   
+    
 }
 
 export async function updateProduct(productId, prevState, formData) {
@@ -219,8 +219,8 @@ function validateProductFields({
   parentCategory,
 }) {
   const errors = {};
-  if (!productName) errors.productName = "Name is required";
-  if (!parentCategory) errors.parentCategory = "ParentCategory is required";
+  if (!productName) errors.productName = "Product name is required";
+  if (!parentCategory) errors.parentCategory = "Parent category is required";
   if (!brandName) errors.brandName = "Brand name is required";
   if (!category) errors.category = "Category is required";
   if (!price) errors.price = "Price is required";

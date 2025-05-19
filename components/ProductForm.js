@@ -5,7 +5,7 @@ import { useActionState, useEffect, useState } from "react";
 import ProductPropertyForm from "./ProductPropertyForm";
 import { addProduct, updateProduct } from "@/actions/prodoucts";
 import Image from "next/image";
-import VariantForm from "./VariantForm";
+import { MdSmsFailed } from "react-icons/md";
 
 export default function ProductForm({
   categories,
@@ -13,16 +13,17 @@ export default function ProductForm({
   parentCategory,
   product,
 }) {
+   const [discription, setDescription] = useState(product?.description || "",);
   const [formData, setFormData] = useState({
     brandName: product?.brandName || "",
     productName: product?.productName || "",
     category: product?.category || "",
-    description: product?.description || "",
+    description: discription,
     parentCategory: product?.parentCategory || "",
     stock: product?.stock || "",
     price: product?.price || "",
     status: product?.status ? 0 : 1,
-    imageUrls: product?.imageUrls || "",
+    imageUrls: product?.imageUrls || [],
     properties: product?.properties || [],
   });
 
@@ -31,9 +32,8 @@ export default function ProductForm({
   const variantFields = currentProperties || [];
 
   const [variants, setVariants] = useState([
-    { values: {}, stock_quantity: "", price: "", sku: "" }
+    { values: {}, stock_quantity: "", price: "", sku: "" },
   ]);
-  
 
   const handleRemoveImage = (index) => {
     setFormData((prevFormData) => {
@@ -74,21 +74,26 @@ export default function ProductForm({
   );
 
   useEffect(() => {
-    if (state?.success) {
-      setFiles([]);
-    }
-    setFormData({
-      ...formData,
-      imageUrls: product?.imageUrls,
-    });
-  }, [product]);
+
+  setFormData({
+    ...formData,
+    imageUrls: product?.imageUrls || []
+  });
+}, [product]);
+
+useEffect(() => {
+  if (state?.errors || state?.success) {
+    setFiles([]);
+  }
+}, [state]);
+
 
   const handleVariantChange = (index, field, value) => {
     const updatedVariants = [...variants];
     updatedVariants[index].values[field] = value;
     setVariants(updatedVariants);
   };
-  
+
   const handleOtherFieldChange = (index, field, value) => {
     const updatedVariants = [...variants];
     updatedVariants[index][field] = value;
@@ -96,201 +101,240 @@ export default function ProductForm({
   };
 
   const addVariant = () => {
-    setVariants([...variants, { values: {}, stock_quantity: "", price: "", sku: "" }]);
+    setVariants([
+      ...variants,
+      { values: {}, stock_quantity: "", price: "", sku: "" },
+    ]);
   };
-  
+
   const removeVariant = (index) => {
     setVariants(variants.filter((_, i) => i !== index));
   };
-  
-  
 
   return (
-    <div className=" mt-4 rounded-lg text-black">
-      <form action={action} className="space-y-2 text-sm">
+    <div className=" mt-4 rounded-lg text-black relative">
+      <form action={action} className="text-sm">
         <div className="flex max-lg:flex-wrap gap-4">
-          <div className="space-y-4 w-full p-4 bg-primary rounded-lg">
-            <h1 className="font-bold text-lg">Basic Infomation</h1>
-            <div className="space-y-4">
-              <div>
-                <label className="block font-medium">Brand Name</label>
-                <input
-                  defaultValue={formData?.brandName}
-                  onChange={handleChange}
-                  type="text"
-                  name="brandName"
-                  placeholder="Enter brand name..."
-                  className="w-full p-2 rounded-md mt-2 bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
-                />
-                {state?.errors?.brandName && (
-                  <p className="text-red-500 mt-2">{state.errors.brandName}</p>
-                )}
+          <div className="space-y-4 w-full  bg-primary rounded-lg">
+              {state?.success && (
+              <div className="text-sm flex items-center gap-2 p-2 justify-center text-center rounded-t-md bg-green-500 text-primary">
+                {" "}
+                <MdSmsFailed size={20} /> {state?.message}
               </div>
-              <div className="flex gap-4">
-                <div className="w-full">
-                  <label className="mb-2 block font-medium">Category</label>
-                  <select
-                    name="category"
-                    defaultValue={formData?.category}
+            )}
+            {state?.errors && (
+              <div className="text-sm flex items-center gap-2 p-2 justify-center text-center rounded-t-md bg-red-500 text-primary">
+                {" "}
+                <MdSmsFailed size={20} /> Failed to add product !
+              </div>
+            )}
+            <div className="space-y-4 w-full p-4 bg-primary rounded-lg">
+              <h1 className="font-bold text-lg">Basic Infomation</h1>
+              <div className="space-y-4">
+                <div>
+                  <label className="block font-medium">Brand Name</label>
+                  <input
+                    defaultValue={formData?.brandName}
                     onChange={handleChange}
-                    className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
-                  >
-                    {product?.category && (
-                      <option value={product?.category._id}>
-                        {formData?.category.category}
-                      </option>
+                    type="text"
+                    name="brandName"
+                    placeholder="Enter brand name..."
+                    className="w-full p-2 rounded-md mt-2 bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
+                  />
+                  {state?.errors?.brandName && (
+                    <p className="text-red-500 mt-2">
+                      {state.errors.brandName}
+                    </p>
+                  )}
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-full">
+                    <label className="mb-2 block font-medium">Category</label>
+                    <select
+                      name="category"
+                      value={formData?.category}
+                      onChange={handleChange}
+                      className="w-full p-2 rounded-md bg-secondary border-none text-xs focus:ring-0 focus:outline-none"
+                    >
+                      {product?.category && (
+                        <option value={product?.category._id}>
+                          {formData?.category.category}
+                        </option>
+                      )}
+                      <option value="">Select a category</option>
+                      {categories?.map((category) => (
+                        <option key={category._id} value={category._id}>
+                          {category.category}
+                        </option>
+                      ))}
+                    </select>
+                    {state?.errors?.category && (
+                      <p className="text-red-500 mt-2">
+                        {state.errors.category}
+                      </p>
                     )}
-                    <option value="">Select a category</option>
-                    {categories?.map((category) => (
-                      <option key={category._id} value={category._id}>
-                        {category.category}
-                      </option>
-                    ))}
-                  </select>
-                  {state?.errors?.category && (
-                    <p className="text-red-500 mt-2">{state.errors.category}</p>
+                  </div>
+
+                  <div>
+                    <label className="block font-medium">Price</label>
+                    <input
+                      name="price"
+                      onChange={handleChange}
+                      placeholder="202.09$"
+                      type="number"
+                      defaultValue={formData?.price}
+                      className="w-full p-2 rounded-md mt-2 bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
+                    />
+                    {state?.errors?.price && (
+                      <p className="text-red-500 mt-2">{state.errors.price}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-medium">Product Name</label>
+                  <input
+                    name="productName"
+                    onChange={handleChange}
+                    value={formData?.productName}
+                    placeholder="Enter product name..."
+                    className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
+                  />
+                  {state?.errors?.productName && (
+                    <p className="text-red-500 mt-2">
+                      {state.errors.productName}
+                    </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block font-medium">Price</label>
+                  <label className="block font-medium">Stock</label>
                   <input
-                    name="price"
                     onChange={handleChange}
-                    placeholder="202.09$"
+                    defaultValue={formData?.stock}
+                    placeholder="Enter stock"
+                    name="stock"
                     type="number"
-                    defaultValue={formData?.price}
-                    className="w-full p-2 rounded-md mt-2 bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
+                    className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
                   />
-                  {state?.errors?.price && (
-                    <p className="text-red-500 mt-2">{state.errors.price}</p>
+                  {state?.errors?.stock && (
+                    <p className="text-red-500 mt-2">{state.errors.stock}</p>
                   )}
                 </div>
               </div>
 
               <div>
-                <label className="block font-medium">Product Name</label>
-                <input
-                  name="productName"
-                  onChange={handleChange}
-                  value={formData?.productName}
-                  placeholder="Enter product name..."
+                <label className="block font-medium">Description</label>
+                <textarea
+                  name="description"
+                  type="text"
+                  defaultValue={discription}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                    setFormData({
+                      ...formData,
+                      description: e.target.value,
+                    });
+                  }
+                  }
+                  placeholder="Write a product description"
                   className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
-                />
-                {state?.errors?.productName && (
-                  <p className="text-red-500 mt-2">
-                    {state.errors.productName}
-                  </p>
-                )}
+                  rows="4"
+                ></textarea>
+              </div>
+              <ProductPropertyForm
+                setCurrentProperties={setCurrentProperties}
+                categoryProperties={currentProperties}
+                productProperties={formData?.properties}
+              />
+              <div className="bg-primary p-4 rounded-lg">
+                <h2 className="text-lg font-bold mb-2">Product Variants</h2>
+                {variants.map((variant, index) => (
+                  <div
+                    key={index}
+                    className="grid grid-cols-2 gap-2 mb-4 bg-secondary p-2 rounded-md"
+                  >
+                    {variantFields.map((field, i) => (
+                      <div key={i}>
+                        <label className="text-xs font-semibold">
+                          {field.part}
+                        </label>
+                        <select
+                          className="w-full text-xs p-1 rounded-md bg-white"
+                          value={variant.values[field.part] || ""}
+                          onChange={(e) =>
+                            handleVariantChange(
+                              index,
+                              field.part,
+                              e.target.value
+                            )
+                          }
+                        >
+                          <option value="">Select {field.part}</option>
+                          {field.values.map((val, idx) => (
+                            <option key={idx} value={val}>
+                              {val}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    ))}
+
+                    <input
+                      type="number"
+                      placeholder="Stock Quantity"
+                      value={variant.stock_quantity}
+                      className="text-xs p-1 rounded-md"
+                      onChange={(e) =>
+                        handleOtherFieldChange(
+                          index,
+                          "stock_quantity",
+                          e.target.value
+                        )
+                      }
+                    />
+
+                    <input
+                      type="number"
+                      placeholder="Price"
+                      value={variant.price}
+                      className="text-xs p-1 rounded-md"
+                      onChange={(e) =>
+                        handleOtherFieldChange(index, "price", e.target.value)
+                      }
+                    />
+
+                    <input
+                      type="text"
+                      placeholder="SKU"
+                      value={variant.sku}
+                      className="text-xs p-1 rounded-md"
+                      onChange={(e) =>
+                        handleOtherFieldChange(index, "sku", e.target.value)
+                      }
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() => removeVariant(index)}
+                      className="text-red-500 text-xs underline"
+                    >
+                      Remove Variant
+                    </button>
+                  </div>
+                ))}
+
+                <button
+                  type="button"
+                  onClick={addVariant}
+                  className="text-sm bg-blue-500 text-white px-3 py-1 rounded-md"
+                >
+                  Add Variant
+                </button>
               </div>
 
-              <div>
-                <label className="block font-medium">Stock</label>
-                <input
-                  onChange={handleChange}
-                  defaultValue={formData?.stock}
-                  placeholder="Enter stock"
-                  name="stock"
-                  type="number"
-                  className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
-                />
-                {state?.errors?.stock && (
-                  <p className="text-red-500 mt-2">{state.errors.stock}</p>
-                )}
-              </div>
+              <ChooseImageFile files={files} setFiles={setFiles} />
             </div>
-
-            <div>
-              <label className="block font-medium">Description</label>
-              <textarea
-                name="description"
-                defaultValue={formData?.description}
-                placeholder="Write a product description"
-                className="mt-2 w-full p-2 rounded-md bg-secondary border-none border-white text-xs focus:ring-0 focus:outline-none"
-                rows="4"
-              ></textarea>
-            </div>
-            <ProductPropertyForm
-              setCurrentProperties={setCurrentProperties}
-              categoryProperties={currentProperties}
-              productProperties={formData?.properties}
-            />
-<div className="bg-primary p-4 rounded-lg">
-  <h2 className="text-lg font-bold mb-2">Product Variants</h2>
-  {variants.map((variant, index) => (
-    <div key={index} className="grid grid-cols-2 gap-2 mb-4 bg-secondary p-2 rounded-md">
-      {variantFields.map((field, i) => (
-        <div key={i}>
-          <label className="text-xs font-semibold">{field.part}</label>
-          <select
-            className="w-full text-xs p-1 rounded-md bg-white"
-            value={variant.values[field.part] || ""}
-            onChange={(e) =>
-              handleVariantChange(index, field.part, e.target.value)
-            }
-          >
-            <option value="">Select {field.part}</option>
-            {field.values.map((val, idx) => (
-              <option key={idx} value={val}>
-                {val}
-              </option>
-            ))}
-          </select>
-        </div>
-      ))}
-
-      <input
-        type="number"
-        placeholder="Stock Quantity"
-        value={variant.stock_quantity}
-        className="text-xs p-1 rounded-md"
-        onChange={(e) =>
-          handleOtherFieldChange(index, "stock_quantity", e.target.value)
-        }
-      />
-
-      <input
-        type="number"
-        placeholder="Price"
-        value={variant.price}
-        className="text-xs p-1 rounded-md"
-        onChange={(e) =>
-          handleOtherFieldChange(index, "price", e.target.value)
-        }
-      />
-
-      <input
-        type="text"
-        placeholder="SKU"
-        value={variant.sku}
-        className="text-xs p-1 rounded-md"
-        onChange={(e) =>
-          handleOtherFieldChange(index, "sku", e.target.value)
-        }
-      />
-
-      <button
-        type="button"
-        onClick={() => removeVariant(index)}
-        className="text-red-500 text-xs underline"
-      >
-        Remove Variant
-      </button>
-    </div>
-  ))}
-
-  <button
-    type="button"
-    onClick={addVariant}
-    className="text-sm bg-blue-500 text-white px-3 py-1 rounded-md"
-  >
-    Add Variant
-  </button>
-</div>
-
-
-
-            <ChooseImageFile files={files} setFiles={setFiles} />
           </div>
           <div className="w-1/2 max-lg:w-full flex flex-col gap-4">
             <div className=" bg-primary p-4 w-full flex  flex-col  gap-4 rounded-lg">
@@ -315,6 +359,7 @@ export default function ProductForm({
                     checked={formData?.status === 0}
                     type="radio"
                     id="hidden"
+            
                     name="status"
                     value={0}
                   />
@@ -348,9 +393,13 @@ export default function ProductForm({
                   </option>
                 ))}
               </select>
+          
               <p className="text-xs text-slate-500">
                 Select a category that will be the parent of the current one.
               </p>
+                  {state?.errors?.parentCategory && (
+                    <p className="text-red-500 mt-2">{state.errors.parentCategory}</p>
+                  )}
             </div>
             <div className=" bg-primary p-4 w-full flex  flex-col  gap-4 rounded-lg">
               <div className="flex justify-start items-center gap-2 w-full bg-primary">
@@ -431,17 +480,7 @@ export default function ProductForm({
             : productId
             ? "Update"
             : "Add"}
-          
         </button>
-
-        {state?.success && (
-          <p className="text-green-600 text-sm mt-4 text-center">
-            Product {productId ? "updated" : "added"} successfully!
-          </p>
-        )}
-        {state?.errors && (
-          <p className="text-red-600 text-sm mt-4 text-center"></p>
-        )}
       </form>
     </div>
   );
