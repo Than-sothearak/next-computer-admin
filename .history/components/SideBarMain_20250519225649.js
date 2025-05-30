@@ -22,7 +22,7 @@ const SideBarMain = ({ handleClick, isOpen, session, currentUser }) => {
          top-0 left-0 z-30 transform transition-transform  duration-700 ease-in-out
         ${
           isOpen ? "" : "-translate-x-full"
-        } lg:translate-x-0 max-sm:w-full
+        } lg:translate-x-0  max-sm:w-full
       `}
     >
     
