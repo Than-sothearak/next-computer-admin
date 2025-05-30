@@ -1,12 +1,16 @@
-// components/Pagination.jsx
+"use client";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const Pagination = ({ pathname, totalPages, currentPage, query }) => {
+    const searchParams = useSearchParams()
+    const sortKey = searchParams.get("sortKey");
+    const sortDirection = searchParams.get("sortDirection");
   if (totalPages <= 1) return null;
 
   const pageNum = Math.ceil(Number(currentPage)) || 1;
   const getHref = (page) =>
-    `/dashboard/${pathname}?page=${page}${query ? `&query=${query}` : ""}`;
+    `/dashboard/${pathname}?page=${page}${query ? `&query=${query}` : ""}&sortKey=${sortKey || "createdAt"}&sortDirection=${sortDirection || "descending"}`;
 
   return (
     <div className="w-full flex justify-center items-center gap-2 mt-4">

@@ -1,61 +1,45 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { formatDate } from "@/utils/formatDate";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
-const OrderHistory = ({ orders, currentPage, itemPerPage }) => {
-  const [sortKey, setSortKey] = React.useState(null); // to track the sorted column
-  const [sortDirection, setSortDirection] = React.useState("ascending");
-  const [sortedOrders, setSortedOrders] = React.useState(orders);
-  
-  const sortOrders = (key) => {
-    let direction = sortDirection;
-    // if the same key is clicked, toggle direction; else reset to ascending
-    if (sortKey === key) {
-      direction = sortDirection === "ascending" ? "descending" : "ascending";
-    } else {
-      direction = "ascending";
-    }
+const OrderHistory = ({
+  orders,
+  currentPage,
+  itemPerPage,
+  sortKey,
+  pathname,
+  query,
+}) => {
 
-    
+  const [direction, setDirection] = useState("ascending");
 
-    const sorted = [...sortedOrders].sort((a, b) => {
-      if (key === "date") {
-        return direction === "ascending"
-          ? new Date(a.date) - new Date(b.date)
-          : new Date(b.date) - new Date(a.date);
-      } else if (key === "price") {
-        return direction === "ascending"
-          ? a.totalAmount - b.totalAmount
-          : b.totalAmount - a.totalAmount;
-      } else if (key === "paymentStatus") {
-        return direction === "ascending"
-          ? a.paymentStatus.localeCompare(b.paymentStatus)
-          : b.paymentStatus.localeCompare(a.paymentStatus);
-      }
-      return 0;
-    });
-
-    setSortedOrders(sorted);
-    setSortKey(key);
-    setSortDirection(direction);
-  };
+  const searchParams = useSearchParams()
 
   const getSortIcon = (key) => {
     if (key === sortKey) {
-      return sortDirection === "ascending" ? (
+      return direction === "ascending" ? (
         <IoIosArrowUp />
       ) : (
         <IoIosArrowDown />
       );
     } else {
-      return <IoIosArrowDown />; // default static icon for inactive columns
+      return <IoIosArrowDown />;
     }
   };
-useEffect(() => {
-      setSortedOrders(orders);
-    }, [orders]);
-  
+
+  const handleSort = (key) => {
+    setDirection((prevDirection) =>
+      prevDirection === "ascending" ? "descending" : "ascending"
+    );
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("sortKey", key);
+    params.set("sortDirection", direction);
+   
+
+  };
 
   return (
     <>
@@ -68,41 +52,44 @@ useEffect(() => {
               <th className="border border-gray-300 px-4 py-2">Customer ID</th>
               <th className="border border-gray-300 px-4 py-2">Phone</th>
               <th className=" border-gray-300 px-4 py-2 border">
-                <button
-                  onClick={() => sortOrders("price")}
+                <Link
+                  href={`/dashboard/${pathname}?page=${currentPage}${query ? `&query=${query}` : ""}&sortKey=price&sortDirection=${direction}`}
+                  onClick={() => handleSort("price")}
                   className="flex text-center items-center gap-2 px-2 py-1 border rounded-md"
                 >
                   <p>Price</p>
                   {getSortIcon("price")}
-                </button>
+                </Link>
               </th>
               <th className=" border-gray-300 px-4 py-2">
-                <button
-                  onClick={() => sortOrders("date")}
+                <Link
+                  href={`/dashboard/${pathname}?page=${currentPage}${query ? `&query=${query}` : ""}&sortKey=date&sortDirection=${direction}`}
+                  onClick={() => handleSort("date")}
                   className="flex text-center items-center gap-2 px-2 py-1 border rounded-md"
                 >
                   <p>Date</p>
                   {getSortIcon("date")}
-                </button>
+                </Link>
               </th>
               <th className="border border-gray-300 px-4 py-2">
-                <button
-                  onClick={() => sortOrders("status")}
+                <Link
+                  href={`/dashboard/${pathname}?page=${currentPage}${query ? `&query=${query}` : ""}&sortKey=status&sortDirection=${direction}`}
+                  onClick={() => handleSort("status")}
                   className="flex text-center items-center gap-2 px-2 py-1 border rounded-md"
                 >
                   <p>Status</p>
                   {getSortIcon("status")}
-                </button>
+                </Link>
               </th>
             </tr>
           </thead>
           <tbody>
-            {sortedOrders.map((order, index) => (
+            {orders.map((order, index) => (
               <tr key={order._id}>
                 <td className="border border-gray-300 px-4 py-2">
-                  {(Number(currentPage - 1)) * itemPerPage + index+1}
+                  <p>{Number(currentPage - 1) * itemPerPage + index + 1}</p>
                 </td>
-          
+
                 <td className="border border-gray-300 px-4 py-2">
                   {order._id}
                 </td>
