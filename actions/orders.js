@@ -1,8 +1,12 @@
+import { auth } from "@/auth";
 import { Order } from "@/models/Order";
 import { mongoDb } from "@/utils/connectDB";
-import { revalidatePath } from "next/cache";
 
 export async function getOrders(query, page, sortKey, sortDirection) {
+  const session = await auth();
+  if (!session?.user?.isAdmin) {
+    return console.log("Access denied!");
+  }
   await mongoDb();
   const ITEM_PER_PAGE = 20;
 

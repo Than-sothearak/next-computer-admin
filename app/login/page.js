@@ -1,21 +1,46 @@
-"use client"
+"use client";
 import React from "react";
-import { useActionState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useActionState } from "react";
+import { useSearchParams } from "next/navigation";
 import { authenticate } from "@/lib/actions";
- 
+import Link from "next/link";
+
 export default function LoginForm() {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
-    undefined,
+    undefined
   );
 
-
   return (
-    <div className="flex min-h-screen w-full justify-center items-center">
-      <div className="bg-primary w-full m-4 sm:max-w-md space-y-6 rounded-xl  p-8 shadow-lg">
+    <div className="flex flex-col p-4 gap-8 min-h-screen w-full justify-center items-center">
+           <div className="flex justify-center items-center gap-3 group cursor-pointer transition-all duration-300 hover:scale-105">
+      {/* Icon */}
+      <div className="bg-gradient-to-tr from-blue-600 to-blue-400 text-white p-3 rounded-xl shadow-md">
+        <svg
+          className="w-11 h-11"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"
+          />
+        </svg>
+      </div>
+
+      {/* Text */}
+      <div>
+        <h1 className="text-4xl font-extrabold text-tertiary leading-tight tracking-tight">
+          ManageEase
+        </h1>
+        <p className="text-sm text-gray-500 tracking-wide">All-in-One Management System</p>
+      </div>
+    </div>
+      <div className="bg-primary w-full m-2 sm:max-w-md max-sm:p-4 space-y-6 rounded-xl p-8 shadow-lg">
+    
         <div className="text-center">
           <h1 className="text-2xl font-bold">Login Page</h1>
         </div>
@@ -24,7 +49,7 @@ export default function LoginForm() {
             <div className="flex flex-col">
               <label>Email</label>
               <input
-               onKeyDown={(e) => e.key === " " && e.preventDefault()} 
+                onKeyDown={(e) => e.key === " " && e.preventDefault()}
                 type="email"
                 name="email"
                 placeholder="Enter your email"
@@ -36,7 +61,7 @@ export default function LoginForm() {
             <div className="flex flex-col">
               <label>Password</label>
               <input
-               onKeyDown={(e) => e.key === " " && e.preventDefault()} 
+                onKeyDown={(e) => e.key === " " && e.preventDefault()}
                 type="password"
                 name="password"
                 placeholder="Enter your password"
@@ -50,7 +75,9 @@ export default function LoginForm() {
             value={callbackUrl}
             type="submit"
             disabled={isPending}
-            className={`w-full rounded-lg bg-blue-600 p-3 text-primarytext font-semibold hover:bg-blue-700 transition ${isPending ?'opacity-50 cursor-not-allowed': ''}`}
+            className={`w-full rounded-lg bg-blue-600 p-3 text-primary font-semibold hover:bg-blue-700 transition ${
+              isPending ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           >
             {isPending ? "Loading..." : "Login"}
           </button>
@@ -60,6 +87,25 @@ export default function LoginForm() {
               <p className="text-center text-sm text-red-500">{errorMessage}</p>
             </>
           )}
+          <Link
+            href="/"
+            className="flex items-center text-center text-sm text-blue-600 hover:underline"
+          >
+            <svg
+              className="w-6 h-6 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M19 12H5M11 18l-6-6 6-6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <p>Back to Home</p>
+          </Link>
         </form>
         {/* <div>
         <div className="flex items-center gap-2 text-sm text-primarytext">
@@ -85,4 +131,4 @@ export default function LoginForm() {
       </div>
     </div>
   );
-};
+}
