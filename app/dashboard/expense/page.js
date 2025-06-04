@@ -128,8 +128,7 @@ export default function ExpensePage() {
         }}
       />
 
-      {/* Line Chart - Dynamic Expense & Income Trends */}
-      <LineChartComponent data={chartData} />
+  
     </div>
   );
 }

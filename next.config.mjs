@@ -33,6 +33,12 @@ const nextConfig = {
         hostname: 'cdn.pixabay.com',
       
       },
+
+        {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      
+      },
     ],
   },
   experimental: {
