@@ -29,7 +29,6 @@ const dashboardPage = async () => {
           totalItems: 0
         };
       }
-
       monthlyDataMap[dateFormat].totalSales += order.totalAmount;
       const itemQty = order.items.reduce((sum, item) => sum + item.quantity, 0);
       monthlyDataMap[dateFormat].totalItems += itemQty;
