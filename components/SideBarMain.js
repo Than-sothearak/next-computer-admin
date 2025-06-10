@@ -105,9 +105,9 @@ const SideBarMain = ({ handleClick, isOpen, session, currentUser }) => {
         </div>
       </div>
 
-      <SidebarList navList={pageNavigation} />
-      <SidebarList navList={analyticNavigation} />
-      <SidebarList navList={userNavigation} />
+      <SidebarList navList={pageNavigation} handleClick={handleClick}/>
+      <SidebarList navList={analyticNavigation} handleClick={handleClick}/>
+      <SidebarList navList={userNavigation} handleClick={handleClick}/>
 
       <Logout />
     </div>

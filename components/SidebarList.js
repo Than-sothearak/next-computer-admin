@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export const SidebarList = ({ navList }) => {
+export const SidebarList = ({ navList, handleClick }) => {
   const pathName = usePathname();
 
   return (
@@ -11,6 +11,7 @@ export const SidebarList = ({ navList }) => {
       <ul className="h-full flex flex-col gap-1 mt-2 cursor-pointer">
         {navList.links.map((item) => (
 <Link
+onClick={handleClick}
   title={item.name}
   href={item.path}
   key={item.path}
